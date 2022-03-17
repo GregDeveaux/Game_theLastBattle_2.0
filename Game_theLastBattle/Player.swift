@@ -26,28 +26,29 @@ class Player {
     }
     
     
-    // Enter the name of team
-    func EnterTheNameOfTeam() {
-        print("Player 1, enter your team name")
-        
-        if let nameWrites = readLine() {
-            name = nameWrites
-            print("")
-        }
+    // Enter the name of the guild
+    func EnterTheNameOfGuild(guild numberPlayer: Int) {
+            print("Player \(numberPlayer), enter your team name")
+        if let nameWrites = readLine(), nameWrites.count > 0 {
+                name = nameWrites
+            } else {
+               name = "Player\(numberPlayer)"
+            }
     }
     
     
     
-    func messageCreateTeam() {
+    func messageCreateGuild() {
         print ("""
                 
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-                                                                🌑🌒🌓🌔🌕  𝑷𝑳𝑨𝒀𝑬𝑹 \(name)  🌕🌖🌗🌘🌑
+                                                                🌑🌒🌓🌔🌕  GUILD : \(name.uppercased())  🌕🌖🌗🌘🌑
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-              Welcome to the guild "\(name)"!
+              Welcome to the guild "\(name.uppercased())"!
                      
               You must choose 3 characters in the list (same or different).
+      
               Select the number corresponding to the type of character desired and give him a name:
                 
       """)
@@ -73,30 +74,45 @@ class Player {
     // Selection list of characters for the player of an integer between 1 and 3
         
     func selectCharactersForTheTeam() {
-        
         while Team.currentSizeTeam <= Team.sizeMaxTeam {
             if let choiceCharacters = readLine(){
                 
                 switch choiceCharacters {
                 case "1" :
-                    print("Give him a name!")
+//                    print("Give him a name!")
+//                        if let nameCharacterWrites = readLine() {
+//                            if nameCharacterWrites != teamOfPlayer.contains(where: ({$0.name})) {
+//                                
+//                            return 
+//                        }
+//                    }
+                        
+                    
+//                        if let nameCharacter = readLine() {
+//                                nameCharacter != teamOfPlayer.contains(where: ({$0.name}))
+//                        } else {
+//                        print("This name is already taken, please enter an other")
+//                        break
+
+//                    }
+                    
                     teamOfPlayer.append(Team.wizard)
                     print("""
                     
                        -----------------------------------------------------------------
-                       ------>             You're selected a wizard.             <------
+                       ------>             You've selected a wizard.             <------
                        -----------------------------------------------------------------
 
                     """)
                     Team.currentSizeTeam += 1
                     
                 case "2" :
-                    print("Give him a name!")
+//                    print("Give him a name!")
                     teamOfPlayer.append(Team.warrior)
                     print("""
                     
                        -----------------------------------------------------------------
-                       ------>             You're selected a warrior.             <------
+                       ------>             You've selected a warrior.             <------
                        -----------------------------------------------------------------
 
                     """)
@@ -104,12 +120,12 @@ class Player {
 
 
                 case "3" :
-                    print("Give him a name!")
+//                    print("Give him a name!")
                     teamOfPlayer.append(Team.dwarf)
                     print("""
                     
                        -----------------------------------------------------------------
-                       ------>             You're selected a dwarf.             <------
+                       ------>             You've selected a dwarf.             <------
                        -----------------------------------------------------------------
 
                     """)
@@ -122,39 +138,27 @@ class Player {
                 }
             }
         }
-        Team.currentSizeTeam = 0
+        
+        // we notify the choices and that the guild is complete
+        print("""
+
+              Kudos!
+              Your guild \(name) is composed of a \(teamOfPlayer[0].currentType), a \(teamOfPlayer[1].currentType) and a \(teamOfPlayer[2].currentType).
+              Good choice, may the force to be with you!
+
+              """)
+        
+        Team.currentSizeTeam = 1  // currentSize back to the initial value for start the creation of team 2
     }
     
     
-    //
-    //            if i == 1 {
-    //                print("""
-    //
-    //                      Kudos!
-    //                      Your team is composed to a \(teamOfPlayer1["Perso1"]!.currentType), a \(teamOfPlayer1["Perso2"]!.currentType) and a \(teamOfPlayer1["Perso3"]!.currentType).
-    //                      Good choice, may the force to be with you!
-    //
-    //                      """)
-    //            } else {
-    //                print("""
-    //
-    //                      Kudos!
-    //                      Your team is composed to a \(teamOfPlayer2["Perso1"]!.currentType), a \(teamOfPlayer2["Perso2"]!.currentType) and a \(teamOfPlayer2["Perso3"]!.currentType).
-    //                      Good choice, may the force to be with you!
-    //
-    //                      """)
-    //            }
-    //
-    //
-    //
-    //        }
-    //
-    //    }
-    //
-    //
-
-    //
-    //
+                    
+  
+    
+    
+    
+    
+    
     //    // Count the characters dead in the team if all three is killed, the game is finish
     //
     //    func countCharactersDead(){
@@ -189,7 +193,6 @@ class Player {
 //       if let newName = readLine() {
 //
 //            if Team.teamOfPlayer1.values.contains(where: ({ $0.name != newName })) && Team.teamOfPlayer2.values.contains(where: ({ $0.name != newName })) {
-//                Characters.dwarf.name = newName
 //
 //            print("""
 //

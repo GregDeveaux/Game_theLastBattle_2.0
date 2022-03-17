@@ -12,10 +12,13 @@ import Foundation
 // >>> different steps of the game
 // -------------------------------------------------------------------------------------------------------
 
-print(Game.welcomeMessage)
+while true {
+    
+    let start = Game(player1: Player(name: ""), player2: Player(name: ""))
 
-//Player.createTeam()
-let player1 = Player(name: "")
-player1.EnterTheNameOfTeam()
-player1.messageCreateTeam()
-player1.selectCharactersForTheTeam()
+    start.welcomeMessage()
+
+    start.createTheGuild()
+}
+
+

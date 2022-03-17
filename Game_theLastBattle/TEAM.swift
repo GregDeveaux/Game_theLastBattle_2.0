@@ -31,7 +31,7 @@ struct Team {
     
     // Array of characters in the guild
     
-    let guild: [Guild] = []
+    let guild: [Guild] = [wizard, warrior, dwarf]
 
     
     

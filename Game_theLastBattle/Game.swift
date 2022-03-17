@@ -16,60 +16,77 @@ import Foundation
 class Game {
     
     // Message that introduces the game
-    
-    static let welcomeMessage = """
+    func welcomeMessage() {
         
+        print("""
+            
+            
+                              ····                                           ····                                                ····
+                           ···••••···                                     ···••••···                                          ···••••···
+                           ···••••···                                     ···••••···                                          ···••••···
+                       ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
+                       ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
+              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+              |—————————————————————————————————⌘    ⌽———⌽———⌽    Welcome to the last battle    ⌽———⌽———⌽    ⌘——————————————————————————————————————|
+              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+              |                                                                                                                                     |
+              |                                                                                                                                     |
+              |                                        XXXXXXXXXXXXXX          XXXXXXXXXXX        XXXXXX         XXXXXX     XXXXXXXXXXXXXXXXX       |
+              |       ————————————————————————        XXXXXXXXXXXXXXXX        XXXXXXXXXXXXX       XXXXXXX       XXXXXXX     XXXXXXXXXXXXXXXXX       |
+              |       ————————————————————————       XXX            XXX      XXX         XXX      XXX  XXX     XXX  XXX     XXX                     |
+              |                                      XXX            XXX     XXX           XXX     XXX   XXX   XXX   XXX     XXX                     |
+              |       XXXXXX   XX  XX   XXXXXX       XXX                    XXX           XXX     XXX    XXX XXX    XXX     XXX                     |
+              |         XX     XX  XX   XX           XXX                    XXX           XXX     XXX     XXXXX     XXX     XXXXXXXXX               |
+              |         XX     XXXXXX   XXXX         XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX      XXX      XXX     XXXXXXXXX               |
+              |         XX     XX  XX   XX           XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX               XXX     XXX                     |
+              |         XX     XX  XX   XXXXXX       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+              |                                      XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+              |       ————————————————————————       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+              |       ————————————————————————        XXXXXXXXXXXXXXXX      XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
+              |                                        XXXXXXXXXXXXXX       XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
+              |                                                                                                                                     |
+              |                                                                                                                                     |
+              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+              |————————————————————————————————————————      oº°·.• OpenClassRooms - Project 3 •.·°ºo      —————————————————————————————————————————|
+              |——————————————————————————————————————————— — - ·  –⌽– Created by Greg Deveaux –⌽–  · - — ———————————————————————————————————————————|
+              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+                       ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
+                       ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
+                           ···••••···                                      ···••••···                                         ···••••···
+                              ·••·                                            ·••·                                               ·••·
+                              ····                                            ····                                               ····
+            
+            
+            """)
         
-                          ····                                           ····                                                ····
-                       ···••••···                                     ···••••···                                          ···••••···
-                       ···••••···                                     ···••••···                                          ···••••···
-                   ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
-                   ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
-          |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-          |—————————————————————————————————⌘    ⌽———⌽———⌽    Welcome to the last battle    ⌽———⌽———⌽    ⌘——————————————————————————————————————|
-          |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-          |                                                                                                                                     |
-          |                                                                                                                                     |
-          |                                        XXXXXXXXXXXXXX          XXXXXXXXXXX        XXXXXX         XXXXXX     XXXXXXXXXXXXXXXXX       |
-          |       ————————————————————————        XXXXXXXXXXXXXXXX        XXXXXXXXXXXXX       XXXXXXX       XXXXXXX     XXXXXXXXXXXXXXXXX       |
-          |       ————————————————————————       XXX            XXX      XXX         XXX      XXX  XXX     XXX  XXX     XXX                     |
-          |                                      XXX            XXX     XXX           XXX     XXX   XXX   XXX   XXX     XXX                     |
-          |       XXXXXX   XX  XX   XXXXXX       XXX                    XXX           XXX     XXX    XXX XXX    XXX     XXX                     |
-          |         XX     XX  XX   XX           XXX                    XXX           XXX     XXX     XXXXX     XXX     XXXXXXXXX               |
-          |         XX     XXXXXX   XXXX         XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX      XXX      XXX     XXXXXXXXX               |
-          |         XX     XX  XX   XX           XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX               XXX     XXX                     |
-          |         XX     XX  XX   XXXXXX       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-          |                                      XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-          |       ————————————————————————       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-          |       ————————————————————————        XXXXXXXXXXXXXXXX      XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
-          |                                        XXXXXXXXXXXXXX       XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
-          |                                                                                                                                     |
-          |                                                                                                                                     |
-          |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-          |————————————————————————————————————————      oº°·.• OpenClassRooms - Project 3 •.·°ºo      —————————————————————————————————————————|
-          |——————————————————————————————————————————— — - ·  –⌽– Created by Greg Deveaux –⌽–  · - — ———————————————————————————————————————————|
-          |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-                   ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
-                   ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
-                       ···••••···                                      ···••••···                                         ···••••···
-                          ·••·                                            ·••·                                               ·••·
-                          ····                                            ····                                               ····
-        
-        
-        """
-
+    }
     
     
     
     // Creation of 2 players with one name for the team
     
-    var player1 = Player(name: "Guil of Hawks")
-    var player2 = Player(name: "TinkerBell")
+    var player1: Player
+    var player2: Player
     
-    init(){
+    init(player1: Player, player2: Player) {
+        self.player1 = player1
+        self.player2 = player2
     }
     
     
+    
+    // Creation of the Guild of each player
+    
+    func createTheGuild() {
+            player1.EnterTheNameOfGuild(guild: 1)
+            player1.messageCreateGuild()
+            player1.selectCharactersForTheTeam()
+            player2.EnterTheNameOfGuild(guild: 2)
+            player2.messageCreateGuild()
+            player2.selectCharactersForTheTeam()
+    }
+    
+
     
     // Call the informations from different teams for present at players
     

@@ -19,6 +19,10 @@ while true {
     start.welcomeMessage()
 
     start.createTheGuild()
+    
+    start.presentationTeams()
+    
+    start.gameOver()
 }
 
 

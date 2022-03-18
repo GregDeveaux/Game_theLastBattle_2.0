@@ -91,37 +91,33 @@ class Game {
     // Call the informations from different teams for present at players
     
     func presentationTeams() {
-//
-//        let player1Perso1 = player1.teamOfPlayer1["Perso1"]!
-//        let player1Perso2 = player1.teamOfPlayer1["Perso2"]!
-//        let player1Perso3 = player1.teamOfPlayer1["Perso3"]!
-//
-//        let player2Perso1 = player2.teamOfPlayer2["Perso1"]!
-//        let player2Perso2 = player2.teamOfPlayer2["Perso2"]!
-//        let player2Perso3 = player2.teamOfPlayer2["Perso3"]!
-//
-//        print("""
-//
-//            ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-//            –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-//
-//               The team 1 is composed of :
-//                • a \(player1Perso1.currentType), his name is \(player1Perso1.name) and have \(player1Perso1.lifepoint) of lifepoint, \(player1Perso1.heal) of heal, \(player1Perso1.powerAttack) of attack power.
-//                • a \(player1Perso2.currentType), his name is \(player1Perso2.name) and have \(player1Perso2.lifepoint) of lifepoint, \(player1Perso2.heal) of heal, \(player1Perso2.powerAttack) of attack power.
-//                • a \(player1Perso3.currentType), his name is \(player1Perso3.name) and have \(player1Perso3.lifepoint) of lifepoint, \(player1Perso3.heal) of heal, \(player1Perso3.powerAttack) of attack power.
-//
-//
-//               The team 2 is composed of :
-//                • a \(player2Perso1.currentType), his name is \(player2Perso1.name) and have \(player2Perso1.lifepoint) of lifepoint, \(player2Perso1.heal) of heal, \(player2Perso1.powerAttack) of attack power.
-//                • a \(player2Perso2.currentType), his name is \(player2Perso2.name) and have \(player2Perso2.lifepoint) of lifepoint, \(player2Perso2.heal) of heal, \(player2Perso2.powerAttack) of attack power.
-//                • a \(player2Perso3.currentType), his name is \(player2Perso3.name) and have \(player2Perso3.lifepoint) of lifepoint, \(player2Perso3.heal) of heal, \(player2Perso3.powerAttack) of attack power.
-//
-//            –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-//            ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-//
-//        """)
-//
-//
+        
+        print("""
+
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+
+              """)
+        print("   The guild \(player1.name.uppercased()) is composed of :")
+        player1.teamOfPlayer.forEach {
+            print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
+        }
+        
+        print("")
+        print("   The guild \(player2.name.uppercased()) is composed of :")
+        player2.teamOfPlayer.forEach {
+            print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
+        }
+        
+
+        print("""
+
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+              """)
+
+
     }
     
         
@@ -144,7 +140,28 @@ class Game {
     func gameOver() {
         print("GAME OVER")
         presentationTeams()
-        
-    }
 
+        print("•••  Do you want to play again ?  •••")
+        print("•••  write Y (for Yes) or N (for No)  •••")
+        
+//        let playAgain: String?
+//
+//        if let playAgain = readLine() {
+//            repeat {
+//
+//                switch playAgain {
+//                case "y":
+//                    print("Play again")
+//
+//                case "n":
+//                    print("Hasta la vista, Baby!")
+//                    break
+//
+//                default:
+//                    print("⚠️ Wrong letter, try again! ⚠️ ")
+//                }
+//            } while playAgain == "y" || playAgain == "n"
+//
+//        }
+    }
 }

@@ -29,11 +29,16 @@ class Player {
     // Enter the name of the guild
     func EnterTheNameOfGuild(guild numberPlayer: Int) {
             print("Player \(numberPlayer), enter your team name")
-        if let nameWrites = readLine(), nameWrites.count > 0 {
-                name = nameWrites
-            } else {
-               name = "Player\(numberPlayer)"
+        repeat {
+            if let nameWrites = readLine() {
+                if !nameWrites.isEmpty {
+                    name = nameWrites
+                } else {
+                    print("Please, enter the Guild Name, thanks")
+                }
             }
+        } while name.isEmpty
+        
     }
     
     
@@ -79,22 +84,22 @@ class Player {
                 
                 switch choiceCharacters {
                 case "1" :
-//                    print("Give him a name!")
-//                        if let nameCharacterWrites = readLine() {
-//                            if nameCharacterWrites != teamOfPlayer.contains(where: ({$0.name})) {
-//                                
-//                            return 
+                    print("Give him a name!")
+                    if let nameCharacterWrites = readLine() {
+                    nameLoop: for character in teamOfPlayer {
+                                if character.name == nameCharacterWrites {
+                                    print("This name is already taken, please enter an other")
+                                    break nameLoop
+                                } else {
+                                    Team.wizard.name = nameCharacterWrites
+                                }
+                            }
+//                        if nameCharacterWrites == teamOfPlayer.contains(where: ({$0.name})) {
+//
 //                        }
-//                    }
-                        
-                    
-//                        if let nameCharacter = readLine() {
-//                                nameCharacter != teamOfPlayer.contains(where: ({$0.name}))
-//                        } else {
-//                        print("This name is already taken, please enter an other")
-//                        break
 
-//                    }
+                    }
+                        
                     
                     teamOfPlayer.append(Team.wizard)
                     print("""
@@ -246,12 +251,5 @@ class Player {
     }
     
     
-    
-    
-    // begin a new battle
-    
-    func playAgain() {
-        
-    }
     
 }

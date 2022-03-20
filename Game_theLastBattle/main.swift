@@ -14,15 +14,15 @@ import Foundation
 
 while true {
     
-    let start = Game(player1: Player(name: ""), player2: Player(name: ""))
+    let game = Game()
 
-    start.welcomeMessage()
+    game.welcomeMessage()
 
-    start.createTheGuild()
+    game.createTheGuild()
     
-    start.presentationTeams()
+    game.presentationTeams()
     
-    start.gameOver()
+    game.gameOver()
 }
 
 

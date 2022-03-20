@@ -65,14 +65,11 @@ class Game {
     
     // Creation of 2 players with one name for the team
     
-    var player1: Player
-    var player2: Player
+    var player1 = Player()
+    var player2 = Player()
     
-    init(player1: Player, player2: Player) {
-        self.player1 = player1
-        self.player2 = player2
-    }
-    
+    var player1Team = player1.teamOfPlayer.guild
+    var player2Team = player2.teamOfPlayer.guild
     
     
     // Creation of the Guild of each player
@@ -99,13 +96,13 @@ class Game {
 
               """)
         print("   The guild \(player1.name.uppercased()) is composed of :")
-        player1.teamOfPlayer.forEach {
+        player1.teamOfPlayer.guild.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
         print("")
         print("   The guild \(player2.name.uppercased()) is composed of :")
-        player2.teamOfPlayer.forEach {
+        player2.teamOfPlayer.guild.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         

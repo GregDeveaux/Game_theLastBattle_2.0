@@ -18,11 +18,13 @@ class Player {
     
     var name: String // create the players for dictionary
     
-    var teamOfPlayer: [Guild] = [] // Array call each team of player
+    var teamOfPlayer: Guild  //  call each team array of player with maximun of 3 fighters
+    
   
     
-    init(name: String) {
+    init(name: String, teamOfPlayer: Guild) {
         self.name = name
+        self.teamOfPlayer = teamOfPlayer
     }
     
     
@@ -57,11 +59,11 @@ class Player {
               Select the number corresponding to the type of character desired and give him a name:
                 
       """)
-                Team.wizard.description()
-        print("")
-                Team.warrior.description()
-        print("")
-                Team.dwarf.description()
+//        print("           ·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(Wizard.lifepoint) ; ❤️‍🩹›› heal=\(Wizard.heal) ; ⚔️›› power of attack=\(Wizard.powerAttack))")
+//        print("")
+//                Warrior.init(description: <#T##String#>)
+//        print("")
+//                Dwarf.init(description: <#T##String#>)
         print("""
       
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -79,29 +81,19 @@ class Player {
     // Selection list of characters for the player of an integer between 1 and 3
         
     func selectCharactersForTheTeam() {
-        while Team.currentSizeTeam <= Team.sizeMaxTeam {
+        
+        teamOfPlayer.sizeMaxFighters = 3
+        
+        var currentSizeGuild = 1 // fighters currently in the guild
+
+        while currentSizeGuild <= teamOfPlayer.sizeMaxFighters {
             if let choiceCharacters = readLine(){
                 
                 switch choiceCharacters {
                 case "1" :
-                    print("Give him a name!")
-                    if let nameCharacterWrites = readLine() {
-                    nameLoop: for character in teamOfPlayer {
-                                if character.name == nameCharacterWrites {
-                                    print("This name is already taken, please enter an other")
-                                    break nameLoop
-                                } else {
-                                    Team.wizard.name = nameCharacterWrites
-                                }
-                            }
-//                        if nameCharacterWrites == teamOfPlayer.contains(where: ({$0.name})) {
-//
-//                        }
-
-                    }
-                        
+                    GiveNameToFighter()
+                    teamOfPlayer.guild.append(teamOfPlayer.wizard)
                     
-                    teamOfPlayer.append(Team.wizard)
                     print("""
                     
                        -----------------------------------------------------------------
@@ -109,11 +101,11 @@ class Player {
                        -----------------------------------------------------------------
 
                     """)
-                    Team.currentSizeTeam += 1
+                    currentSizeGuild += 1
                     
                 case "2" :
 //                    print("Give him a name!")
-                    teamOfPlayer.append(Team.warrior)
+                    teamOfPlayer.guild.append(teamOfPlayer.warrior)
                     print("""
                     
                        -----------------------------------------------------------------
@@ -121,12 +113,12 @@ class Player {
                        -----------------------------------------------------------------
 
                     """)
-                    Team.currentSizeTeam += 1
+                    currentSizeGuild += 1
 
 
                 case "3" :
 //                    print("Give him a name!")
-                    teamOfPlayer.append(Team.dwarf)
+                    teamOfPlayer.guild.append(teamOfPlayer.dwarf)
                     print("""
                     
                        -----------------------------------------------------------------
@@ -134,7 +126,7 @@ class Player {
                        -----------------------------------------------------------------
 
                     """)
-                    Team.currentSizeTeam += 1
+                    currentSizeGuild += 1
 
 
                 default:
@@ -148,17 +140,29 @@ class Player {
         print("""
 
               Kudos!
-              Your guild \(name) is composed of a \(teamOfPlayer[0].currentType), a \(teamOfPlayer[1].currentType) and a \(teamOfPlayer[2].currentType).
+              Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
               Good choice, may the force to be with you!
 
               """)
         
-        Team.currentSizeTeam = 1  // currentSize back to the initial value for start the creation of team 2
+        currentSizeGuild = 1  // currentSize back to the initial value for start the creation of team 2
     }
     
     
                     
   
+    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+    func GiveNameToFighter() -> String {
+        print("Give him a name!")
+        if let nameCharacterWrites = readLine() {
+            if teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {
+                print("This name is already taken, please enter an other")
+            } else {
+            name = nameCharacterWrites
+            }
+        }
+        return name
+    }
     
     
     

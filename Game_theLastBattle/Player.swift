@@ -42,6 +42,27 @@ class Player {
     
     
     
+    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+    func giveNameToFighter() -> String {
+        print("Give him a name!")
+        var name = ""
+        while name == "" && name == name {
+            if let nameCharacterWrites = readLine() {
+                if teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the team
+                    print("This name is already taken, please enter an other")
+                    
+                } else {
+                    name = nameCharacterWrites
+                }
+            }
+        }
+        
+        return name
+    }
+    
+    
+    
+    
     func messageCreateGuild() {
         print ("""
                 
@@ -90,8 +111,8 @@ class Player {
                 
                 switch choiceCharacters {
                 case "1" :
+                    teamOfPlayer.wizard.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.wizard)
-                    
                     print("""
                     
                        -----------------------------------------------------------------
@@ -102,6 +123,7 @@ class Player {
                     currentSizeGuild += 1
                     
                 case "2" :
+                    teamOfPlayer.warrior.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.warrior)
                     print("""
                     
@@ -114,6 +136,7 @@ class Player {
 
 
                 case "3" :
+                    teamOfPlayer.dwarf.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.dwarf)
                     print("""
                     

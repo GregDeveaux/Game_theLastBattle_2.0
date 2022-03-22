@@ -70,7 +70,7 @@ class Fighter: FighterProtocol {
     // The different elements that make up the character are initialized
     init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool, description: String) {
         self.currentType = currentType
-        self.name = Self.giveNameToFighter(name: name)  // call function for add the name of fighter
+        self.name = name
         self.lifepoint = lifepoint
         self.heal = heal
         self.powerAttack = powerAttack
@@ -78,21 +78,11 @@ class Fighter: FighterProtocol {
         self.description = description
     }
     
-    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
-    static func giveNameToFighter(name: String) -> String {
-        print("Give him a name!")
-        if let nameCharacterWrites = readLine() {
-        }
-        return name
-    }
     
     
     
-//    if $0.teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {
-//        print("This name is already taken, please enter an other")
-//    } else {
-//    name = nameCharacterWrites
-//    }
+    
+    
     
     // Remove life of an ennemy
 //    func attackTheEnnemy(powerAttackCharacter: Int, lifepointEnnemy: Int) {

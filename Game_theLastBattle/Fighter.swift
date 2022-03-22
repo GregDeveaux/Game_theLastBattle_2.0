@@ -1,5 +1,5 @@
 //
-//  Characters.swift
+//  Fighter.swift
 //  Game_theLastBattle
 //
 //  Created by Greg Deveaux on 16/03/2022.
@@ -10,11 +10,11 @@ import Foundation
 
 
 // -----------------------------------------------------------------------------------------------------
-// MARK: Protocol FighterInTheGuild
-// >>> General characteristics of characters to join the team
+// MARK: Protocol FighterProtocol
+// >>> General characteristics of fighter to join the team
 // -----------------------------------------------------------------------------------------------------
 
-protocol FighterInTheGuild {
+protocol FighterProtocol {
     
     var currentType: Kind {get}// Either wizard or warrior or dwarf
     var name: String {get set} // Character name which must be unique and not yet used
@@ -52,7 +52,7 @@ enum Kind: String {
 // >>> General characteristics of characters
 // -----------------------------------------------------------------------------------------------------
 
-class Fighter: FighterInTheGuild {
+class Fighter: FighterProtocol {
     
     var currentType: Kind // Either wizard or warrior or dwarf
     var name: String // Character name which must be unique and not yet used
@@ -70,7 +70,7 @@ class Fighter: FighterInTheGuild {
     // The different elements that make up the character are initialized
     init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool, description: String) {
         self.currentType = currentType
-        self.name = name
+        self.name = Self.giveNameToFighter(name: name)  // call function for add the name of fighter
         self.lifepoint = lifepoint
         self.heal = heal
         self.powerAttack = powerAttack
@@ -78,9 +78,21 @@ class Fighter: FighterInTheGuild {
         self.description = description
     }
     
+    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+    static func giveNameToFighter(name: String) -> String {
+        print("Give him a name!")
+        if let nameCharacterWrites = readLine() {
+        }
+        return name
+    }
     
-        
     
+    
+//    if $0.teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {
+//        print("This name is already taken, please enter an other")
+//    } else {
+//    name = nameCharacterWrites
+//    }
     
     // Remove life of an ennemy
 //    func attackTheEnnemy(powerAttackCharacter: Int, lifepointEnnemy: Int) {
@@ -142,14 +154,20 @@ class Wizard: Fighter {
 //
 //    }
     
-    init() {
-        super.init(currentType: .wizard,
-                   name: name,
-                   lifepoint: 75,
-                   heal: 25,
-                   powerAttack: ["Froggy rain": 5],
-                   dead: false,
-                   description:  "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .wizard, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead, description: description)
+        
+        
+    }
+        
+    convenience init() {
+        self.init(currentType: .wizard,
+                  name: "unknown",
+                  lifepoint: 75,
+                  heal: 25,
+                  powerAttack: ["Froggy rain": 5],
+                  dead: false,
+                  description:  "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
 
@@ -178,14 +196,18 @@ class Warrior: Fighter {
     // Dictionnary of available weapons for the Warrior
     var availableWeaponsOfWarrior: [String: Int] = [:]
     
-    init() {
-        super.init(currentType: .warrior,
-                   name: name,
-                   lifepoint: 100,
-                   heal: 10,
-                   powerAttack: ["Oak stick": 10],
-                   dead: false,
-                   description: "·2· -> 🥷 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .warrior, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead,description: description)
+    }
+    
+    convenience init() {
+        self.init(currentType: .warrior,
+                  name: "unknown",
+                  lifepoint: 100,
+                  heal: 10,
+                  powerAttack: ["Oak stick": 10],
+                  dead: false,
+                  description: "·2· -> 🥷 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
     
@@ -220,16 +242,26 @@ class Dwarf: Fighter {
 //    // Dictionnary of available weapons for the dwarf
 //    var availableWeaponsOfDwarf: [String: Int] = [:]
     
-    init() {
-        super.init(currentType: .dwarf,
-                   name: name,
-                   lifepoint: 50,
-                   heal: 5,
-                   powerAttack: ["Volcano Slingshot": 25],
-                   dead: false,
-                   description: "·3· -> 🤶 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
+//    let weaponsDwarf: [String: Int] = ["Volcano Slingshot": 25,
+//                                       "Hammer Dammer": 30,
+//                                       "Ax Kiss of dragon": 35]
+//    let availableWeaponsOfDwarf = Array(weaponsDwarf.keys)
+    
+    
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .dwarf, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead,description: description)
     }
     
+    
+    convenience init() {
+        self.init(currentType: .dwarf,
+                  name: "unknown",
+                  lifepoint: 50,
+                  heal: 5,
+                  powerAttack: ["Volcano Slingshot": 25],
+                  dead: false,
+                  description: "·3· -> 🤶 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
+    }
 
     
 //    init(availableWeaponsOfDwarf: [String: Int]) {
@@ -238,8 +270,7 @@ class Dwarf: Fighter {
 //            self.powerWeapon = weapon.value
 //        }
 //    }
-    
-    
+
 }
 
 // List of weapons of the dwarf

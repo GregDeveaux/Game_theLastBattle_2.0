@@ -22,6 +22,8 @@ while true {
     
     game.presentationTeams()
     
+    game.goFight()
+    
     game.gameOver()
 }
 

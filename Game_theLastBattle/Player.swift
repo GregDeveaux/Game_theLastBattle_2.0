@@ -16,16 +16,13 @@ import Foundation
 
 class Player {
     
-    var name: String // create the players for dictionary
+    var name: String = "" // create the players for dictionary
     
-    var teamOfPlayer: Guild  //  call each team array of player with maximun of 3 fighters
+    var teamOfPlayer = Guild.init(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
     
   
     
-    init(name: String, teamOfPlayer: Guild) {
-        self.name = name
-        self.teamOfPlayer = teamOfPlayer
-    }
+    
     
     
     // Enter the name of the guild
@@ -78,6 +75,8 @@ class Player {
     
     
     
+    
+    
     // Selection list of characters for the player of an integer between 1 and 3
         
     func selectCharactersForTheTeam() {
@@ -91,7 +90,6 @@ class Player {
                 
                 switch choiceCharacters {
                 case "1" :
-                    GiveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.wizard)
                     
                     print("""
@@ -104,7 +102,6 @@ class Player {
                     currentSizeGuild += 1
                     
                 case "2" :
-//                    print("Give him a name!")
                     teamOfPlayer.guild.append(teamOfPlayer.warrior)
                     print("""
                     
@@ -117,7 +114,6 @@ class Player {
 
 
                 case "3" :
-//                    print("Give him a name!")
                     teamOfPlayer.guild.append(teamOfPlayer.dwarf)
                     print("""
                     
@@ -151,18 +147,7 @@ class Player {
     
                     
   
-    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
-    func GiveNameToFighter() -> String {
-        print("Give him a name!")
-        if let nameCharacterWrites = readLine() {
-            if teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {
-                print("This name is already taken, please enter an other")
-            } else {
-            name = nameCharacterWrites
-            }
-        }
-        return name
-    }
+    
     
     
     

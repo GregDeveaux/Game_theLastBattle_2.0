@@ -68,8 +68,12 @@ class Game {
     var player1 = Player()
     var player2 = Player()
     
-    var player1Team = player1.teamOfPlayer.guild
-    var player2Team = player2.teamOfPlayer.guild
+//    var player1Team = player1.teamOfPlayer.guild
+//    var player2Team = player2.teamOfPlayer.guild
+    
+    var round = 0  // number of round in the game
+
+    
     
     
     // Creation of the Guild of each player
@@ -128,7 +132,17 @@ class Game {
             2...
             1... FIGHT !
             """)
-                    
+        
+        while true {
+            round += 1
+            print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
+            
+            
+            if round == 10 { // for test
+                break
+            }
+        }
+        
         }
     
     
@@ -136,6 +150,7 @@ class Game {
     
     func gameOver() {
         print("GAME OVER")
+        print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationTeams()
 
         print("•••  Do you want to play again ?  •••")

@@ -30,7 +30,8 @@ struct Guild {
        
     
     // The guild is composed of 3 fighters
-    var guild: [FighterInTheGuild] = []
+    var guild: [FighterProtocol] = []
+    
     
     
     init(sizeMaxFighters: Int) {
@@ -38,9 +39,12 @@ struct Guild {
     }
     
     
+//    init(guild: [FighterProtocol]) {
+//        
+//    }
     
 
-
+    
     
 
 //    func allCharactersDead() {

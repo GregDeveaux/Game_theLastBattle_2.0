@@ -33,22 +33,14 @@ struct Guild {
     var guild: [FighterProtocol] = []
     
     
-    
-    init(sizeMaxFighters: Int) {
-        self.sizeMaxFighters = sizeMaxFighters
-    }
-    
-    
-//    init(guild: [FighterProtocol]) {
-//        
-//    }
+
     
 
     
     
 
 //    func allCharactersDead() {
-//        if Team.teamOfPlayer.contains({$0.dead == true}) {
+//        if Player.teamOfPlayer.contains({$0.dead == true}) {
 //            return
 //        }
 //    }

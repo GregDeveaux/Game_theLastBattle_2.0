@@ -25,6 +25,7 @@ while true {
     game.goFight()
     
     game.gameOver()
+    
 }
 
 

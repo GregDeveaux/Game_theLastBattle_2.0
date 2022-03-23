@@ -65,8 +65,8 @@ class Game {
     
     // Creation of 2 players with one name for the team
     
-    var player1 = Player()
-    var player2 = Player()
+    static var player1 = Player()
+    static var player2 = Player()
     
 //    var player1Team = player1.teamOfPlayer.guild
 //    var player2Team = player2.teamOfPlayer.guild
@@ -79,12 +79,12 @@ class Game {
     // Creation of the Guild of each player
     
     func createTheGuild() {
-            player1.EnterTheNameOfGuild(guild: 1)
-            player1.messageCreateGuild()
-            player1.selectCharactersForTheTeam()
-            player2.EnterTheNameOfGuild(guild: 2)
-            player2.messageCreateGuild()
-            player2.selectCharactersForTheTeam()
+        Game.player1.EnterTheNameOfGuild(guild: 1)
+        Game.player1.messageCreateGuild()
+        Game.player1.selectCharactersForTheTeam()
+        Game.player2.EnterTheNameOfGuild(guild: 2)
+        Game.player2.messageCreateGuild()
+        Game.player2.selectCharactersForTheTeam()
     }
     
 
@@ -99,14 +99,14 @@ class Game {
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
 
               """)
-        print("   The guild \(player1.name.uppercased()) is composed of :")
-        player1.teamOfPlayer.guild.forEach {
+        print("   The guild \(Game.player1.name.uppercased()) is composed of :")
+        Game.player1.teamOfPlayer.guild.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
         print("")
-        print("   The guild \(player2.name.uppercased()) is composed of :")
-        player2.teamOfPlayer.guild.forEach {
+        print("   The guild \(Game.player2.name.uppercased()) is composed of :")
+        Game.player2.teamOfPlayer.guild.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         

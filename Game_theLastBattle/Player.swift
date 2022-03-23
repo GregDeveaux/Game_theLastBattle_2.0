@@ -18,9 +18,7 @@ class Player {
     
     var name: String = "" // create the players for dictionary
     
-    var teamOfPlayer = Guild.init(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
-    
-  
+    var teamOfPlayer = Guild(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
     
     
     
@@ -44,11 +42,20 @@ class Player {
     
     // function allowing to give a name to a fighter and who verifies if the name doesn't exist
     func giveNameToFighter() -> String {
+        
+        // create shortcut for the way
+        let GuildPlayer1 = Game.player1.teamOfPlayer.guild
+        let GuildPlayer2 = Game.player2.teamOfPlayer.guild
+
+        // Text for name request
         print("Give him a name!")
+        
+        // call an empty variable for the integration of the fighter name
         var name = ""
         while name == "" && name == name {
             if let nameCharacterWrites = readLine() {
-                if teamOfPlayer.guild.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the team
+                if GuildPlayer1.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()}))
+                    && GuildPlayer2.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
                     print("This name is already taken, please enter an other")
                     
                 } else {
@@ -64,6 +71,7 @@ class Player {
     
     
     func messageCreateGuild() {
+
         print ("""
                 
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -75,14 +83,12 @@ class Player {
               You must choose 3 characters in the list (same or different).
       
               Select the number corresponding to the type of character desired and give him a name:
-                
-      """)
-//        print("           ·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(Wizard.lifepoint) ; ❤️‍🩹›› heal=\(Wizard.heal) ; ⚔️›› power of attack=\(Wizard.powerAttack))")
-//        print("")
-//                Warrior.init(description: <#T##String#>)
-//        print("")
-//                Dwarf.init(description: <#T##String#>)
-        print("""
+      
+              \(teamOfPlayer.wizard.description)
+      
+              \(teamOfPlayer.warrior.description)
+      
+              \(teamOfPlayer.dwarf.description)
       
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -93,8 +99,7 @@ class Player {
     }
     
     
-    
-    
+      
     
     
     
@@ -102,50 +107,60 @@ class Player {
         
     func selectCharactersForTheTeam() {
         
-        teamOfPlayer.sizeMaxFighters = 3
+        var currentFightersInGuild = 0 // fighters currently in the guild
         
-        var currentSizeGuild = 1 // fighters currently in the guild
+//        enum CurrentChoice: String {
+//            case two = "select two more fighters"
+//            case one = "select a last fighter"
+//        }
+//
+     
 
-        while currentSizeGuild <= teamOfPlayer.sizeMaxFighters {
+        while currentFightersInGuild < teamOfPlayer.sizeMaxFighters {
             if let choiceCharacters = readLine(){
                 
                 switch choiceCharacters {
                 case "1" :
-                    teamOfPlayer.wizard.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.wizard)
+                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+
                     print("""
                     
+                       ------>             You've selected a wizard.
                        -----------------------------------------------------------------
-                       ------>             You've selected a wizard.             <------
                        -----------------------------------------------------------------
 
+
                     """)
-                    currentSizeGuild += 1
+                    currentFightersInGuild += 1
                     
                 case "2" :
-                    teamOfPlayer.warrior.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.warrior)
+                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+
                     print("""
                     
+                       ------>             You've selected a warrior.
                        -----------------------------------------------------------------
-                       ------>             You've selected a warrior.             <------
                        -----------------------------------------------------------------
 
+                    
                     """)
-                    currentSizeGuild += 1
+                    currentFightersInGuild += 1
 
 
                 case "3" :
-                    teamOfPlayer.dwarf.name = giveNameToFighter()
                     teamOfPlayer.guild.append(teamOfPlayer.dwarf)
+                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+
                     print("""
                     
+                       ------>             You've selected a dwarf.
                        -----------------------------------------------------------------
-                       ------>             You've selected a dwarf.             <------
                        -----------------------------------------------------------------
 
                     """)
-                    currentSizeGuild += 1
+                    currentFightersInGuild += 1
 
 
                 default:
@@ -164,7 +179,7 @@ class Player {
 
               """)
         
-        currentSizeGuild = 1  // currentSize back to the initial value for start the creation of team 2
+        currentFightersInGuild = 1  // currentSize back to the initial value for start the creation of team 2
     }
     
     

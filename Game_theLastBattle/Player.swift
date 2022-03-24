@@ -28,10 +28,10 @@ class Player {
             print("Player \(numberPlayer), enter your team name")
         repeat {
             if let nameWrites = readLine() {
-                if !nameWrites.isEmpty {
+                if !nameWrites.isEmpty && nameWrites != Game.player1.name {
                     name = nameWrites
                 } else {
-                    print("Please, enter the Guild Name, thanks")
+                    print("Please, enter the other Guild Name, thanks")
                 }
             }
         } while name.isEmpty
@@ -44,22 +44,23 @@ class Player {
     func giveNameToFighter() -> String {
         
         // create shortcut for the way
-        let GuildPlayer1 = Game.player1.teamOfPlayer.guild
-        let GuildPlayer2 = Game.player2.teamOfPlayer.guild
+        let guildPlayer1 = Game.player1.teamOfPlayer.guild
+        let guildPlayer2 = Game.player2.teamOfPlayer.guild
+        let allTheGuilds = guildPlayer1 + guildPlayer2
 
         // Text for name request
         print("Give him a name!")
         
         // call an empty variable for the integration of the fighter name
         var name = ""
-        while name == "" && name == name {
+        
+        while name.isEmpty && name == name {
             if let nameCharacterWrites = readLine() {
-                if GuildPlayer1.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()}))
-                    && GuildPlayer2.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
+                if allTheGuilds.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
                     print("This name is already taken, please enter an other")
                     
                 } else {
-                    name = nameCharacterWrites
+                    name = nameCharacterWrites.uppercased()
                 }
             }
         }
@@ -69,17 +70,16 @@ class Player {
     
     
     
+    // Message explaining the creation of the guild
     
     func messageCreateGuild() {
 
         print ("""
                 
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-                                                                🌑🌒🌓🌔🌕  GUILD : \(name.uppercased())  🌕🌖🌗🌘🌑
+          🌑🌑🌑🌑🌑🌒🌓🌔🌕🌕🌕🌕🌕  WELCOME TO THE GUILD "\(name.uppercased())"  🌕🌕🌕🌕🌕🌕🌖🌗🌘🌑🌑🌑🌑🌑
           ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-              Welcome to the guild "\(name.uppercased())"!
-                     
               You must choose 3 characters in the list (same or different).
       
               Select the number corresponding to the type of character desired and give him a name:
@@ -107,7 +107,7 @@ class Player {
         
     func selectCharactersForTheTeam() {
         
-        var currentFightersInGuild = 0 // fighters currently in the guild
+        var FightersInGuild = 0 // fighters currently in the guild
         
 //        enum CurrentChoice: String {
 //            case two = "select two more fighters"
@@ -116,13 +116,13 @@ class Player {
 //
      
 
-        while currentFightersInGuild < teamOfPlayer.sizeMaxFighters {
+        while FightersInGuild < teamOfPlayer.sizeMaxFighters {
             if let choiceCharacters = readLine(){
                 
                 switch choiceCharacters {
                 case "1" :
                     teamOfPlayer.guild.append(teamOfPlayer.wizard)
-                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+                    teamOfPlayer.guild[FightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -132,11 +132,11 @@ class Player {
 
 
                     """)
-                    currentFightersInGuild += 1
+                    FightersInGuild += 1
                     
                 case "2" :
                     teamOfPlayer.guild.append(teamOfPlayer.warrior)
-                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+                    teamOfPlayer.guild[FightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -146,12 +146,12 @@ class Player {
 
                     
                     """)
-                    currentFightersInGuild += 1
+                    FightersInGuild += 1
 
 
                 case "3" :
                     teamOfPlayer.guild.append(teamOfPlayer.dwarf)
-                    teamOfPlayer.guild[currentFightersInGuild].name = giveNameToFighter()
+                    teamOfPlayer.guild[FightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -160,7 +160,7 @@ class Player {
                        -----------------------------------------------------------------
 
                     """)
-                    currentFightersInGuild += 1
+                    FightersInGuild += 1
 
 
                 default:
@@ -179,7 +179,7 @@ class Player {
 
               """)
         
-        currentFightersInGuild = 1  // currentSize back to the initial value for start the creation of team 2
+        FightersInGuild = 0  // currentSize back to the initial value for start the creation of team 2
     }
     
     

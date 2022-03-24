@@ -128,7 +128,7 @@ class Fighter: FighterProtocol {
 // >>> characteristics of wizard
 // -------------------------------------------------------------------------------------------------------
 
-class Wizard: Fighter {
+class Wizard: Fighter, NSCopying {
     
 //    var nameWeapon: String // Name of the arm
 //    var powerWeapon: Int // Power of the arm
@@ -160,8 +160,11 @@ class Wizard: Fighter {
                   description:  "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
-
-
+  // function for the create copy
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Wizard()
+            return copy
+        }
 
 // List of weapons of the wizard
 //let CreateWeaponsOfWizardList = ["Froggy rain": 5,
@@ -199,6 +202,12 @@ class Warrior: Fighter {
                   dead: false,
                   description: "·2· -> 🥷 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
+    
+  // function for the create copy of the class
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Warrior()
+            return copy
+        }
     
     
 //    init(availableWeaponsOfWarrior: [String: Int]) {
@@ -252,7 +261,12 @@ class Dwarf: Fighter {
                   dead: false,
                   description: "·3· -> 🤶 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
-
+    
+  // function for the create copy
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Dwarf()
+            return copy
+        }
     
 //    init(availableWeaponsOfDwarf: [String: Int]) {
 //        for weapon in availableWeaponsOfDwarf {

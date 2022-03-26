@@ -1,5 +1,5 @@
 //
-//  Team.swift
+//  Guild.swift
 //  Game_theLastBattle
 //
 //  Created by Greg Deveaux on 16/03/2022.

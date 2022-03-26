@@ -200,7 +200,7 @@ class Warrior: Fighter {
                   heal: 10,
                   powerAttack: ["Oak stick": 10],
                   dead: false,
-                  description: "·2· -> 🥷 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
+                  description: "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
   // function for the create copy of the class
@@ -259,7 +259,7 @@ class Dwarf: Fighter {
                   heal: 5,
                   powerAttack: ["Volcano Slingshot": 25],
                   dead: false,
-                  description: "·3· -> 🤶 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
+                  description: "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
   // function for the create copy

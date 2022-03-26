@@ -20,7 +20,7 @@ while true {
 
     game.createTheGuild()
     
-    game.presentationTeams()
+    game.presentationGuilds()
     
     game.goFight()
     

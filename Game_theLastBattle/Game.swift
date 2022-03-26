@@ -64,12 +64,10 @@ class Game {
     
     
     // Creation of 2 players with one name for the team
-    
     static var player1 = Player()
     static var player2 = Player()
     
-//    var player1Team = player1.teamOfPlayer.guild
-//    var player2Team = player2.teamOfPlayer.guild
+    
     
     var round = 0  // number of round in the game
 
@@ -81,17 +79,17 @@ class Game {
     func createTheGuild() {
         Game.player1.EnterTheNameOfGuild(guild: 1)
         Game.player1.messageCreateGuild()
-        Game.player1.selectCharactersForTheTeam()
+        Game.player1.selectCharactersForTheGuild()
         Game.player2.EnterTheNameOfGuild(guild: 2)
         Game.player2.messageCreateGuild()
-        Game.player2.selectCharactersForTheTeam()
+        Game.player2.selectCharactersForTheGuild()
     }
     
 
     
     // Call the informations from different teams for present at players
     
-    func presentationTeams() {
+    func presentationGuilds() {
         
         print("""
 
@@ -151,29 +149,28 @@ class Game {
     func gameOver() {
         print("GAME OVER")
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
-        presentationTeams()
+        presentationGuilds()
 
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
-//        let playAgain: String?
-//
-//        if let playAgain = readLine() {
-//            repeat {
-//
-//                switch playAgain {
-//                case "y":
-//                    print("Play again")
-//
-//                case "n":
-//                    print("Hasta la vista, Baby!")
-//                    break
-//
-//                default:
-//                    print("⚠️ Wrong letter, try again! ⚠️ ")
-//                }
-//            } while playAgain == "y" || playAgain == "n"
-//
-//        }
+        // Demand to player, if they play a new game
+        if let playAgain = readLine() {
+            repeat {
+
+                switch playAgain {
+                case "y":
+                    print("Play again")
+
+                case "n":
+                    print("Hasta la vista, Baby!")
+                    break
+
+                default:
+                    print("⚠️ Wrong letter, try again! ⚠️ ")
+                }
+            } while playAgain == "y" || playAgain == "n"
+
+        }
     }
 }

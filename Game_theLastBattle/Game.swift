@@ -64,33 +64,32 @@ class Game {
     
     
     // Creation of 2 players with one name for the team
+    static var player1 = Player()
+    static var player2 = Player()
     
-    var player1: Player
-    var player2: Player
     
-    init(player1: Player, player2: Player) {
-        self.player1 = player1
-        self.player2 = player2
-    }
+    
+    var round = 0  // number of round in the game
+
     
     
     
     // Creation of the Guild of each player
     
     func createTheGuild() {
-            player1.EnterTheNameOfGuild(guild: 1)
-            player1.messageCreateGuild()
-            player1.selectCharactersForTheTeam()
-            player2.EnterTheNameOfGuild(guild: 2)
-            player2.messageCreateGuild()
-            player2.selectCharactersForTheTeam()
+        Game.player1.EnterTheNameOfGuild(guild: 1)
+        Game.player1.messageCreateGuild()
+        Game.player1.selectCharactersForTheGuild()
+        Game.player2.EnterTheNameOfGuild(guild: 2)
+        Game.player2.messageCreateGuild()
+        Game.player2.selectCharactersForTheGuild()
     }
     
 
     
     // Call the informations from different teams for present at players
     
-    func presentationTeams() {
+    func presentationGuilds() {
         
         print("""
 
@@ -98,14 +97,14 @@ class Game {
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
 
               """)
-        print("   The guild \(player1.name.uppercased()) is composed of :")
-        player1.teamOfPlayer.forEach {
+        print("   The guild \(Game.player1.name.uppercased()) is composed of :")
+        Game.player1.teamOfPlayer.guild.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
         print("")
-        print("   The guild \(player2.name.uppercased()) is composed of :")
-        player2.teamOfPlayer.forEach {
+        print("   The guild \(Game.player2.name.uppercased()) is composed of :")
+        Game.player2.teamOfPlayer.guild.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
@@ -131,7 +130,17 @@ class Game {
             2...
             1... FIGHT !
             """)
-                    
+        
+        while true {
+            round += 1
+            print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
+            
+            
+            if round == 10 { // for test
+                break
+            }
+        }
+        
         }
     
     
@@ -139,29 +148,29 @@ class Game {
     
     func gameOver() {
         print("GAME OVER")
-        presentationTeams()
+        print("TOTAL ROUND FOR THE BATTLE: \(round)")
+        presentationGuilds()
 
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
-//        let playAgain: String?
-//
-//        if let playAgain = readLine() {
-//            repeat {
-//
-//                switch playAgain {
-//                case "y":
-//                    print("Play again")
-//
-//                case "n":
-//                    print("Hasta la vista, Baby!")
-//                    break
-//
-//                default:
-//                    print("⚠️ Wrong letter, try again! ⚠️ ")
-//                }
-//            } while playAgain == "y" || playAgain == "n"
-//
-//        }
+        // Demand to player, if they play a new game
+        if let playAgain = readLine() {
+            repeat {
+
+                switch playAgain {
+                case "y":
+                    print("Play again")
+
+                case "n":
+                    print("Hasta la vista, Baby!")
+                    break
+
+                default:
+                    print("⚠️ Wrong letter, try again! ⚠️ ")
+                }
+            } while playAgain == "y" || playAgain == "n"
+
+        }
     }
 }

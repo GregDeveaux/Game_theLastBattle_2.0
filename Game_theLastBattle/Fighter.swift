@@ -1,5 +1,5 @@
 //
-//  Characters.swift
+//  Fighter.swift
 //  Game_theLastBattle
 //
 //  Created by Greg Deveaux on 16/03/2022.
@@ -8,12 +8,13 @@
 import Foundation
 
 
+
 // -----------------------------------------------------------------------------------------------------
-// MARK: Protocol Guild
-// >>> General characteristics of characters
+// MARK: Protocol FighterProtocol
+// >>> General characteristics of fighter to join the team
 // -----------------------------------------------------------------------------------------------------
 
-protocol Guild {
+protocol FighterProtocol {
     
     var currentType: Kind {get}// Either wizard or warrior or dwarf
     var name: String {get set} // Character name which must be unique and not yet used
@@ -25,8 +26,21 @@ protocol Guild {
 
     var dead: Bool {get set} // Is the character dead?
     
-//    func description() -> String // Details of the wizard
+    var description: String {get set} // Details of the fighter
+    
+}
 
+
+
+
+
+// -------------------------------------------------------------------------------------------------------
+// MARK: Kind of Fighters
+// >>> Gives its properties to the character
+// -------------------------------------------------------------------------------------------------------
+
+enum Kind: String {
+    case wizard, warrior, dwarf
 }
 
 
@@ -34,11 +48,11 @@ protocol Guild {
 
 
 // -----------------------------------------------------------------------------------------------------
-// MARK: Class Characters
+// MARK: Class Fighter
 // >>> General characteristics of characters
 // -----------------------------------------------------------------------------------------------------
 
-class Characters {
+class Fighter: FighterProtocol {
     
     var currentType: Kind // Either wizard or warrior or dwarf
     var name: String // Character name which must be unique and not yet used
@@ -50,18 +64,25 @@ class Characters {
 
     var dead: Bool // Is the character dead?
     
+    var description: String // Details of the fighter
+    
     
     // The different elements that make up the character are initialized
-    init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool) {
+    init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool, description: String) {
         self.currentType = currentType
         self.name = name
         self.lifepoint = lifepoint
         self.heal = heal
         self.powerAttack = powerAttack
         self.dead = dead
+        self.description = description
     }
     
-        
+    
+    
+    
+    
+    
     
     // Remove life of an ennemy
 //    func attackTheEnnemy(powerAttackCharacter: Int, lifepointEnnemy: Int) {
@@ -87,7 +108,7 @@ class Characters {
     func characterDead() {
         if lifepoint == 0 {
             dead = true
-            print("☠️ ☠️ ☠️ your \(currentType) not have surviving ☠️ ☠️ ☠️")
+            print("☠️ ☠️ ☠️ OH NOOO! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
         }
 
     }
@@ -98,15 +119,6 @@ class Characters {
 
 
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Kind of characters
-// >>> Gives its properties to the character
-// -------------------------------------------------------------------------------------------------------
-
-enum Kind: String {
-    case wizard, warrior, dwarf
-}
-
 
 
 
@@ -116,7 +128,7 @@ enum Kind: String {
 // >>> characteristics of wizard
 // -------------------------------------------------------------------------------------------------------
 
-class Wizard: Characters, Guild {
+class Wizard: Fighter, NSCopying {
     
 //    var nameWeapon: String // Name of the arm
 //    var powerWeapon: Int // Power of the arm
@@ -132,25 +144,35 @@ class Wizard: Characters, Guild {
 //
 //    }
     
-    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool) {
-        super.init(currentType: .wizard, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead)
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .wizard, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead, description: description)
+        
+        
+    }
+        
+    convenience init() {
+        self.init(currentType: .wizard,
+                  name: "unknown",
+                  lifepoint: 75,
+                  heal: 25,
+                  powerAttack: ["Froggy rain": 5],
+                  dead: false,
+                  description:  "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
     }
     
-    
-            
-    // Details of the wizard
-    func description() {
-        print("           ·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
-    }
-    
-}
+  // function for the create copy
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Wizard()
+            return copy
+        }
 
 // List of weapons of the wizard
 //let CreateWeaponsOfWizardList = ["Froggy rain": 5,
 //                                 "Staff of power" : 10,
 //                                 "Fire ball": 15]
 //let AddWeaponsOfWizardList = Wizard(availableWeaponsOfWizard: CreateWeaponsOfWizardList)
-
+    
+}
 
 
 
@@ -159,7 +181,7 @@ class Wizard: Characters, Guild {
 // >>> characteristics of warrior
 // -------------------------------------------------------------------------------------------------------
 
-class Warrior: Characters, Guild {
+class Warrior: Fighter {
     
 //    var nameWeapon: String // Name of the arm
 //    var powerWeapon: Int // Power of the arm
@@ -167,9 +189,26 @@ class Warrior: Characters, Guild {
     // Dictionnary of available weapons for the Warrior
     var availableWeaponsOfWarrior: [String: Int] = [:]
     
-    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool) {
-        super.init(currentType: .warrior, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead)
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .warrior, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead,description: description)
     }
+    
+    convenience init() {
+        self.init(currentType: .warrior,
+                  name: "unknown",
+                  lifepoint: 100,
+                  heal: 10,
+                  powerAttack: ["Oak stick": 10],
+                  dead: false,
+                  description: "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
+    }
+    
+  // function for the create copy of the class
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Warrior()
+            return copy
+        }
+    
     
 //    init(availableWeaponsOfWarrior: [String: Int]) {
 //        for weapon in availableWeaponsOfWarrior {
@@ -178,12 +217,6 @@ class Warrior: Characters, Guild {
 //        }
 //    }
 
-    
-    // Details of the warrior
-    func description() {
-        print("           ·2· -> 🥷 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
-    }
-    
 }
 
 // List of weapons of the warrior
@@ -200,7 +233,7 @@ class Warrior: Characters, Guild {
 // >>> characteristics of wizard
 // -------------------------------------------------------------------------------------------------------
 
-class Dwarf: Characters, Guild {
+class Dwarf: Fighter {
     
 //    var nameWeapon: String // Name of the arm
 //    var powerWeapon: Int // Power of the arm
@@ -208,9 +241,32 @@ class Dwarf: Characters, Guild {
 //    // Dictionnary of available weapons for the dwarf
 //    var availableWeaponsOfDwarf: [String: Int] = [:]
     
-    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String: Int], dead: Bool) {
-        super.init(currentType: .dwarf, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead)
+//    let weaponsDwarf: [String: Int] = ["Volcano Slingshot": 25,
+//                                       "Hammer Dammer": 30,
+//                                       "Ax Kiss of dragon": 35]
+//    let availableWeaponsOfDwarf = Array(weaponsDwarf.keys)
+    
+    
+    override init(currentType: Kind, name: String, lifepoint: Int, heal: Int, powerAttack: [String : Int], dead: Bool, description: String) {
+        super.init(currentType: .dwarf, name: name, lifepoint: lifepoint, heal: heal, powerAttack: powerAttack, dead: dead,description: description)
     }
+    
+    
+    convenience init() {
+        self.init(currentType: .dwarf,
+                  name: "unknown",
+                  lifepoint: 50,
+                  heal: 5,
+                  powerAttack: ["Volcano Slingshot": 25],
+                  dead: false,
+                  description: "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=(lifepoint) ; ❤️‍🩹›› heal=(heal) ; ⚔️›› power of attack=(powerAttack))")
+    }
+    
+  // function for the create copy
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Dwarf()
+            return copy
+        }
     
 //    init(availableWeaponsOfDwarf: [String: Int]) {
 //        for weapon in availableWeaponsOfDwarf {
@@ -218,17 +274,15 @@ class Dwarf: Characters, Guild {
 //            self.powerWeapon = weapon.value
 //        }
 //    }
-    
-       
-    // Details of the dwarf
-    func description() {
-        print("           ·3· -> 🤶 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))")
-    }
-    
-    }
+
+}
 
 // List of weapons of the dwarf
 //let CreateWeaponsOfDwarfList = ["Volcano Slingshot": 25,
 //                                "Hammer Dammer": 30,
 //                                "Ax Kiss of dragon": 35]
 //let AddWeaponOfDwarfList = Dwarf(availableWeaponsOfDwarf: CreateWeaponsOfDwarfList)
+
+
+
+

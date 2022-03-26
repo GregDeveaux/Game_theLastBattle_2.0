@@ -16,14 +16,11 @@ import Foundation
 
 class Player {
     
-    var name: String // create the players for dictionary
+    var name: String = "" // create the players for dictionary
     
-    var teamOfPlayer: [Guild] = [] // Array call each team of player
-  
+    var teamOfPlayer = Guild(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
     
-    init(name: String) {
-        self.name = name
-    }
+    
     
     
     // Enter the name of the guild
@@ -31,10 +28,10 @@ class Player {
             print("Player \(numberPlayer), enter your team name")
         repeat {
             if let nameWrites = readLine() {
-                if !nameWrites.isEmpty {
+                if !nameWrites.isEmpty && nameWrites != Game.player1.name {
                     name = nameWrites
                 } else {
-                    print("Please, enter the Guild Name, thanks")
+                    print("Please, enter the other Guild Name, thanks")
                 }
             }
         } while name.isEmpty
@@ -43,98 +40,148 @@ class Player {
     
     
     
-    func messageCreateGuild() {
-        print ("""
-                
-          ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-                                                                🌑🌒🌓🌔🌕  GUILD : \(name.uppercased())  🌕🌖🌗🌘🌑
-          ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+    func giveNameToFighter() -> String {
+        
+        // create shortcut for the way
+        let guildPlayer1 = Game.player1.teamOfPlayer.guild
+        let guildPlayer2 = Game.player2.teamOfPlayer.guild
+        let allTheGuilds = guildPlayer1 + guildPlayer2
 
-              Welcome to the guild "\(name.uppercased())"!
-                     
-              You must choose 3 characters in the list (same or different).
-      
-              Select the number corresponding to the type of character desired and give him a name:
-                
-      """)
-                Team.wizard.description()
-        print("")
-                Team.warrior.description()
-        print("")
-                Team.dwarf.description()
-        print("""
-      
-          ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-          ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-      """)
-    
-      
+        // Text for name request
+        print("Give him a name!")
+        
+        // call an empty variable for the integration of the fighter name
+        var name = ""
+        
+        while name.isEmpty && name == name {
+            if let nameCharacterWrites = readLine() {
+                if allTheGuilds.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
+                    print("This name is already taken, please enter an other")
+                    
+                } else {
+                    name = nameCharacterWrites.uppercased()
+                }
+            }
+        }
+        
+        return name
     }
     
     
     
+    // Message explaining the creation of the guild
+    
+    func messageCreateGuild() {
+
+        print ("""
+                
+        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+                                   🌑🌑🌑🌑🌑🌒🌓🌔🌕🌕🌕🌕🌕  WELCOME TO THE GUILD "\(name.uppercased())"  🌕🌕🌕🌕🌕🌕🌖🌗🌘🌑🌑🌑🌑🌑
+        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+            You must choose 3 characters in the list (same or different).
+              
+            Select the number corresponding to the type of character desired and give him a name:
+              
+            \(teamOfPlayer.wizard.description)
+              
+            \(teamOfPlayer.warrior.description)
+              
+            \(teamOfPlayer.dwarf.description)
+              
+        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+        """)
+        print(MessageCurrentChoice.three.rawValue)
+      
+    }
+    
+    
+      
+    // message for choice other fighter
+    enum MessageCurrentChoice: String {
+        case three = "––> you could to select your first fighter", two = "––> you could to select your second fighter", one = "––> you could to select your last fighter"
+    }
     
     
     // Selection list of characters for the player of an integer between 1 and 3
         
-    func selectCharactersForTheTeam() {
-        while Team.currentSizeTeam <= Team.sizeMaxTeam {
+    func selectCharactersForTheGuild() {
+        
+        var fightersInGuild = 0 // fighters currently in the guild
+        
+        
+        func messageSelectAgain() {
+            if fightersInGuild == 1 {
+                print(MessageCurrentChoice.two.rawValue)
+            }
+            else if fightersInGuild == 2 {
+                print(MessageCurrentChoice.one.rawValue)
+            }
+            else {
+                print("""
+                      
+                      Kudos!
+                      Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
+                      Good choice, may the force to be with you!
+
+                      """)
+            }
+        }
+        
+     
+
+        while fightersInGuild < teamOfPlayer.sizeMaxFighters {
+
             if let choiceCharacters = readLine(){
-                
                 switch choiceCharacters {
                 case "1" :
-                    print("Give him a name!")
-                    if let nameCharacterWrites = readLine() {
-                    nameLoop: for character in teamOfPlayer {
-                                if character.name == nameCharacterWrites {
-                                    print("This name is already taken, please enter an other")
-                                    break nameLoop
-                                } else {
-                                    Team.wizard.name = nameCharacterWrites
-                                }
-                            }
-//                        if nameCharacterWrites == teamOfPlayer.contains(where: ({$0.name})) {
-//
-//                        }
+                    teamOfPlayer.guild.append(teamOfPlayer.wizard)
+                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
 
-                    }
-                        
-                    
-                    teamOfPlayer.append(Team.wizard)
                     print("""
                     
-                       -----------------------------------------------------------------
-                       ------>             You've selected a wizard.             <------
-                       -----------------------------------------------------------------
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                    –––––>            🧙‍♂️ You've selected a wizard.
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 
                     """)
-                    Team.currentSizeTeam += 1
+                    fightersInGuild += 1
+                    messageSelectAgain()
                     
                 case "2" :
-//                    print("Give him a name!")
-                    teamOfPlayer.append(Team.warrior)
+                    teamOfPlayer.guild.append(teamOfPlayer.warrior)
+                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
+
                     print("""
                     
-                       -----------------------------------------------------------------
-                       ------>             You've selected a warrior.             <------
-                       -----------------------------------------------------------------
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                    –––––>            🧝 You've selected a warrior.
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
+                    
                     """)
-                    Team.currentSizeTeam += 1
+                    fightersInGuild += 1
+                    messageSelectAgain()
 
 
                 case "3" :
-//                    print("Give him a name!")
-                    teamOfPlayer.append(Team.dwarf)
+                    teamOfPlayer.guild.append(teamOfPlayer.dwarf)
+                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
+
                     print("""
                     
-                       -----------------------------------------------------------------
-                       ------>             You've selected a dwarf.             <------
-                       -----------------------------------------------------------------
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                    –––––>            🎅 You've selected a dwarf.
+                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
                     """)
-                    Team.currentSizeTeam += 1
+                    fightersInGuild += 1
+                    messageSelectAgain()
 
 
                 default:
@@ -145,20 +192,21 @@ class Player {
         }
         
         // we notify the choices and that the guild is complete
-        print("""
-
-              Kudos!
-              Your guild \(name) is composed of a \(teamOfPlayer[0].currentType), a \(teamOfPlayer[1].currentType) and a \(teamOfPlayer[2].currentType).
-              Good choice, may the force to be with you!
-
-              """)
+//        print("""
+//
+//              Kudos!
+//              Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
+//              Good choice, may the force to be with you!
+//
+//              """)
         
-        Team.currentSizeTeam = 1  // currentSize back to the initial value for start the creation of team 2
+        fightersInGuild = 0  // currentSize back to the initial value for start the creation of team 2
     }
     
     
                     
   
+    
     
     
     

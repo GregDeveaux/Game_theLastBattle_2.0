@@ -17,11 +17,8 @@ import Foundation
 class Player {
     
     var name: String = "" // create the players for dictionary
-    
     var teamOfPlayer = Guild(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
-    
-    
-    
+
     
     // Enter the name of the guild
     func EnterTheNameOfGuild(guild numberPlayer: Int) {
@@ -37,7 +34,6 @@ class Player {
         } while name.isEmpty
         
     }
-    
     
     
     // function allowing to give a name to a fighter and who verifies if the name doesn't exist
@@ -58,7 +54,6 @@ class Player {
             if let nameCharacterWrites = readLine() {
                 if allTheGuilds.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
                     print("This name is already taken, please enter an other")
-                    
                 } else {
                     name = nameCharacterWrites.uppercased()
                 }
@@ -69,9 +64,7 @@ class Player {
     }
     
     
-    
     // Message explaining the creation of the guild
-    
     func messageCreateGuild() {
 
         print ("""
@@ -95,47 +88,48 @@ class Player {
 
 
         """)
-        print(MessageCurrentChoice.three.rawValue)
+        print(MessageCurrentChoice.first.rawValue)
       
     }
-    
     
       
     // message for choice other fighter
     enum MessageCurrentChoice: String {
-        case three = "––> you could to select your first fighter", two = "––> you could to select your second fighter", one = "––> you could to select your last fighter"
+        case first = "––> you can select your first fighter"
+        case second = "––> you can select your second fighter"
+        case last = "––> you can select your last fighter"
+    }
+    
+    
+    // Message for the seclection of fighter
+    
+    func messageSelectAgain(_ fightersInGuild: Int) {
+        if fightersInGuild == 1 {
+            print(MessageCurrentChoice.second.rawValue)
+        }
+        else if fightersInGuild == 2 {
+            print(MessageCurrentChoice.last.rawValue)
+        }
+        else {
+            print("""
+                  
+                  Kudos!
+                  Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
+                  Good choice, may the force to be with you!
+
+                  """)
+        }
     }
     
     
     // Selection list of characters for the player of an integer between 1 and 3
         
-    func selectCharactersForTheGuild() {
+    func selectFightersForTheGuild() {
         
         var fightersInGuild = 0 // fighters currently in the guild
         
-        
-        func messageSelectAgain() {
-            if fightersInGuild == 1 {
-                print(MessageCurrentChoice.two.rawValue)
-            }
-            else if fightersInGuild == 2 {
-                print(MessageCurrentChoice.one.rawValue)
-            }
-            else {
-                print("""
-                      
-                      Kudos!
-                      Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
-                      Good choice, may the force to be with you!
-
-                      """)
-            }
-        }
-        
-     
-
         while fightersInGuild < teamOfPlayer.sizeMaxFighters {
-
+            
             if let choiceCharacters = readLine(){
                 switch choiceCharacters {
                 case "1" :
@@ -151,7 +145,7 @@ class Player {
 
                     """)
                     fightersInGuild += 1
-                    messageSelectAgain()
+                    messageSelectAgain(fightersInGuild)
                     
                 case "2" :
                     teamOfPlayer.guild.append(teamOfPlayer.warrior)
@@ -166,7 +160,7 @@ class Player {
                     
                     """)
                     fightersInGuild += 1
-                    messageSelectAgain()
+                    messageSelectAgain(fightersInGuild)
 
 
                 case "3" :
@@ -181,7 +175,7 @@ class Player {
 
                     """)
                     fightersInGuild += 1
-                    messageSelectAgain()
+                    messageSelectAgain(fightersInGuild)
 
 
                 default:
@@ -190,79 +184,28 @@ class Player {
                 }
             }
         }
-        
-        // we notify the choices and that the guild is complete
-//        print("""
-//
-//              Kudos!
-//              Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
-//              Good choice, may the force to be with you!
-//
-//              """)
-        
-        fightersInGuild = 0  // currentSize back to the initial value for start the creation of team 2
     }
     
     
-                    
-  
-    
-    
-    
-    
-    
-    
-    //    // Count the characters dead in the team if all three is killed, the game is finish
-    //
-    //    func countCharactersDead(){
-    //
-    ////        for character in teamCharactersArray {
-    ////            character =
-    ////
-    ////        }
-    //
-    //        }
-    //
-    //}
-    //    }
-    //
-    //}
-    //
-
-
-
-
-
-
-
-
-        
-    
-    
-    // Write the character name in the console
-    
-//    func writeNameForCharacter() {
-//
-//       if let newName = readLine() {
-//
-//            if Team.teamOfPlayer1.values.contains(where: ({ $0.name != newName })) && Team.teamOfPlayer2.values.contains(where: ({ $0.name != newName })) {
-//
-//            print("""
-//
-//                           -----------------------------------------------------------------
-//                           --------------->        Your \(Team.teamOfPlayer1["Perso1"]!.currentType) is name \(Team.teamOfPlayer1["Perso1"]!.name)
-//                           -----------------------------------------------------------------
-//
-//                """)
-//
-//            } else {
-//                print("The name is already done, can you try again, please")
+//    func selectMyFighter() {
+//        for fighter in teamOfPlayer.guild {
+//            print("Select your fighter for the round")
+//            print("\(fighter)")
+//            if let selectMyFighter = readLine() {
+//                switch selectMyFighter {
+//                case "1":
+//                    teamOfPlayer.guild[1]
+//                case "2":
+//                    teamOfPlayer.guild[2]
+//                case "3":
+//                    teamOfPlayer.guild[3]
+//                default:
+//                print(" ⚠️ Wrong number, try again! ⚠️ ")
+//                print(" Only used number 1, 2 and 3, please ")
+//                }
 //            }
 //        }
-//
 //    }
-    
-    
     
     
     // Select a fighter of your team to attack
@@ -299,5 +242,16 @@ class Player {
     }
     
     
+    
+    // Count the characters dead in the team if all three is killed, the game is finish
+
+    func countCharactersDead(){
+//            for fighterdead in teamOfPlayer.guild {
+//                if teamOfPlayer.guild.contains(where: {$0.dead == true}){
+//                    
+//                }
+//            }
+    }
+
     
 }

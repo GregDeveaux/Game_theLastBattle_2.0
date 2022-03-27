@@ -79,10 +79,10 @@ class Game {
     func createTheGuild() {
         Game.player1.EnterTheNameOfGuild(guild: 1)
         Game.player1.messageCreateGuild()
-        Game.player1.selectCharactersForTheGuild()
+        Game.player1.selectFightersForTheGuild()
         Game.player2.EnterTheNameOfGuild(guild: 2)
         Game.player2.messageCreateGuild()
-        Game.player2.selectCharactersForTheGuild()
+        Game.player2.selectFightersForTheGuild()
     }
     
 
@@ -132,6 +132,7 @@ class Game {
             """)
         
         while true {
+//            Game.player1.selectMyFighter(player1: true)
             round += 1
             print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
             

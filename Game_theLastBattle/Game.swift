@@ -98,13 +98,13 @@ class Game {
 
               """)
         print("   The guild \(Game.player1.name.uppercased()) is composed of :")
-        Game.player1.teamOfPlayer.guild.forEach {
+        Game.player1.guild.fighters.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
         print("")
         print("   The guild \(Game.player2.name.uppercased()) is composed of :")
-        Game.player2.teamOfPlayer.guild.forEach {
+        Game.player2.guild.fighters.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
@@ -131,10 +131,13 @@ class Game {
             1... FIGHT !
             """)
         
-        while true {
-//            Game.player1.selectMyFighter(player1: true)
+        while Game.player1.guild.allFightersDead() || Game.player2.guild.allFightersDead() {
             round += 1
             print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
+            Game.player1.name  // fonctionne pas ?????
+            Game.player1.chooseTheFighter()
+            Game.player2.name
+            Game.player2.chooseTheFighter()
             
             
             if round == 10 { // for test

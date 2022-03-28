@@ -17,7 +17,7 @@ import Foundation
 class Player {
     
     var name: String = "" // create the players for dictionary
-    var teamOfPlayer = Guild(sizeMaxFighters: 3)  //  call each team array of player with maximun of 3 fighters
+    var guild = Guild(sizeMaxFighters: 1)  //  call each team array of player with maximun of 3 fighters
 
     
     // Enter the name of the guild
@@ -40,8 +40,8 @@ class Player {
     func giveNameToFighter() -> String {
         
         // create shortcut for the way
-        let guildPlayer1 = Game.player1.teamOfPlayer.guild
-        let guildPlayer2 = Game.player2.teamOfPlayer.guild
+        let guildPlayer1 = Game.player1.guild.fighters
+        let guildPlayer2 = Game.player2.guild.fighters
         let allTheGuilds = guildPlayer1 + guildPlayer2
 
         // Text for name request
@@ -77,11 +77,11 @@ class Player {
               
             Select the number corresponding to the type of character desired and give him a name:
               
-            \(teamOfPlayer.wizard.description)
+            \(guild.wizard.description)
               
-            \(teamOfPlayer.warrior.description)
+            \(guild.warrior.description)
               
-            \(teamOfPlayer.dwarf.description)
+            \(guild.dwarf.description)
               
         ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
         ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -114,7 +114,7 @@ class Player {
             print("""
                   
                   Kudos!
-                  Your guild \(name) is composed of a \(teamOfPlayer.guild[0].currentType), a \(teamOfPlayer.guild[1].currentType) and a \(teamOfPlayer.guild[2].currentType).
+                  Your guild \(name) is composed of a \(guild.fighters[0].currentType), a \(guild.fighters[1].currentType) and a \(guild.fighters[2].currentType).
                   Good choice, may the force to be with you!
 
                   """)
@@ -128,13 +128,13 @@ class Player {
         
         var fightersInGuild = 0 // fighters currently in the guild
         
-        while fightersInGuild < teamOfPlayer.sizeMaxFighters {
+        while fightersInGuild < guild.sizeMaxFighters {
             
             if let choiceCharacters = readLine(){
                 switch choiceCharacters {
                 case "1" :
-                    teamOfPlayer.guild.append(teamOfPlayer.wizard)
-                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
+                    guild.fighters.append(guild.wizard)
+                    guild.fighters[fightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -148,8 +148,8 @@ class Player {
                     messageSelectAgain(fightersInGuild)
                     
                 case "2" :
-                    teamOfPlayer.guild.append(teamOfPlayer.warrior)
-                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
+                    guild.fighters.append(guild.warrior)
+                    guild.fighters[fightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -164,8 +164,8 @@ class Player {
 
 
                 case "3" :
-                    teamOfPlayer.guild.append(teamOfPlayer.dwarf)
-                    teamOfPlayer.guild[fightersInGuild].name = giveNameToFighter()
+                    guild.fighters.append(guild.dwarf)
+                    guild.fighters[fightersInGuild].name = giveNameToFighter()
 
                     print("""
                     
@@ -208,10 +208,30 @@ class Player {
 //    }
     
     
-    // Select a fighter of your team to attack
+    // Select a fighter in a guild
     
-    func chooseCharacterToFight() {
+    func chooseTheFighter() {
+        print("Select your fighter")
+        print(Cards.cardWarrior)
         
+        
+        for fighter in Game.player1.guild.fighters {
+            var num = 1
+            print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal,\(fighter.powerAttack) of attack power.")
+            num += 1
+        }
+        var numberOfFighter = 0
+        if let selectNumber = Int(readLine()!) {
+            if 1...guild.sizeMaxFighters ~= selectNumber {
+                numberOfFighter = selectNumber - 1
+                print("\(Game.player1.guild.fighters[numberOfFighter])")
+                print("")
+            }
+            else {
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print(" Only used number 1, 2 and 3, please ")
+            }
+        }
     }
     
     

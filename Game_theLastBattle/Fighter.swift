@@ -242,12 +242,6 @@ struct Dwarf: FighterProtocol {
 
 }
 
-// List of weapons of the dwarf
-//let CreateWeaponsOfDwarfList = ["Volcano Slingshot": 25,
-//                                "Hammer Dammer": 30,
-//                                "Ax Kiss of dragon": 35]
-//let AddWeaponOfDwarfList = Dwarf(availableWeaponsOfDwarf: CreateWeaponsOfDwarfList)
-
 
 
 

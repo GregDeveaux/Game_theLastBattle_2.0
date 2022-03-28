@@ -27,7 +27,7 @@ struct Guild {
        
     
     // The guild is composed of 3 fighters
-    var guild: [FighterProtocol] = []
+    var fighters: [FighterProtocol] = []
     
     
     init(sizeMaxFighters: Int) {
@@ -36,13 +36,13 @@ struct Guild {
     
 
     
-    
 
-//    func allCharactersDead() {
-//        if Player.teamOfPlayer.contains({$0.dead == true}) {
-//            return
-//        }
-//    }
+    func allFightersDead() -> Bool {
+        if fighters.contains(where: {$0.dead == true}) {
+            print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")
+        }
+        return true
+    }
 
 }
 

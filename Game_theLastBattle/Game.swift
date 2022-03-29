@@ -125,19 +125,27 @@ class Game {
     
     func goFight() {
         
+        // create shortcut for the way
+        let guildPlayer1 = Game.player1.guild.fighters
+        let guildPlayer2 = Game.player2.guild.fighters
+        
         print("""
+            
             3...
             2...
-            1... FIGHT !
+            1...
+            FIIIIIGHT !
+            
             """)
         
-        while Game.player1.guild.allFightersDead() || Game.player2.guild.allFightersDead() {
+        while Guild.allFightersDead(guild: guildPlayer1) || Guild.allFightersDead(guild: guildPlayer2) {
             round += 1
             print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
-            Game.player1.name  // fonctionne pas ?????
-            Game.player1.chooseTheFighter()
-            Game.player2.name
-            Game.player2.chooseTheFighter()
+//            Game.player1.name  // ne fonctionne pas ?????
+            Game.player1.chooseTheFighter(guildOfPlayer: guildPlayer1)
+            print()
+//            Game.player2.name  // ne fonctionne pas ?????
+            Game.player2.chooseTheFighter(guildOfPlayer: guildPlayer2)
             
             
             if round == 10 { // for test
@@ -155,26 +163,7 @@ class Game {
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
 
-        print("•••  Do you want to play again ?  •••")
-        print("•••  write Y (for Yes) or N (for No)  •••")
-        
-        // Demand to player, if they play a new game
-        if let playAgain = readLine() {
-            repeat {
-
-                switch playAgain {
-                case "y":
-                    print("Play again")
-
-                case "n":
-                    print("Hasta la vista, Baby!")
-                    break
-
-                default:
-                    print("⚠️ Wrong letter, try again! ⚠️ ")
-                }
-            } while playAgain == "y" || playAgain == "n"
-
-        }
+//        Player.selectPlayAgain()
     }
+    
 }

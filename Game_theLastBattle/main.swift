@@ -12,10 +12,9 @@ import Foundation
 // >>> different steps of the game
 // -------------------------------------------------------------------------------------------------------
 
-while true {
-    
-    let game = Game()
+let game = Game()
 
+repeat {
     game.welcomeMessage()
 
     game.createTheGuild()
@@ -26,6 +25,6 @@ while true {
     
     game.gameOver()
     
-}
+} while Player.selectPlayAgain()
 
 

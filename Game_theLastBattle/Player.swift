@@ -22,7 +22,8 @@ class Player {
     
     // Enter the name of the guild
     func EnterTheNameOfGuild(guild numberPlayer: Int) {
-            print("Player \(numberPlayer), enter your team name")
+        print("Player \(numberPlayer), enter your team name")
+        
         repeat {
             if let nameWrites = readLine() {
                 if !nameWrites.isEmpty && nameWrites != Game.player1.name {
@@ -59,7 +60,6 @@ class Player {
                 }
             }
         }
-        
         return name
     }
     
@@ -102,8 +102,8 @@ class Player {
     
     
     // Message for the seclection of fighter
-    
     func messageSelectAgain(_ fightersInGuild: Int) {
+        
         if fightersInGuild == 1 {
             print(MessageCurrentChoice.second.rawValue)
         }
@@ -123,7 +123,6 @@ class Player {
     
     
     // Selection list of characters for the player of an integer between 1 and 3
-        
     func selectFightersForTheGuild() {
         
         var fightersInGuild = 0 // fighters currently in the guild
@@ -187,91 +186,63 @@ class Player {
     }
     
     
-//    func selectMyFighter() {
-//        for fighter in teamOfPlayer.guild {
-//            print("Select your fighter for the round")
-//            print("\(fighter)")
-//            if let selectMyFighter = readLine() {
-//                switch selectMyFighter {
-//                case "1":
-//                    teamOfPlayer.guild[1]
-//                case "2":
-//                    teamOfPlayer.guild[2]
-//                case "3":
-//                    teamOfPlayer.guild[3]
-//                default:
-//                print(" ⚠️ Wrong number, try again! ⚠️ ")
-//                print(" Only used number 1, 2 and 3, please ")
-//                }
-//            }
-//        }
-//    }
-    
-    
     // Select a fighter in a guild
     
-    func chooseTheFighter() {
-        print("Select your fighter")
-        print(Cards.cardWarrior)
+    func chooseTheFighter(guildOfPlayer: [FighterProtocol]) -> FighterProtocol {
+        print("Select the number of your fighter")
         
-        
-        for fighter in Game.player1.guild.fighters {
+        for fighter in guildOfPlayer {
             var num = 1
             print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal,\(fighter.powerAttack) of attack power.")
             num += 1
         }
+        
         var numberOfFighter = 0
-        if let selectNumber = Int(readLine()!) {
-            if 1...guild.sizeMaxFighters ~= selectNumber {
-                numberOfFighter = selectNumber - 1
-                print("\(Game.player1.guild.fighters[numberOfFighter])")
-                print("")
+        let activeFighter = guildOfPlayer[numberOfFighter]
+        
+//        repeat {
+            if let selectNumber = Int(readLine()!) {
+                if 1...guild.sizeMaxFighters ~= selectNumber {
+                    numberOfFighter = selectNumber - 1
+                    print("you have selected your \(activeFighter.currentType) \(activeFighter.name)")
+                    print("")
+                }
+                else {
+                    print(" ⚠️ Wrong number, try again! ⚠️ ")
+                    for numRange in 1...guild.sizeMaxFighters {
+                        print(" Only used number \(numRange), please ")
+                    }
+                }
             }
-            else {
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
-            }
+//        } while numberOfFighter < guild.sizeMaxFighters
+        
+        return activeFighter
+    }
+    
+    
+    static func selectPlayAgain() -> Bool {
+        print("•••  Do you want to play again ?  •••")
+        print("•••  write Y (for Yes) or N (for No)  •••")
+        
+        // Demand to player, if they play a new game
+        if let playAgain = readLine() {
+            repeat {
+
+                switch playAgain {
+                case "y":
+                    print("Play again")
+
+                case "n":
+                    print("Hasta la vista, Baby!")
+                    break
+
+                default:
+                    print("⚠️ Wrong letter, try again! ⚠️ ")
+                }
+            } while playAgain != "y" && playAgain != "n"
         }
+        return true
     }
     
-    
-    
-    
-    // Select a fighter of your team to heal
-    
-    func chooseCharacterToHeal() {
-        
-    }
-    
-   
-    
-    
-    // Select one enemy character for an attack
-    
-    func selectEnemy() {
-        
-    }
-    
-   
-    
-    
-    // Select one companion character for a care
-    
-    func selectCompanion(){
-        
-    }
-    
-    
-    
-    // Count the characters dead in the team if all three is killed, the game is finish
-
-    func countCharactersDead(){
-//            for fighterdead in teamOfPlayer.guild {
-//                if teamOfPlayer.guild.contains(where: {$0.dead == true}){
-//                    
-//                }
-//            }
-    }
-
     
 }

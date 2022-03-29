@@ -15,13 +15,13 @@ import Foundation
 // -----------------------------------------------------------------------------------------------------
 
 protocol FighterProtocol {
-    var currentType:    Kind            { get }       // Either wizard or warrior or dwarf
-    var name:           String          { get set }   // Character name which must be unique and not yet used
-    var lifepoint:      Int             { get set }   // Character lifepoint who is different depending on type
-    var heal:           Int             { get }       // Character heal who is different depending on type
-    var powerAttack:    [String: Int]   { get set }       // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
-    var dead:           Bool            { get }   // Is the character dead?
-    var description:    String          { get }   // Details of the fighter
+    var currentType:    Kind            { get }         // Either wizard or warrior or dwarf
+    var name:           String          { get set }     // Character name which must be unique and not yet used
+    var lifepoint:      Int             { get set }     // Character lifepoint who is different depending on type
+    var heal:           Int             { get }         // Character heal who is different depending on type
+    var powerAttack:    [String: Int]   { get set }     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
+    var dead:           Bool            { get }         // Is the character dead?
+    var description:    String          { get }         // Details of the fighter
 }
 
 extension FighterProtocol {
@@ -29,19 +29,19 @@ extension FighterProtocol {
 
 
 // Remove life of an ennemy
-    func attackTheEnnemy(powerAttackCharacter: Int, lifepointEnnemy: Int) {
+    func attackTheEnnemy(powerAttackFighter: Int, lifepointEnnemy: Int) {
         var lifepointEnnemy = lifepoint
 //        let powerAttackCharacter = powerAttack.flatMap(/.value)
-        lifepointEnnemy -= powerAttackCharacter
+        lifepointEnnemy -= powerAttackFighter
         print("\(name), your \(currentType) attack with \(powerAttack) ")
         print("\(name), your ennemy had \(lifepoint) before the attack, now he has left \(lifepointEnnemy)")
     }
 
 
 // Add life of a companion
-    func healMyFriend(healCharacter: Int, lifepointCompanion: Int) {
-        var lifepointCompanion = lifepoint
+    func healMyCompanion(healCharacter: Int, lifepointCompanion: Int) {
         let healCharacter = heal
+        var lifepointCompanion = lifepoint
         lifepointCompanion += healCharacter
         print("\(name), your \(currentType) attack with \(heal) ")
         print("\(name), your companion had \(lifepoint) before the attack, now he has \(lifepointCompanion)")
@@ -85,14 +85,10 @@ struct Wizard: FighterProtocol {
     var heal:           Int                     // Character heal who is different depending on type
     var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var dead:           Bool    {
-        get {
             lifepoint == 0  // Is the character dead?
-        }
     }
     var description:    String  {
-        get {
             return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
-        }
     }
     
     init() {
@@ -141,14 +137,10 @@ struct Warrior: FighterProtocol {
     var heal:           Int                     // Character heal who is different depending on type
     var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var dead:           Bool    {
-        get {
             lifepoint == 0  // Is the character dead?
-        }
     }
     var description:    String  {
-        get {
             return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
-        }
     }
     
     
@@ -199,14 +191,10 @@ struct Dwarf: FighterProtocol {
     var heal:           Int                     // Character heal who is different depending on type
     var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var dead:           Bool    {
-        get {
             lifepoint == 0  // Is the character dead?
-        }
     }
     var description:    String  {
-        get {
             return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
-        }
     }
     
     

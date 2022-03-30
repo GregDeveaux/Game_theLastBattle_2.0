@@ -37,7 +37,7 @@ struct Guild {
 
     
 
-    static func allFightersDead(guild: [FighterProtocol]) -> Bool {
+    static func allFightersDead(_ guild: [FighterProtocol]) -> Bool {
         if guild.contains(where: {$0.dead == true}) {
             print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")
         }

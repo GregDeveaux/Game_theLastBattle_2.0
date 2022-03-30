@@ -125,10 +125,21 @@ class Game {
     
     func goFight() {
         
-        // create shortcut for the way
-        let guildPlayer1 = Game.player1.guild.fighters
-        let guildPlayer2 = Game.player2.guild.fighters
+        // create shortcut for the way of both guilds
+        let player1 = Game.player1
+        let player2 = Game.player2
+        let inGuildPlayer1 = player1.guild.fighters
+        let inGuildPlayer2 = player2.guild.fighters
         
+        var activeplayer = player1
+        
+//        if player1 {
+//            activeplayer = true
+//        } if else player2 {
+//            activeplayer = false
+//        }
+        
+
         print("""
             
             3...
@@ -138,15 +149,22 @@ class Game {
             
             """)
         
-        while Guild.allFightersDead(guild: guildPlayer1) || Guild.allFightersDead(guild: guildPlayer2) {
-            round += 1
+        // Quit loop when the whole fighters of one guild are dead
+        while Guild.allFightersDead(inGuildPlayer1) || Guild.allFightersDead(inGuildPlayer2) {
+            round += 1 // init round number 1
             print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
-//            Game.player1.name  // ne fonctionne pas ?????
-            Game.player1.chooseTheFighter(guildOfPlayer: guildPlayer1)
-            print()
-//            Game.player2.name  // ne fonctionne pas ?????
-            Game.player2.chooseTheFighter(guildOfPlayer: guildPlayer2)
+            print("""
+                      
+                \(Game.player1.name) selected a fighter in the guild, please
+                """)
+            var inGuild = inGuildPlayer1
             
+            Game.player1.goAttack(attacker: activeplayer, defender: activeplayer)
+
+            Game.player1.chooseTheFighter(inGuild)   // player selects a fighter in his guild
+//            selectAttackOrHeal()
+ 
+//            activeplayer.toogle()
             
             if round == 10 { // for test
                 break
@@ -162,8 +180,6 @@ class Game {
         print("GAME OVER")
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
-
-//        Player.selectPlayAgain()
     }
     
 }

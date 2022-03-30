@@ -17,23 +17,21 @@ import Foundation
 class Player {
     
     var name: String = "" // create the players for dictionary
-    var guild = Guild(sizeMaxFighters: 1)  //  call each team array of player with maximun of 3 fighters
+    var guild = Guild(sizeMaxFighters: 2)  //  call each team array of player with maximun of 3 fighters
+    var fightersInGuild = 0 // fighters currently in the guild
 
     
     // Enter the name of the guild
     func EnterTheNameOfGuild(guild numberPlayer: Int) {
         print("Player \(numberPlayer), enter your team name")
-        
-        repeat {
+        while name.isEmpty {
             if let nameWrites = readLine() {
-                if !nameWrites.isEmpty && nameWrites != Game.player1.name {
+                if !nameWrites.isEmpty && nameWrites.lowercased() != Game.player1.name.lowercased() {
                     name = nameWrites
-                } else {
-                    print("Please, enter the other Guild Name, thanks")
                 }
             }
-        } while name.isEmpty
-        
+            print("Please, enter the other Guild Name, thanks")
+        }
     }
     
     
@@ -101,6 +99,7 @@ class Player {
     }
     
     
+    
     // Message for the seclection of fighter
     func messageSelectAgain(_ fightersInGuild: Int) {
         
@@ -122,61 +121,36 @@ class Player {
     }
     
     
+    
+    // append fighters in the array guild of player
+    func appendInGuild(kind: FighterProtocol) {
+        guild.fighters.append(kind)
+        guild.fighters[fightersInGuild].name = giveNameToFighter()
+        print("""
+        
+        –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+        –––––>          You've selected a \(kind.currentType).
+        –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+        """)
+        fightersInGuild += 1
+        messageSelectAgain(fightersInGuild)
+    }
+    
+    
+    
     // Selection list of characters for the player of an integer between 1 and 3
     func selectFightersForTheGuild() {
-        
-        var fightersInGuild = 0 // fighters currently in the guild
-        
         while fightersInGuild < guild.sizeMaxFighters {
-            
             if let choiceCharacters = readLine(){
                 switch choiceCharacters {
                 case "1" :
-                    guild.fighters.append(guild.wizard)
-                    guild.fighters[fightersInGuild].name = giveNameToFighter()
-
-                    print("""
-                    
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                    –––––>            🧙‍♂️ You've selected a wizard.
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
-                    """)
-                    fightersInGuild += 1
-                    messageSelectAgain(fightersInGuild)
-                    
+                    appendInGuild(kind: guild.wizard)
                 case "2" :
-                    guild.fighters.append(guild.warrior)
-                    guild.fighters[fightersInGuild].name = giveNameToFighter()
-
-                    print("""
-                    
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                    –––––>            🧝 You've selected a warrior.
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-                    
-                    """)
-                    fightersInGuild += 1
-                    messageSelectAgain(fightersInGuild)
-
-
+                    appendInGuild(kind: guild.warrior)
                 case "3" :
-                    guild.fighters.append(guild.dwarf)
-                    guild.fighters[fightersInGuild].name = giveNameToFighter()
-
-                    print("""
-                    
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                    –––––>            🎅 You've selected a dwarf.
-                    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-                    """)
-                    fightersInGuild += 1
-                    messageSelectAgain(fightersInGuild)
-
-
+                    appendInGuild(kind: guild.dwarf)
                 default:
                 print(" ⚠️ Wrong number, try again! ⚠️ ")
                 print(" Only used number 1, 2 and 3, please ")
@@ -186,62 +160,91 @@ class Player {
     }
     
     
-    // Select a fighter in a guild
     
-    func chooseTheFighter(guildOfPlayer: [FighterProtocol]) -> FighterProtocol {
+    // Select a fighter in a guild
+    func chooseTheFighter(_ inGuild: [FighterProtocol]) -> FighterProtocol {
         print("Select the number of your fighter")
-        
-        for fighter in guildOfPlayer {
-            var num = 1
+        var num = 1
+
+        for fighter in inGuild {
             print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal,\(fighter.powerAttack) of attack power.")
             num += 1
         }
         
         var numberOfFighter = 0
-        let activeFighter = guildOfPlayer[numberOfFighter]
+        var activeFighter = inGuild[numberOfFighter]
         
-//        repeat {
+        while numberOfFighter + 1 <= guild.sizeMaxFighters {
             if let selectNumber = Int(readLine()!) {
                 if 1...guild.sizeMaxFighters ~= selectNumber {
                     numberOfFighter = selectNumber - 1
+                    activeFighter = inGuild[numberOfFighter]
                     print("you have selected your \(activeFighter.currentType) \(activeFighter.name)")
                     print("")
-                }
-                else {
-                    print(" ⚠️ Wrong number, try again! ⚠️ ")
-                    for numRange in 1...guild.sizeMaxFighters {
-                        print(" Only used number \(numRange), please ")
+                    return activeFighter
                     }
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                for numRange in 1...guild.sizeMaxFighters {
+                    print(" Only used \(numRange), please ")
                 }
             }
-//        } while numberOfFighter < guild.sizeMaxFighters
-        
+        }
         return activeFighter
     }
+    
+    
+    func selectAttackOrHeal() -> String {
+        let attack = "A"
+        let heal = "H"
+        if let selectedAction = readLine() {
+            switch selectedAction {
+            case "A":
+                print("You have decided to attack")
+                return attack
+            case "H":
+                print("You want heal the companion")
+                return heal
+            default:
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+            }
+        }
+        return ""
+    }
+    
+    func goAttack(attacker: FighterProtocol, defender: FighterProtocol) {
+        attacker = chooseTheFighter(Game.player1.guild.fighters)
+        defender = chooseTheFighter(Game.player1.guild.fighters)
+        attackTheEnnemy(powerAttackFighter: attacker.powerAttack, lifepointEnnemy: defender.lifepoint)
+    }
+    
+    
+    func goHeal(healer: FighterProtocol, hurter: FighterProtocol) {
+        healer = chooseTheFighter(Game.player1.guild.fighters)
+        hurter = chooseTheFighter(Game.player1.guild.fighters)
+        healMyCompanion(healCharacter: healer.heal, lifepointCompanion: hurter.lifepoint)
+    }
+    
     
     
     static func selectPlayAgain() -> Bool {
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
-        // Demand to player, if they play a new game
+        // Ask the players, if they play a new game
         if let playAgain = readLine() {
-            repeat {
-
-                switch playAgain {
-                case "y":
-                    print("Play again")
-
-                case "n":
-                    print("Hasta la vista, Baby!")
-                    break
-
-                default:
-                    print("⚠️ Wrong letter, try again! ⚠️ ")
-                }
-            } while playAgain != "y" && playAgain != "n"
+            switch playAgain {
+            case "y":
+                print("Play again")
+                Game.player1.guild.fighters.removeAll()  // reset the guild player1
+                Game.player2.guild.fighters.removeAll()  // reset the guild player1
+                return true
+            case "n":
+                print("Hasta la vista, Baby!")
+            default:
+                print("⚠️ Wrong letter, try again! ⚠️ ")
+            }
         }
-        return true
+        return false
     }
     
     

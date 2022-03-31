@@ -25,26 +25,25 @@ protocol FighterProtocol {
 }
 
 extension FighterProtocol {
-
-
-
 // Remove life of an ennemy
-    func attackTheEnnemy(powerAttackFighter: Int, lifepointEnnemy: Int) {
+    mutating func attackTheEnnemy(powerAttackFighter: Int, lifepointEnnemy: Int) -> Int {
         var lifepointEnnemy = lifepoint
 //        let powerAttackCharacter = powerAttack.flatMap(/.value)
         lifepointEnnemy -= powerAttackFighter
         print("\(name), your \(currentType) attack with \(powerAttack) ")
         print("\(name), your ennemy had \(lifepoint) before the attack, now he has left \(lifepointEnnemy)")
+        return lifepoint
     }
 
 
 // Add life of a companion
-    func healMyCompanion(healCharacter: Int, lifepointCompanion: Int) {
+    mutating func healMyCompanion(healCharacter: Int, lifepointCompanion: Int) -> Int {
         let healCharacter = heal
         var lifepointCompanion = lifepoint
         lifepointCompanion += healCharacter
         print("\(name), your \(currentType) attack with \(heal) ")
         print("\(name), your companion had \(lifepoint) before the attack, now he has \(lifepointCompanion)")
+        return lifepoint
     }
 
 

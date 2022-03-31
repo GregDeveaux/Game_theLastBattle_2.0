@@ -193,6 +193,22 @@ class Player {
     }
     
     
+    
+    func goAttack(attacker: FighterProtocol, defender: FighterProtocol) {
+        var attacker = chooseTheFighter(<#[FighterProtocol]#>)
+        var defender = chooseTheFighter(<#[FighterProtocol]#>)
+        attackTheEnnemy(powerAttackFighter: attacker.powerAttack, lifepointEnnemy: defender.lifepoint)
+    }
+    
+    
+    func goHeal(healer: FighterProtocol, hurter: FighterProtocol) {
+        let healer = chooseTheFighter(Game.player1.guild.fighters)
+        let hurter = chooseTheFighter(Game.player1.guild.fighters)
+        healMyCompanion(healCharacter: healer.heal, lifepointCompanion: hurter.lifepoint)
+    }
+    
+    
+    
     func selectAttackOrHeal() -> String {
         let attack = "A"
         let heal = "H"
@@ -200,28 +216,15 @@ class Player {
             switch selectedAction {
             case "A":
                 print("You have decided to attack")
-                return attack
+                return goAttack(attacker: FighterProtocol, defender: <#T##FighterProtocol#>)
             case "H":
                 print("You want heal the companion")
-                return heal
+                return goHeal(healer: <#T##FighterProtocol#>, hurter: <#T##FighterProtocol#>)
             default:
                 print(" ⚠️ Wrong number, try again! ⚠️ ")
             }
         }
         return ""
-    }
-    
-    func goAttack(attacker: FighterProtocol, defender: FighterProtocol) {
-        attacker = chooseTheFighter(Game.player1.guild.fighters)
-        defender = chooseTheFighter(Game.player1.guild.fighters)
-        attackTheEnnemy(powerAttackFighter: attacker.powerAttack, lifepointEnnemy: defender.lifepoint)
-    }
-    
-    
-    func goHeal(healer: FighterProtocol, hurter: FighterProtocol) {
-        healer = chooseTheFighter(Game.player1.guild.fighters)
-        hurter = chooseTheFighter(Game.player1.guild.fighters)
-        healMyCompanion(healCharacter: healer.heal, lifepointCompanion: hurter.lifepoint)
     }
     
     

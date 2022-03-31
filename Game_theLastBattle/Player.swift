@@ -194,9 +194,7 @@ class Player {
     
     
     
-    func goAttack(attacker: FighterProtocol, defender: FighterProtocol) {
-        var attacker = chooseTheFighter(<#[FighterProtocol]#>)
-        var defender = chooseTheFighter(<#[FighterProtocol]#>)
+    func goAttack(with attacker: FighterProtocol, on defender: FighterProtocol) {
         attackTheEnnemy(powerAttackFighter: attacker.powerAttack, lifepointEnnemy: defender.lifepoint)
     }
     

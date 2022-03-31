@@ -131,7 +131,6 @@ class Game {
         let inGuildPlayer1 = player1.guild.fighters
         let inGuildPlayer2 = player2.guild.fighters
         
-        var activeplayer = player1
         
 //        if player1 {
 //            activeplayer = true
@@ -157,11 +156,13 @@ class Game {
                       
                 \(Game.player1.name) selected a fighter in the guild, please
                 """)
-            var inGuild = inGuildPlayer1
+            let inGuild = inGuildPlayer1
+            let attacker = Game.player1.chooseTheFighter(inGuild) // player selects a fighter in his guild who attacks
+            let defender = Game.player1.chooseTheFighter(inGuild) // player selects a fighter in opposing guild who suffers damage
+            Game.player1.goAttack(with: attacker, on: defender)   // Action et result of lifepoints of the enemy
             
-            Game.player1.goAttack(attacker: activeplayer, defender: activeplayer)
+//            toggle()
 
-            Game.player1.chooseTheFighter(inGuild)   // player selects a fighter in his guild
 //            selectAttackOrHeal()
  
 //            activeplayer.toogle()

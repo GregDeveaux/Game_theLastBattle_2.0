@@ -61,13 +61,11 @@ class Game {
         
     }
     
-    
-    
     // Creation of 2 players with one name for the team
     static var player1 = Player()
     static var player2 = Player()
     
-    
+   
     
     var round = 0  // number of round in the game
 
@@ -92,9 +90,10 @@ class Game {
     func presentationGuilds() {
         
         print("""
-
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+              
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 •––•––•––––––––––––––––––––––––––––•                SUMMARY                 •––––––––––––––––––––––––––––•––•––•
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
         print("   The guild \(Game.player1.name.uppercased()) is composed of :")
@@ -111,61 +110,47 @@ class Game {
 
         print("""
 
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
 
 
     }
     
-        
     
     // Start the fight with a loop until one whole team dead
     
     func goFight() {
         
-        // create shortcut for the way of both guilds
-        let player1 = Game.player1
-        let player2 = Game.player2
-        let inGuildPlayer1 = player1.guild.fighters
-        let inGuildPlayer2 = player2.guild.fighters
-        
-        
-//        if player1 {
-//            activeplayer = true
-//        } if else player2 {
-//            activeplayer = false
-//        }
+        // create shortcut used to switch player in the round
+        let activePlayer = Game.player1
         
 
         print("""
             
-            3...
-            2...
-            1...
-            FIIIIIGHT !
+            
+              XXXXXX  XX   XX   XXXXXX     XXXXXX  XXXX   XXXXXXX   XX   XX  XXXXXX     XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX    XXXXX
+                XX    XX   XX   XX         XX       XX    XX        XX   XX    XX       XX   XX   XX       XX         XX    XXX  XX   XX
+                XX    XXXXXXX   XXXX       XXXX     XX    XX  XXX   XXXXXXX    XX       XXXXXX    XXXX     XX  XXX    XX    XX X XX    XXXX
+                XX    XX   XX   XX         XX       XX    XX   XX   XX   XX    XX       XX   XX   XX       XX   XX    XX    XX  XXX       XX
+                XX    XX   XX   XXXXXX     XX      XXXX   XXXXXXX   XX   XX    XX       XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX   XXXXX
+
             
             """)
         
         // Quit loop when the whole fighters of one guild are dead
-        while Guild.allFightersDead(inGuildPlayer1) || Guild.allFightersDead(inGuildPlayer2) {
+        while !Game.player1.guild.allFightersDead(Game.player1.guild.fighters) || !Game.player2.guild.allFightersDead(Game.player2.guild.fighters) {
             round += 1 // init round number 1
-            print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
-            print("""
-                      
-                \(Game.player1.name) selected a fighter in the guild, please
-                """)
-            let inGuild = inGuildPlayer1
-            let attacker = Game.player1.chooseTheFighter(inGuild) // player selects a fighter in his guild who attacks
-            let defender = Game.player1.chooseTheFighter(inGuild) // player selects a fighter in opposing guild who suffers damage
-            Game.player1.goAttack(with: attacker, on: defender)   // Action et result of lifepoints of the enemy
+            print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
+            print("")
             
-//            toggle()
+            for _ in 1...2 {
+                activePlayer.selectAttackOrHeal() // the first player begin the round
+                print (Game.player2.guild.fighters[0].lifepoint)
 
-//            selectAttackOrHeal()
- 
-//            activeplayer.toogle()
+                activePlayer.switchPlayers(&Game.player1, &Game.player2) // Next player plays
+            }
             
             if round == 10 { // for test
                 break

@@ -19,43 +19,47 @@ protocol FighterProtocol {
     var name:           String          { get set }     // Character name which must be unique and not yet used
     var lifepoint:      Int             { get set }     // Character lifepoint who is different depending on type
     var heal:           Int             { get }         // Character heal who is different depending on type
-    var powerAttack:    [String: Int]   { get set }     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
-    var dead:           Bool            { get }         // Is the character dead?
+    var weapon:         [Weapon]        { get set }     // Array of weapons for each kind
+    var powerAttack:    Int             { get set }     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String          { get }         // Details of the fighter
 }
 
 extension FighterProtocol {
-// Remove life of an ennemy
-    mutating func attackTheEnnemy(powerAttackFighter: Int, lifepointEnnemy: Int) -> Int {
-        var lifepointEnnemy = lifepoint
-//        let powerAttackCharacter = powerAttack.flatMap(/.value)
-        lifepointEnnemy -= powerAttackFighter
-        print("\(name), your \(currentType) attack with \(powerAttack) ")
-        print("\(name), your ennemy had \(lifepoint) before the attack, now he has left \(lifepointEnnemy)")
-        return lifepoint
+    // If a character has his lifepoint = 0, he's dead
+    func fighterDead() -> Bool {
+        if lifepoint == 0 {
+            print("☠️ ☠️ ☠️ OH NOOO! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
+        }
+        return true
     }
+    
+    
+    // Remove life of an ennemy
+    func loseLife(attacker: FighterProtocol, enemy: inout FighterProtocol) {
+        if enemy.lifepoint > 0 {
+            let beforeLifepointEnnemy = enemy.lifepoint
+                enemy.lifepoint -= attacker.powerAttack
+                print("""
+                      \(attacker.name), your \(attacker.currentType) attack with \(attacker.powerAttack)
+                      Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
+                      
+                      """)
+            }
+        }
 
 
-// Add life of a companion
-    mutating func healMyCompanion(healCharacter: Int, lifepointCompanion: Int) -> Int {
-        let healCharacter = heal
-        var lifepointCompanion = lifepoint
-        lifepointCompanion += healCharacter
-        print("\(name), your \(currentType) attack with \(heal) ")
-        print("\(name), your companion had \(lifepoint) before the attack, now he has \(lifepointCompanion)")
-        return lifepoint
+    // Add life of a companion
+    func winLife(healer: FighterProtocol, companion: inout FighterProtocol) {
+        if companion.lifepoint > 0 {
+            let beforeLifepointCompanion = companion.lifepoint
+            companion.lifepoint += healer.heal
+            print("""
+                  \(healer.name), your \(healer.currentType) heal with \(healer.heal)
+                  \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
+                  
+                  """)
+        }
     }
-
-
-// If a character has his lifepoint = 0, he's dead
-
-//    mutating func characterDead() {
-//        if lifepoint == 0 {
-//            dead = true
-//            print("☠️ ☠️ ☠️ OH NOOO! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
-//        }
-//
-//    }
 
 }
 
@@ -78,14 +82,12 @@ enum Kind: String {
 // -------------------------------------------------------------------------------------------------------
 
 struct Wizard: FighterProtocol {
-    var currentType:    Kind                    // Either wizard or warrior or dwarf
-    var name:           String                  // Character name which must be unique and not yet used
-    var lifepoint:      Int                     // Character lifepoint who is different depending on type
-    var heal:           Int                     // Character heal who is different depending on type
-    var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
-    var dead:           Bool    {
-            lifepoint == 0  // Is the character dead?
-    }
+    var currentType:    Kind        // Either wizard or warrior or dwarf
+    var name:           String      // Character name which must be unique and not yet used
+    var lifepoint:      Int         // Character lifepoint who is different depending on type
+    var heal:           Int         // Character heal who is different depending on type
+    var weapon:         [Weapon]    // Array of weapons for each kind
+    var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
@@ -95,10 +97,11 @@ struct Wizard: FighterProtocol {
         self.name          = "unknown"
         self.lifepoint     = 75
         self.heal          = 25
-        self.powerAttack   = ["Froggy rain": 5]
+        self.weapon         = [Weapon]()
+        self.powerAttack   = 5
     }
     
-    //    var nameWeapon: String // Name of the arm
+    //    var nameWeapon: String // Name of the arm ["Froggy rain": 5]
     //    var powerWeapon: Int // Power of the arm
     //
     //    // Dictionnary of available weapons for the wizard
@@ -130,14 +133,12 @@ struct Wizard: FighterProtocol {
 // -------------------------------------------------------------------------------------------------------
 
 struct Warrior: FighterProtocol {
-    var currentType:    Kind                    // Either wizard or warrior or dwarf
-    var name:           String                  // Character name which must be unique and not yet used
-    var lifepoint:      Int                     // Character lifepoint who is different depending on type
-    var heal:           Int                     // Character heal who is different depending on type
-    var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
-    var dead:           Bool    {
-            lifepoint == 0  // Is the character dead?
-    }
+    var currentType:    Kind        // Either wizard or warrior or dwarf
+    var name:           String      // Character name which must be unique and not yet used
+    var lifepoint:      Int         // Character lifepoint who is different depending on type
+    var heal:           Int         // Character heal who is different depending on type
+    var weapon:         [Weapon]    // Array of weapons for each kind
+    var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
@@ -149,10 +150,11 @@ struct Warrior: FighterProtocol {
         self.name           = ""
         self.lifepoint      = 100
         self.heal           = 10
-        self.powerAttack    = ["Oak stick": 10]
+        self.weapon         = [Weapon]()
+        self.powerAttack    = 10
     }
     
-//    var nameWeapon: String // Name of the arm
+//    var nameWeapon: String // Name of the arm ["Oak stick": 10]
 //    var powerWeapon: Int // Power of the arm
 //
     // Dictionnary of available weapons for the Warrior
@@ -184,14 +186,12 @@ struct Warrior: FighterProtocol {
 // -------------------------------------------------------------------------------------------------------
 
 struct Dwarf: FighterProtocol {
-    var currentType:    Kind                    // Either wizard or warrior or dwarf
-    var name:           String                  // Character name which must be unique and not yet used
-    var lifepoint:      Int                     // Character lifepoint who is different depending on type
-    var heal:           Int                     // Character heal who is different depending on type
-    var powerAttack:    [String: Int] = [:]     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
-    var dead:           Bool    {
-            lifepoint == 0  // Is the character dead?
-    }
+    var currentType:    Kind        // Either wizard or warrior or dwarf
+    var name:           String      // Character name which must be unique and not yet used
+    var lifepoint:      Int         // Character lifepoint who is different depending on type
+    var heal:           Int         // Character heal who is different depending on type
+    var weapon:         [Weapon]    // Array of weapons for each kind
+    var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
@@ -203,13 +203,13 @@ struct Dwarf: FighterProtocol {
         self.name           = ""
         self.lifepoint      = 50
         self.heal           = 5
-        self.powerAttack    = ["Volcano Slingshot": 25]
+        self.weapon         = [Weapon]()
+        self.powerAttack    = 25
     }
     
-//    var nameWeapon: String // Name of the arm
-//    var powerWeapon: Int // Power of the arm
+  
 //
-//    // Dictionnary of available weapons for the dwarf
+//    // Dictionnary of available weapons for the dwarf ["Volcano Slingshot": 25]
 //    var availableWeaponsOfDwarf: [String: Int] = [:]
     
 //    let weaponsDwarf: [String: Int] = ["Volcano Slingshot": 25,
@@ -230,5 +230,9 @@ struct Dwarf: FighterProtocol {
 }
 
 
-
+struct Weapon {
+    var nameWeapon: String // Name of the arm
+    var powerWeapon: Int // Power of the arm
+    
+}
 

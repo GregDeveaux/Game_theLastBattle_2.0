@@ -25,12 +25,14 @@ class Player {
     func EnterTheNameOfGuild(guild numberPlayer: Int) {
         print("Player \(numberPlayer), enter your team name")
         while name.isEmpty {
-            if let nameWrites = readLine() {
-                if !nameWrites.isEmpty && nameWrites.lowercased() != Game.player1.name.lowercased() {
+            if let nameWrites = readLine()?.uppercased() {
+                if !nameWrites.isEmpty && nameWrites != Game.player1.name {
                     name = nameWrites
                 }
+                else {
+                    print("Please, enter the other Guild Name, thanks")
+                }
             }
-            print("Please, enter the other Guild Name, thanks")
         }
     }
     
@@ -50,11 +52,11 @@ class Player {
         var name = ""
         
         while name.isEmpty && name == name {
-            if let nameCharacterWrites = readLine() {
-                if allTheGuilds.contains(where: ({$0.name.lowercased() == nameCharacterWrites.lowercased()})) {  // if the layer write a name already contains in the both team
+            if let nameCharacterWrites = readLine()?.uppercased() {
+                if allTheGuilds.contains(where: ({$0.name == nameCharacterWrites})) {  // if the layer write a name already contains in the both team
                     print("This name is already taken, please enter an other")
                 } else {
-                    name = nameCharacterWrites.uppercased()
+                    name = nameCharacterWrites
                 }
             }
         }
@@ -71,15 +73,14 @@ class Player {
                                    🌑🌑🌑🌑🌑🌒🌓🌔🌕🌕🌕🌕🌕  WELCOME TO THE GUILD "\(name.uppercased())"  🌕🌕🌕🌕🌕🌕🌖🌗🌘🌑🌑🌑🌑🌑
         ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-            You must choose 3 characters in the list (same or different).
+            You have to choose 3 fighters in the list (same or different).
+            For that you select the number corresponding to the type of fighter desired and give him a name:
               
-            Select the number corresponding to the type of character desired and give him a name:
+            \(Wizard().description)
               
-            \(guild.wizard.description)
+            \(Warrior().description)
               
-            \(guild.warrior.description)
-              
-            \(guild.dwarf.description)
+            \(Dwarf().description)
               
         ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
         ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -146,11 +147,11 @@ class Player {
             if let choiceCharacters = readLine(){
                 switch choiceCharacters {
                 case "1" :
-                    appendInGuild(kind: guild.wizard)
+                    appendInGuild(kind: Wizard())
                 case "2" :
-                    appendInGuild(kind: guild.warrior)
+                    appendInGuild(kind: Warrior())
                 case "3" :
-                    appendInGuild(kind: guild.dwarf)
+                    appendInGuild(kind: Dwarf())
                 default:
                 print(" ⚠️ Wrong number, try again! ⚠️ ")
                 print(" Only used number 1, 2 and 3, please ")
@@ -161,13 +162,22 @@ class Player {
     
     
     
+    // The active player is modified
+    func switchPlayers(_ activePlayer: inout Player, _ defenderPlayer: inout Player) {
+        let tmp = activePlayer   // we record a first active player
+        activePlayer = defenderPlayer  // the defender player become the first player
+        defenderPlayer = tmp  // the first player become the defender player
+    }
+    
+
+    
     // Select a fighter in a guild
-    func chooseTheFighter(_ inGuild: [FighterProtocol]) -> FighterProtocol {
-        print("Select the number of your fighter")
+    func chooseTheFighter(_ inGuild: [FighterProtocol], in category: String) -> FighterProtocol {
+        print("Select the number of one of your \(category)")
         var num = 1
 
         for fighter in inGuild {
-            print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal,\(fighter.powerAttack) of attack power.")
+            print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal, \(fighter.powerAttack) of attack power.")
             num += 1
         }
         
@@ -193,37 +203,34 @@ class Player {
     }
     
     
-    
-    func goAttack(with attacker: FighterProtocol, on defender: FighterProtocol) {
-        attackTheEnnemy(powerAttackFighter: attacker.powerAttack, lifepointEnnemy: defender.lifepoint)
-    }
-    
-    
-    func goHeal(healer: FighterProtocol, hurter: FighterProtocol) {
-        let healer = chooseTheFighter(Game.player1.guild.fighters)
-        let hurter = chooseTheFighter(Game.player1.guild.fighters)
-        healMyCompanion(healCharacter: healer.heal, lifepointCompanion: hurter.lifepoint)
-    }
-    
-    
-    
-    func selectAttackOrHeal() -> String {
-        let attack = "A"
-        let heal = "H"
-        if let selectedAction = readLine() {
+    func selectAttackOrHeal() {
+        print("""
+              Guild \(Game.player1.name), you can choose one action in the list:
+              - select A -> to attack the fighter enemy.
+              - select H -> to heal the fighter companion.
+        """)
+        
+        if let selectedAction = readLine()?.uppercased() {
             switch selectedAction {
             case "A":
                 print("You have decided to attack")
-                return goAttack(attacker: FighterProtocol, defender: <#T##FighterProtocol#>)
+                let attacker = chooseTheFighter(Game.player1.guild.fighters, in: "companions") // player selects a fighter in his guild who attacks
+                var enemy = chooseTheFighter(Game.player2.guild.fighters, in: "enemies") // player selects a fighter in opposing guild who suffers damage
+                enemy.loseLife(attacker: attacker, enemy: &enemy)
+                print (enemy.lifepoint)
             case "H":
                 print("You want heal the companion")
-                return goHeal(healer: <#T##FighterProtocol#>, hurter: <#T##FighterProtocol#>)
+                let healer = chooseTheFighter(Game.player1.guild.fighters, in: "companions") // player selects a fighter in his guild who heals his companion
+                var companion = chooseTheFighter(Game.player1.guild.fighters, in: "companions") // player selects a fighter in his guild to heal
+                companion.winLife(healer: healer, companion: &companion)
             default:
                 print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print("select the letter A or H")
             }
         }
-        return ""
     }
+    
+    
     
     
     
@@ -231,22 +238,29 @@ class Player {
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
+        var goNextGame = false
         // Ask the players, if they play a new game
-        if let playAgain = readLine() {
-            switch playAgain {
-            case "y":
-                print("Play again")
-                Game.player1.guild.fighters.removeAll()  // reset the guild player1
-                Game.player2.guild.fighters.removeAll()  // reset the guild player1
-                return true
-            case "n":
-                print("Hasta la vista, Baby!")
-            default:
-                print("⚠️ Wrong letter, try again! ⚠️ ")
+        while !goNextGame {
+            if let playAgain = readLine()?.uppercased() {
+                switch playAgain {
+                case "Y":
+                    print("Play again")
+                    Game.player1.guild.fighters.removeAll()  // reset the guild player1
+                    Game.player2.guild.fighters.removeAll()  // reset the guild player2
+                    goNextGame = true
+                case "N":
+                    print("Hasta la vista, Baby!")
+                    goNextGame = false
+                default:
+                    print("⚠️ Wrong letter, try again! ⚠️ ")
+                    print("select the letter Y or N")
+                    goNextGame = false
+                }
             }
         }
-        return false
+        return true
     }
+        
     
     
 }

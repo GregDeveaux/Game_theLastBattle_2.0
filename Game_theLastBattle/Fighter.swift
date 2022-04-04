@@ -25,41 +25,63 @@ protocol FighterProtocol {
 }
 
 extension FighterProtocol {
-    // If a character has his lifepoint = 0, he's dead
-    func fighterDead() -> Bool {
+    
+    // If a fighter has his lifepoint = 0, he's dead
+    var dead: Bool {
         if lifepoint == 0 {
-            print("☠️ ☠️ ☠️ OH NOOO! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
+            print("☠️ ☠️ ☠️ Oh no! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
+            return true
+        } else {
+            return false
         }
-        return true
     }
+
     
     
     // Remove life of an ennemy
-    func loseLife(attacker: FighterProtocol, enemy: inout FighterProtocol) {
-        if enemy.lifepoint > 0 {
-            let beforeLifepointEnnemy = enemy.lifepoint
-                enemy.lifepoint -= attacker.powerAttack
-                print("""
-                      \(attacker.name), your \(attacker.currentType) attack with \(attacker.powerAttack)
-                      Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
-                      
-                      """)
-            }
+    func loseLife(from attacker: FighterProtocol, to enemy: inout FighterProtocol) {
+        let beforeLifepointEnnemy = enemy.lifepoint
+        enemy.lifepoint -= attacker.powerAttack
+        
+        if enemy.lifepoint < 0 {
+            enemy.lifepoint = 0
         }
+        
+        print("""
+              \(attacker.name), your \(attacker.currentType) attack with \(attacker.powerAttack)
+              Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
+              
+              """)
+    }
 
 
     // Add life of a companion
-    func winLife(healer: FighterProtocol, companion: inout FighterProtocol) {
-        if companion.lifepoint > 0 {
-            let beforeLifepointCompanion = companion.lifepoint
-            companion.lifepoint += healer.heal
-            print("""
-                  \(healer.name), your \(healer.currentType) heal with \(healer.heal)
-                  \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
-                  
-                  """)
+    func winLife(from healer: FighterProtocol, to companion: inout FighterProtocol) {
+        let beforeLifepointCompanion = companion.lifepoint
+        companion.lifepoint += healer.heal
+
+        if companion.currentType == .wizard {
+            if companion.lifepoint >= Wizard().lifepoint {
+                companion.lifepoint = Wizard().lifepoint
+            }
         }
-    }
+        else if companion.currentType == .warrior {
+            if companion.lifepoint >= Warrior().lifepoint {
+                companion.lifepoint = Warrior().lifepoint
+            }
+        }
+        else if companion.currentType == .dwarf {
+            if companion.lifepoint >= Dwarf().lifepoint {
+                companion.lifepoint = Dwarf().lifepoint
+            }
+        }
+        
+        print("""
+              \(healer.name), your \(healer.currentType) heal with \(healer.heal)
+              \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
+              
+              """)
+        }
 
 }
 
@@ -93,11 +115,11 @@ struct Wizard: FighterProtocol {
     }
     
     init() {
-        self.currentType    = .wizard
+        self.currentType   = .wizard
         self.name          = "unknown"
         self.lifepoint     = 75
         self.heal          = 25
-        self.weapon         = [Weapon]()
+        self.weapon        = [Weapon]()
         self.powerAttack   = 5
     }
     
@@ -158,7 +180,7 @@ struct Warrior: FighterProtocol {
 //    var powerWeapon: Int // Power of the arm
 //
     // Dictionnary of available weapons for the Warrior
-    var availableWeaponsOfWarrior: [String: Int] = [:]
+//    var availableWeaponsOfWarrior: [String: Int] = [:]
     
 
     
@@ -204,7 +226,7 @@ struct Dwarf: FighterProtocol {
         self.lifepoint      = 50
         self.heal           = 5
         self.weapon         = [Weapon]()
-        self.powerAttack    = 25
+        self.powerAttack    = 75
     }
     
   

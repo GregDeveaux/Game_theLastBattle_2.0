@@ -61,13 +61,11 @@ class Game {
         
     }
     
-    
-    
     // Creation of 2 players with one name for the team
     static var player1 = Player()
     static var player2 = Player()
     
-    
+   
     
     var round = 0  // number of round in the game
 
@@ -92,50 +90,67 @@ class Game {
     func presentationGuilds() {
         
         print("""
-
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+              
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 •––•––•––––––––––––––––––––––––––––•                SUMMARY                 •––––––––––––––––––––––––––––•––•––•
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
         print("   The guild \(Game.player1.name.uppercased()) is composed of :")
-        Game.player1.teamOfPlayer.guild.forEach {
+        Game.player1.guild.fighters.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
         print("")
         print("   The guild \(Game.player2.name.uppercased()) is composed of :")
-        Game.player2.teamOfPlayer.guild.forEach {
+        Game.player2.guild.fighters.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
         }
         
 
         print("""
 
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
 
 
     }
     
-        
     
     // Start the fight with a loop until one whole team dead
     
     func goFight() {
         
+        // create shortcut used to switch player in the round
+        let activePlayer = Game.player1
+        
+
         print("""
-            3...
-            2...
-            1... FIGHT !
+            
+            
+              XXXXXX  XX   XX   XXXXXX     XXXXXX  XXXX   XXXXXXX   XX   XX  XXXXXX     XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX    XXXXX
+                XX    XX   XX   XX         XX       XX    XX        XX   XX    XX       XX   XX   XX       XX         XX    XXX  XX   XX
+                XX    XXXXXXX   XXXX       XXXX     XX    XX  XXX   XXXXXXX    XX       XXXXXX    XXXX     XX  XXX    XX    XX X XX    XXXX
+                XX    XX   XX   XX         XX       XX    XX   XX   XX   XX    XX       XX   XX   XX       XX   XX    XX    XX  XXX       XX
+                XX    XX   XX   XXXXXX     XX      XXXX   XXXXXXX   XX   XX    XX       XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX   XXXXX
+
+            
             """)
         
-        while true {
-//            Game.player1.selectMyFighter(player1: true)
-            round += 1
-            print("||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||")
+        // Quit loop when the whole fighters of one guild are dead
+        while !Game.player1.guild.allFightersDead(Game.player1.guild.fighters) || !Game.player2.guild.allFightersDead(Game.player2.guild.fighters) {
+            round += 1 // init round number 1
+            print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
+            print("")
             
+            for _ in 1...2 {
+                activePlayer.selectAttackOrHeal() // the first player begin the round
+                print (Game.player2.guild.fighters[0].lifepoint)
+
+                activePlayer.switchPlayers(&Game.player1, &Game.player2) // Next player plays
+            }
             
             if round == 10 { // for test
                 break
@@ -151,27 +166,6 @@ class Game {
         print("GAME OVER")
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
-
-        print("•••  Do you want to play again ?  •••")
-        print("•••  write Y (for Yes) or N (for No)  •••")
-        
-        // Demand to player, if they play a new game
-        if let playAgain = readLine() {
-            repeat {
-
-                switch playAgain {
-                case "y":
-                    print("Play again")
-
-                case "n":
-                    print("Hasta la vista, Baby!")
-                    break
-
-                default:
-                    print("⚠️ Wrong letter, try again! ⚠️ ")
-                }
-            } while playAgain == "y" || playAgain == "n"
-
-        }
     }
+    
 }

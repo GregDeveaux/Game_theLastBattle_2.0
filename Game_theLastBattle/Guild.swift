@@ -8,9 +8,6 @@
 import Foundation
 
 
-
-
-
 // -----------------------------------------------------------------------------------------------------
 // MARK: Struct Team
 // >>> Creation of a team of 3 fighters
@@ -18,31 +15,27 @@ import Foundation
 
 struct Guild {
     
-    var sizeMaxFighters: Int // number of fighters maximum for each team
-    
-    // Kind available to assign to the 3 team fighters
-    var wizard = Wizard()
-    var warrior = Warrior()
-    var dwarf = Dwarf()
-       
-    
-    // The guild is composed of 3 fighters
-    var guild: [FighterProtocol] = []
-    
+    var sizeMaxFighters: Int                // number of fighters maximum for each team
+    var fighters: [FighterProtocol] = []    // The guild is composed of 3 fighters
     
     init(sizeMaxFighters: Int) {
         self.sizeMaxFighters = sizeMaxFighters
     }
     
 
+    func allFightersDead(_ guild: [FighterProtocol]) -> Bool {
+        var totalDead = 0
+        while totalDead != sizeMaxFighters {
+            for fighter in guild {
+                if fighter.fighterDead() {
+                    totalDead += 1
+                }
+            }
+            return false
+        }
+        print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")
+        return true
+    }
     
-    
-
-//    func allCharactersDead() {
-//        if Player.teamOfPlayer.contains({$0.dead == true}) {
-//            return
-//        }
-//    }
-
 }
 

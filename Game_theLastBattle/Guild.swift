@@ -23,11 +23,12 @@ struct Guild {
     }
     
 
-    func allFightersDead(_ guild: [FighterProtocol]) -> Bool {
+    func allFightersDead() -> Bool {
         var totalDead = 0
         while totalDead != sizeMaxFighters {
-            for fighter in guild {
-                if fighter.fighterDead() {
+//            let deadFighter = inGuild.contains(where: {$0.dead == true})
+            for fighter in fighters {
+                if fighter.dead {
                     totalDead += 1
                 }
             }

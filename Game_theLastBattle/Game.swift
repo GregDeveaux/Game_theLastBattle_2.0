@@ -130,29 +130,38 @@ class Game {
         print("""
             
             
-              XXXXXX  XX   XX   XXXXXX     XXXXXX  XXXX   XXXXXXX   XX   XX  XXXXXX     XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX    XXXXX
-                XX    XX   XX   XX         XX       XX    XX        XX   XX    XX       XX   XX   XX       XX         XX    XXX  XX   XX
-                XX    XXXXXXX   XXXX       XXXX     XX    XX  XXX   XXXXXXX    XX       XXXXXX    XXXX     XX  XXX    XX    XX X XX    XXXX
-                XX    XX   XX   XX         XX       XX    XX   XX   XX   XX    XX       XX   XX   XX       XX   XX    XX    XX  XXX       XX
-                XX    XX   XX   XXXXXX     XX      XXXX   XXXXXXX   XX   XX    XX       XXXXXX    XXXXXX   XXXXXXX   XXXX   XX   XX   XXXXX
+              XXXXXX  XX   XX  XXXXXX     XXXXXX  XXXX  XXXXXXX  XX   XX  XXXXXX     XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX   XXXXX
+                XX    XX   XX  XX         XX       XX   XX       XX   XX    XX       XX   XX  XX      XX        XX   XXX  XX  XX
+                XX    XXXXXXX  XXXX       XXXX     XX   XX  XXX  XXXXXXX    XX       XXXXXX   XXXX    XX  XXX   XX   XX X XX   XXXX
+                XX    XX   XX  XX         XX       XX   XX   XX  XX   XX    XX       XX   XX  XX      XX   XX   XX   XX  XXX      XX
+                XX    XX   XX  XXXXXX     XX      XXXX  XXXXXXX  XX   XX    XX       XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX  XXXXX
 
             
             """)
         
         // Quit loop when the whole fighters of one guild are dead
-        while !Game.player1.guild.allFightersDead(Game.player1.guild.fighters) || !Game.player2.guild.allFightersDead(Game.player2.guild.fighters) {
+        while true {
+            
             round += 1 // init round number 1
             print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
             print("")
             
-            for _ in 1...2 {
-                activePlayer.selectAttackOrHeal() // the first player begin the round
-                print (Game.player2.guild.fighters[0].lifepoint)
+            for _ in 1...2 {                                                // create loop to play the 2 players
+                activePlayer.selectAttackOrHeal()                           // the first player begin the round
 
-                activePlayer.switchPlayers(&Game.player1, &Game.player2) // Next player plays
+                activePlayer.switchPlayers(&Game.player1, &Game.player2)    // Next player plays
             }
             
-            if round == 10 { // for test
+            if Game.player1.guild.allFightersDead() {
+                print("\(Game.player2.name) wins the game")
+                      break
+            }
+            else if Game.player2.guild.allFightersDead() {
+                print("\(Game.player1.name) wins the game")
+                      break
+                      }
+            
+            if round == 5 { // for test
                 break
             }
         }
@@ -163,7 +172,17 @@ class Game {
     // Stop fight, declare the winner and present the result of fight
     
     func gameOver() {
-        print("GAME OVER")
+        print("""
+            
+            
+              XXXXXXX    XXX    XX   XX  XXXXXX      XXXXX   XX     XX  XXXXX    XXXXXX
+              XX       XX   XX  XXX XXX  XX         XX   XX  XX     XX  XX       XX   XX
+              XX  XXX  XXXXXXX  XX X XX  XXXX       XX   XX   XX   XX   XXXX     XXXXXX
+              XX   XX  XX   XX  XX   XX  XX         XX   XX    XX XX    XX       XX  XX
+              XXXXXXX  XX   XX  XX   XX  XXXXXX      XXXXX      XXX     XXXXXXX  XX   XX
+
+            
+            """)
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
     }

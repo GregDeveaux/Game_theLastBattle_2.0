@@ -17,7 +17,7 @@ let startGame = Game()
 repeat {
     startGame.welcomeMessage()
 
-    startGame.createTheGuild()
+    startGame.createTheGuilds()
     
     startGame.presentationGuilds()
     

@@ -74,7 +74,7 @@ class Game {
     
     // Creation of the Guild of each player
     
-    func createTheGuild() {
+    func createTheGuilds() {
         Game.player1.EnterTheNameOfGuild(guild: 1)
         Game.player1.messageCreateGuild()
         Game.player1.selectFightersForTheGuild()
@@ -88,7 +88,6 @@ class Game {
     // Call the informations from different teams for present at players
     
     func presentationGuilds() {
-        
         print("""
               
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
@@ -98,13 +97,13 @@ class Game {
               """)
         print("   The guild \(Game.player1.name.uppercased()) is composed of :")
         Game.player1.guild.fighters.forEach {
-            print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
+            print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
         
         print("")
         print("   The guild \(Game.player2.name.uppercased()) is composed of :")
         Game.player2.guild.fighters.forEach {
-            print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal,\($0.powerAttack) of attack power.")
+            print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
         
 
@@ -146,27 +145,25 @@ class Game {
             print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
             print("")
             
-            for _ in 1...2 {                                                // create loop to play the 2 players
-                activePlayer.selectAttackOrHeal()                           // the first player begin the round
-
-                activePlayer.switchPlayers(&Game.player1, &Game.player2)    // Next player plays
+            for _ in 1...2 {                                                                                    // create loop to play the 2 players
+                activePlayer.selectAttackOrHeal()                                                               // the first player begin the round
+                activePlayer.switchPlayers(&Game.player1, &Game.player2)                                        // Next player plays
             }
             
-            if Game.player1.guild.allFightersDead() {
-                print("\(Game.player2.name) wins the game")
-                      break
+            if Game.player1.guild.allFightersDead() {                         // we verify that all the fighters are dead in the guild of player 1
+                print("\(Game.player2.name) wins the game")                                                     // if that the case, Player 2 wins the game
+                break                                                                                           // we exit of loop
             }
-            else if Game.player2.guild.allFightersDead() {
-                print("\(Game.player1.name) wins the game")
-                      break
-                      }
+            else if Game.player2.guild.allFightersDead() {                    // we verify that all the fighters are dead in the guild of player 2
+                print("\(Game.player1.name) wins the game")                                                     // if that the case, Player 1 wins the game
+                break                                                                                           // we exit of loop
+            }
             
             if round == 5 { // for test
                 break
             }
         }
-        
-        }
+    }
     
     
     // Stop fight, declare the winner and present the result of fight
@@ -183,6 +180,7 @@ class Game {
 
             
             """)
+        // summary of the round
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
     }

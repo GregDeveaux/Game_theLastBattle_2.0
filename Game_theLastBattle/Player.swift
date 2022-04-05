@@ -173,33 +173,33 @@ class Player {
     
     // Select a fighter in a guild
     func chooseTheFighter(_ inGuild: [FighterProtocol], in category: String) -> Int {
-        print("Select the number of one of your \(category)")
+        print("Guild \(Game.player1.name), Select the number of one of your \(category)")
         var num = 1
         var numberOfFighter = 0
         let activeFighter = inGuild[numberOfFighter]
-        var notPossibleSelection = false
+        var isDead = false
         
         for fighter in inGuild {
             if fighter.dead == false {
-                print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal, \(fighter.powerAttack) of attack power.")
+                print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and \(fighter.powerAttack) of attack power.")
             } else {
                 print("   \(num) • ☠️ ☠️ ☠️ \(fighter.name) your \(fighter.currentType) not have surviving ☠️ ☠️ ☠️")
             }
             num += 1
         }
         
-        while numberOfFighter + 1 <= guild.sizeMaxFighters && !notPossibleSelection  {
+        while numberOfFighter + 1 <= guild.sizeMaxFighters && !isDead {
             if let selectNumber = Int(readLine()!) {
                 if 1...guild.sizeMaxFighters ~= selectNumber {
                     numberOfFighter = selectNumber - 1
                     print("you have selected your \(activeFighter.currentType) \(activeFighter.name)")
                     print("")
-                    notPossibleSelection = true
+                    isDead = false
                     return numberOfFighter
                  }
-                else if !activeFighter.dead == false {
+                else if activeFighter.dead {
                     print(" this fighter is dead! Please, choose the another")
-                    notPossibleSelection = false
+                    isDead = true
                 }
                 print(" ⚠️ Wrong number, try again! ⚠️ ")
                 for numRange in 1...guild.sizeMaxFighters {
@@ -235,7 +235,14 @@ class Player {
             case "H":
                 print("You want heal the companion")
                 let numberOfHealer = chooseTheFighter(Game.player1.guild.fighters, in: "companions")         // we recover the number of healer fighter in the list
-                let numberOfCompanion = chooseTheFighter(Game.player1.guild.fighters, in: "companions")      // we recover the number of companion fighter in the list
+                var numberOfCompanion = chooseTheFighter(Game.player1.guild.fighters, in: "companions")      // we recover the number of companion fighter in the list
+                
+                while numberOfHealer == numberOfCompanion {                                                     // The healer cannot choose as hurt fighter
+                    print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
+                    print("")
+                    numberOfCompanion = chooseTheFighter(Game.player1.guild.fighters, in: "companions")      // we recover the number of companion fighter in the list
+                }
+                
                 let healer = Game.player1.guild.fighters[numberOfHealer]                                     // we give at healer his indice
                 var companion = Game.player1.guild.fighters[numberOfCompanion]                               // we give at hurt companion his indice
                     
@@ -244,7 +251,7 @@ class Player {
                 print (companion.lifepoint)
 
             default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print(" ⚠️ Wrong letter, try again! ⚠️ ")
                 print("select the letter A or H")
             }
         }
@@ -267,6 +274,8 @@ class Player {
                     print("Play again")
                     Game.player1.guild.fighters.removeAll(keepingCapacity: true)  // reset the guild player1
                     Game.player2.guild.fighters.removeAll(keepingCapacity: true)  // reset the guild player2
+                    Game.player1.name = ""
+                    Game.player2.name = ""
                     goNextGame = true
                 case "N":
                     print("Hasta la vista, Baby!")

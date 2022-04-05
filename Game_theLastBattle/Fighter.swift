@@ -29,15 +29,19 @@ extension FighterProtocol {
     // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
         if lifepoint == 0 {
-            print("☠️ ☠️ ☠️ Oh no! \(name) your \(currentType) not have surviving ☠️ ☠️ ☠️")
+            print("☠️ Oh no! \(name) your \(currentType) not have surviving ☠️")
             return true
-        } else {
-            return false
         }
+        return false
     }
 
-    
-    
+//    var totalDamage: Int {   // we collect damage inflicted on the enemy
+//    }
+//
+//    var totalHeal: Int  {   // we collect lifepoint data of the team
+//        totalHeal += lifepoint
+//    }
+
     // Remove life of an ennemy
     func loseLife(from attacker: FighterProtocol, to enemy: inout FighterProtocol) {
         let beforeLifepointEnnemy = enemy.lifepoint
@@ -82,6 +86,7 @@ extension FighterProtocol {
               
               """)
         }
+    
 
 }
 

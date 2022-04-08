@@ -28,66 +28,30 @@ extension FighterProtocol {
     
     // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
-        if lifepoint == 0 {
-            print("☠️ Oh no! \(name) your \(currentType) not have surviving ☠️")
-            return true
-        }
-        return false
+        lifepoint == 0
+//            print("☠️ Oh no! \(name) your \(currentType) not have surviving ☠️")
     }
-
-//    var totalDamage: Int {   // we collect damage inflicted on the enemy
-//    }
-//
-//    var totalHeal: Int  {   // we collect lifepoint data of the team
-//        totalHeal += lifepoint
-//    }
-
-    // Remove life of an ennemy
-    func loseLife(from attacker: FighterProtocol, to enemy: inout FighterProtocol) {
-        let beforeLifepointEnnemy = enemy.lifepoint
-        enemy.lifepoint -= attacker.powerAttack
-        
-        if enemy.lifepoint < 0 {
-            enemy.lifepoint = 0
-        }
-        
-        print("""
-              \(attacker.name), your \(attacker.currentType) attack with \(attacker.powerAttack)
-              Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
-              
-              """)
-    }
-
-
-    // Add life of a companion
-    func winLife(from healer: FighterProtocol, to companion: inout FighterProtocol) {
-        let beforeLifepointCompanion = companion.lifepoint
-        companion.lifepoint += healer.heal
-
-        if companion.currentType == .wizard {
-            if companion.lifepoint >= Wizard().lifepoint {
-                companion.lifepoint = Wizard().lifepoint
-            }
-        }
-        else if companion.currentType == .warrior {
-            if companion.lifepoint >= Warrior().lifepoint {
-                companion.lifepoint = Warrior().lifepoint
-            }
-        }
-        else if companion.currentType == .dwarf {
-            if companion.lifepoint >= Dwarf().lifepoint {
-                companion.lifepoint = Dwarf().lifepoint
-            }
-        }
-        
-        print("""
-              \(healer.name), your \(healer.currentType) heal with \(healer.heal)
-              \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
-              
-              """)
-        }
     
-
+    
+    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+    mutating func giveNameToFighter() -> String {
+//        let fightersGuildPlayer1And2 = guildPlayer1 + guildPlayer2
+        // Text for name request
+        print("Give him a name!")
+        
+        // call an empty variable for the integration of the fighter name
+        while name.isEmpty && name == name {
+            if let nameCharacterWrites = readLine()?.uppercased() {
+//                if fightersGuildPlayer1And2.contains(where: ({$0.name == nameCharacterWrites})) {  // if the layer write a name already contains in the both team
+//                    print("This name is already taken, please enter an other")
+//                } else {
+                    name = nameCharacterWrites
+//                }
+            }
+        }
+        return name
+    }
+    
 }
 
 
@@ -119,6 +83,7 @@ struct Wizard: FighterProtocol {
             return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
     
+        
     init() {
         self.currentType   = .wizard
         self.name          = "unknown"
@@ -169,7 +134,6 @@ struct Warrior: FighterProtocol {
     var description:    String  {
             return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
-    
     
     // The different elements that make up the character are initialized
     init() {

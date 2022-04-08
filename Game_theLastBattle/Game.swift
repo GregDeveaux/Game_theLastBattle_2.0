@@ -106,7 +106,7 @@ class Game {
     
     
     
-    func summaryKindInGuild(_ player: Player) {
+    func summaryKindInGuild(of player: Player) {
     print("""
           
           Kudos!
@@ -126,11 +126,11 @@ class Game {
         player1.EnterTheNameOfGuild(guildPlayer: 1, nameDifferent: player2)
         messageForCreateGuild(of: player1)
         player1.guild.selectFighters()
-        summaryKindInGuild(player1)
+        summaryKindInGuild(of: player1)
         player2.EnterTheNameOfGuild(guildPlayer: 2, nameDifferent: player1)
         messageForCreateGuild(of: player2)
-        player1.guild.selectFighters()
-        summaryKindInGuild(player2)
+        player2.guild.selectFighters()
+        summaryKindInGuild(of: player2)
     }
     
 
@@ -171,7 +171,7 @@ class Game {
     
     
     
-    func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) {
+    func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) /* -> (totalDamages: Int, totalHeals: Int)*/ {
 
         print("""
               Guild \(activePlayer.name), you can choose one action in the list:
@@ -197,8 +197,9 @@ class Game {
                 
                 enemy.lifepoint -= attacker.powerAttack                                                                 // the enemy lose the lifepoint because of the weapon power
                 
-                if enemy.lifepoint < 0 {
+                if enemy.lifepoint <= 0 {
                     enemy.lifepoint = 0
+                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
                 }
                 
                 inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint                                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
@@ -209,6 +210,8 @@ class Game {
                       
                       """)
                 print (enemy.lifepoint)
+                
+//                return totalDamages
                 
             case "H":
                 print("You want heal the companion")
@@ -257,12 +260,15 @@ class Game {
                 
                 activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint                       // we save the remaining lifepoint of chosen fighter in the guild of active player
                 print (companion.lifepoint)
+                
+//                return totalHeals
 
             default:
                 print(" ⚠️ Wrong letter, try again! ⚠️ ")
                 print("select the letter A or H")
             }
         }
+//        return (totalDamages, totalHeals)
     }
     
     
@@ -296,6 +302,7 @@ class Game {
             if player1.guild.allFightersDead() {
                 print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                          // we verify that all the fighters are dead in the guild of player 1
                 print("\(player2.name) wins the game")                                  // if that the case, Player 2 wins the game
+                print()
                 break                                                                   // we exit of loop
             }
             else if player2.guild.allFightersDead() {

@@ -74,7 +74,6 @@ class Guild {
     
     // append fighters in the array guild of player
     func appendInGuild(kind: FighterProtocol) {
-        
         fighters.append(kind)
         fighters[fightersInGuild].name = fighters[fightersInGuild].giveNameToFighter()
         print("""
@@ -95,8 +94,8 @@ class Guild {
         print("Guild \(player.name), Select the number of one of \(category)")
         var num = 1
         var numberOfFighter = 0
-        let selectFighter = fighters[numberOfFighter]
-        var isDead = false
+        let selectFighter = player.guild.fighters[numberOfFighter]
+        var isDead = selectFighter.dead
         
         for fighter in fighters {
             if fighter.dead == false {

@@ -29,24 +29,26 @@ extension FighterProtocol {
     // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
         lifepoint == 0
-//            print("☠️ Oh no! \(name) your \(currentType) not have surviving ☠️")
     }
     
     
     // function allowing to give a name to a fighter and who verifies if the name doesn't exist
     mutating func giveNameToFighter() -> String {
-//        let fightersGuildPlayer1And2 = guildPlayer1 + guildPlayer2
+        var nameOfFightersOfAllGuild: [String] = []    // we create an array that will contain the names of all the fighters
+        
         // Text for name request
         print("Give him a name!")
         
         // call an empty variable for the integration of the fighter name
-        while name.isEmpty && name == name {
+        while name.isEmpty {
             if let nameCharacterWrites = readLine()?.uppercased() {
-//                if fightersGuildPlayer1And2.contains(where: ({$0.name == nameCharacterWrites})) {  // if the layer write a name already contains in the both team
-//                    print("This name is already taken, please enter an other")
-//                } else {
+                if nameOfFightersOfAllGuild.contains(nameCharacterWrites) {  // if the layer write a name already contains in the both team
+                    print("This name is already taken, please enter an other")
+                    name = ""
+                } else {
                     name = nameCharacterWrites
-//                }
+                    nameOfFightersOfAllGuild.append(name)
+                }
             }
         }
         return name
@@ -86,7 +88,7 @@ struct Wizard: FighterProtocol {
         
     init() {
         self.currentType   = .wizard
-        self.name          = "unknown"
+        self.name          = ""
         self.lifepoint     = 75
         self.heal          = 25
         self.weapon        = [Weapon]()

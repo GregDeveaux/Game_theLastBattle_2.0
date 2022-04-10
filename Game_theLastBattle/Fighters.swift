@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 // -----------------------------------------------------------------------------------------------------
 // MARK: Protocol FighterProtocol
 // >>> General characteristics of fighter to join the team
@@ -19,7 +18,8 @@ protocol FighterProtocol {
     var name:           String          { get set }     // Character name which must be unique and not yet used
     var lifepoint:      Int             { get set }     // Character lifepoint who is different depending on type
     var heal:           Int             { get }         // Character heal who is different depending on type
-    var weapon:         [Weapon]        { get set }     // Array of weapons for each kind
+    var weapons:        [Weapon]        { get set }     // Array of weapons for each kind
+    var nameWeapon:     String          { get set }     // Name of the weapon used
     var powerAttack:    Int             { get set }     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String          { get }         // Details of the fighter
 }
@@ -28,26 +28,23 @@ extension FighterProtocol {
     
     // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
-        lifepoint == 0
+        lifepoint <= 0
     }
     
     
     // function allowing to give a name to a fighter and who verifies if the name doesn't exist
-    mutating func giveNameToFighter() -> String {
-        var nameOfFightersOfAllGuild: [String] = []    // we create an array that will contain the names of all the fighters
-        
+    mutating func giveNameToFighter(different otherFighters: [FighterProtocol]) -> String {
         // Text for name request
         print("Give him a name!")
         
         // call an empty variable for the integration of the fighter name
         while name.isEmpty {
             if let nameCharacterWrites = readLine()?.uppercased() {
-                if nameOfFightersOfAllGuild.contains(nameCharacterWrites) {  // if the layer write a name already contains in the both team
-                    print("This name is already taken, please enter an other")
+                if otherFighters.contains(where: ({$0.name == nameCharacterWrites})) {  // if the layer write a name already contains in the both team
+                    print("⚠️ This name is already taken, please enter an other ⚠️")
                     name = ""
                 } else {
                     name = nameCharacterWrites
-                    nameOfFightersOfAllGuild.append(name)
                 }
             }
         }
@@ -64,7 +61,9 @@ extension FighterProtocol {
 // -------------------------------------------------------------------------------------------------------
 
 enum Kind: String {
-    case wizard, warrior, dwarf
+    case wizard
+    case warrior
+    case dwarf
 }
 
 
@@ -79,44 +78,29 @@ struct Wizard: FighterProtocol {
     var name:           String      // Character name which must be unique and not yet used
     var lifepoint:      Int         // Character lifepoint who is different depending on type
     var heal:           Int         // Character heal who is different depending on type
-    var weapon:         [Weapon]    // Array of weapons for each kind
+    var weapons:        [Weapon]    // Weapons for each kind
+    var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
     
+    // add 3 specific weapons for the wizards
+    var rain = Weapon(nameWeapon: "Froggy rain", powerWeapon: 5, numberUse: 50)
+    var staff = Weapon(nameWeapon: "Staff of power", powerWeapon: 15, numberUse: 3)
+    var fireBall = Weapon(nameWeapon: "Fire ball", powerWeapon: 25, numberUse: 1)
         
     init() {
         self.currentType   = .wizard
         self.name          = ""
         self.lifepoint     = 75
         self.heal          = 25
-        self.weapon        = [Weapon]()
-        self.powerAttack   = 5
+        self.weapons       = [rain, staff, fireBall]
+        self.nameWeapon     = weapons[0].nameWeapon
+        self.powerAttack    = weapons[0].powerWeapon
     }
     
-    //    var nameWeapon: String // Name of the arm ["Froggy rain": 5]
-    //    var powerWeapon: Int // Power of the arm
-    //
-    //    // Dictionnary of available weapons for the wizard
-    //    var availableWeaponsOfWizard: [String: Int] = [:]
-    //
-    //    init(availableWeaponsOfWizard: [String: Int]) {
-    //        for weapon in availableWeaponsOfWizard {
-    //            self.nameWeapon = weapon.key
-    //            self.powerWeapon = weapon.value
-    //        }
-    //
-    //    }
-
-// List of weapons of the wizard
-//let CreateWeaponsOfWizardList = ["Froggy rain": 5,
-//                                 "Staff of power" : 10,
-//                                 "Fire ball": 15]
-//let AddWeaponsOfWizardList = Wizard(availableWeaponsOfWizard: CreateWeaponsOfWizardList)
-    
-//    characterDead()
-    
+  
 }
 
 
@@ -131,11 +115,17 @@ struct Warrior: FighterProtocol {
     var name:           String      // Character name which must be unique and not yet used
     var lifepoint:      Int         // Character lifepoint who is different depending on type
     var heal:           Int         // Character heal who is different depending on type
-    var weapon:         [Weapon]    // Array of weapons for each kind
+    var weapons:        [Weapon]    // Weapons for each kind
+    var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
+    
+    // add 3 specific weapons for the warriors
+    var oak = Weapon(nameWeapon: "Oak stick", powerWeapon: 10, numberUse: 50)
+    var shuriken = Weapon(nameWeapon: "Shuriken", powerWeapon: 20, numberUse: 3)
+    var sword = Weapon(nameWeapon: "Sword — Thunder of fire", powerWeapon: 30, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {
@@ -143,33 +133,12 @@ struct Warrior: FighterProtocol {
         self.name           = ""
         self.lifepoint      = 100
         self.heal           = 10
-        self.weapon         = [Weapon]()
-        self.powerAttack    = 10
+        self.weapons        = [oak, shuriken, sword]
+        self.nameWeapon     = weapons[0].nameWeapon
+        self.powerAttack    = weapons[0].powerWeapon
     }
     
-//    var nameWeapon: String // Name of the arm ["Oak stick": 10]
-//    var powerWeapon: Int // Power of the arm
-//
-    // Dictionnary of available weapons for the Warrior
-//    var availableWeaponsOfWarrior: [String: Int] = [:]
-    
-
-    
-//    init(availableWeaponsOfWarrior: [String: Int]) {
-//        for weapon in availableWeaponsOfWarrior {
-//            self.nameWeapon = weapon.key
-//            self.powerWeapon = weapon.value
-//        }
-//    }
-
 }
-
-// List of weapons of the warrior
-//let CreateWeaponsOfWarriorList = ["Oak stick": 10,
-//                                  "Shuriken": 15,
-//                                  "Sword Kiss of dragon": 20]
-//let AddWeaponsOfWarriorList = Warrior(availableWeaponsOfWarrior: CreateWeaponsOfWarriorList)
-
 
 
 
@@ -183,12 +152,17 @@ struct Dwarf: FighterProtocol {
     var name:           String      // Character name which must be unique and not yet used
     var lifepoint:      Int         // Character lifepoint who is different depending on type
     var heal:           Int         // Character heal who is different depending on type
-    var weapon:         [Weapon]    // Array of weapons for each kind
+    var weapons:        [Weapon]    // Weapons for each kind
+    var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
             return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
     }
     
+    // add 3 specific weapons for the dwarves
+    var volcano = Weapon(nameWeapon: "Volcano Slingshot", powerWeapon: 80, numberUse: 50)
+    var hammer = Weapon(nameWeapon: "Hammer Dammer", powerWeapon: 30, numberUse: 3)
+    var ax = Weapon(nameWeapon: "Ax — Kiss of dragon", powerWeapon: 40, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {
@@ -196,36 +170,9 @@ struct Dwarf: FighterProtocol {
         self.name           = ""
         self.lifepoint      = 50
         self.heal           = 5
-        self.weapon         = [Weapon]()
-        self.powerAttack    = 75
+        self.weapons        = [volcano, hammer, ax]
+        self.nameWeapon     = weapons[0].nameWeapon
+        self.powerAttack    = weapons[0].powerWeapon
     }
-    
   
-//
-//    // Dictionnary of available weapons for the dwarf ["Volcano Slingshot": 25]
-//    var availableWeaponsOfDwarf: [String: Int] = [:]
-    
-//    let weaponsDwarf: [String: Int] = ["Volcano Slingshot": 25,
-//                                       "Hammer Dammer": 30,
-//                                       "Ax Kiss of dragon": 35]
-//    let availableWeaponsOfDwarf = Array(weaponsDwarf.keys)
-    
-    
-
-    
-//    init(availableWeaponsOfDwarf: [String: Int]) {
-//        for weapon in availableWeaponsOfDwarf {
-//            self.nameWeapon = weapon.key
-//            self.powerWeapon = weapon.value
-//        }
-//    }
-
 }
-
-
-struct Weapon {
-    var nameWeapon: String // Name of the arm
-    var powerWeapon: Int // Power of the arm
-    
-}
-

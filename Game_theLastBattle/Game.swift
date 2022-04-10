@@ -19,13 +19,13 @@ class Game {
     var player1 = Player()
     var player2 = Player()
     
+    
     // fighters currently in the guild
     var fightersInGuild = 0
     
     // number of round in the game
     var round = 0
 
-    
     // Message that introduces the game
     func welcomeMessage() {
         
@@ -78,62 +78,18 @@ class Game {
 
     
     
-    // Message explaining the creation of the guild, nominative per each player
-    func messageForCreateGuild(of guild: Player) {
-
-        print ("""
-                
-        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-                                   🌑🌑🌑🌑🌑🌒🌓🌔🌕🌕🌕🌕🌕  WELCOME TO THE GUILD "\(guild.name.uppercased())"  🌕🌕🌕🌕🌕🌕🌖🌗🌘🌑🌑🌑🌑🌑
-        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-            You have to choose 3 fighters in the list (you can take same or different).
-            For that you select the number corresponding to the type of fighter desired and the you give him a name:
-              
-            \(Wizard().description)
-              
-            \(Warrior().description)
-              
-            \(Dwarf().description)
-              
-        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-        """)
-        print(Guild.MessageCurrentChoice.first.rawValue)
-    }
-    
-    
-    
-    func summaryKindInGuild(of player: Player) {
-    print("""
-          
-          Kudos!
-          Your guild \(player.name) is composed of a \(player.guild.fighters[0].currentType), a \(player.guild.fighters[1].currentType) and a \(player.guild.fighters[2].currentType).
-          Good choice, may the force to be with you!
-
-          """)
-    
-    }
-    
-    
-    
-    
     // Creation of the Guild of each player
     
     func createTheGuilds() {
-        player1.EnterTheNameOfGuild(guildPlayer: 1, nameDifferent: player2)
-        messageForCreateGuild(of: player1)
-        player1.guild.selectFighters()
-        summaryKindInGuild(of: player1)
-        player2.EnterTheNameOfGuild(guildPlayer: 2, nameDifferent: player1)
-        messageForCreateGuild(of: player2)
-        player2.guild.selectFighters()
-        summaryKindInGuild(of: player2)
+        player1.EnterTheNameOfGuild(1, nameDifferent: player2)
+        player1.createYourGuild()
+        player1.guild.summaryKindInGuild(player1.name)
+        player2.EnterTheNameOfGuild(2, nameDifferent: player1)
+        player2.createYourGuild()
+        player1.guild.summaryKindInGuild(player2.name)
     }
     
-
+    
     
     // Call the informations from different teams for present at players
     
@@ -141,7 +97,7 @@ class Game {
         print("""
               
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-                 •––•––•––––––––––––––––––––––––––––•                SUMMARY                 •––––––––––––––––––––––––––––•––•––•
+                 •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
@@ -168,10 +124,8 @@ class Game {
     }
     
     
-    
-    
-    
-    func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) /* -> (totalDamages: Int, totalHeals: Int)*/ {
+      
+    func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) {
 
         print("""
               Guild \(activePlayer.name), you can choose one action in the list:
@@ -183,8 +137,8 @@ class Game {
             switch selectedAction {
             case "A":
                 print("You have decided to attack")
-                let numberOfAttacker = activePlayer.guild.chooseTheFighter(in: "your guild", of: activePlayer)          // we recover the number of attacker fighter in the list
-                let numberOfEnemy = inactivePlayer.guild.chooseTheFighter(in: "the enemy guild", of: inactivePlayer)    // we recover the number of enemy fighter in the list
+                let numberOfAttacker = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)          // we recover the number of attacker fighter in the list
+                let numberOfEnemy = inactivePlayer.guild.chooseTheFighter(in: "the enemy guild", by: activePlayer)    // we recover the number of enemy fighter in the list
                 let attacker = activePlayer.guild.fighters[numberOfAttacker]                                            // we give at attacker his indice
                 var enemy = inactivePlayer.guild.fighters[numberOfEnemy]                                                // we give at enemy his indice
                 
@@ -192,36 +146,34 @@ class Game {
                 var totalDamages: Int = 0 {                                                                             // property to calculate the sum of damages
                     didSet {
                         totalDamages += attacker.powerAttack
+                        activePlayer.guild.totalDamagesInfliged = totalDamages                                                             // we record the score in a variable for each player
                     }
                 }
                 
                 enemy.lifepoint -= attacker.powerAttack                                                                 // the enemy lose the lifepoint because of the weapon power
-                
-                if enemy.lifepoint <= 0 {
-                    enemy.lifepoint = 0
-                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
-                }
-                
                 inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint                                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
                 
+                if enemy.lifepoint < 0 {                                                                               // the lifepoint can't be lower than 0
+                    enemy.lifepoint = 0
+                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")                    // If lifepoint equal 0, the fighter is dead
+                }
+                
+                // summary of attack
                 print("""
-                      \(attacker.name), your \(attacker.currentType) attack with \(attacker.powerAttack)
+                      \(attacker.name), your \(attacker.currentType) attack with \(attacker.nameWeapon) \(attacker.powerAttack)
                       Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
                       
                       """)
-                print (enemy.lifepoint)
-                
-//                return totalDamages
                 
             case "H":
                 print("You want heal the companion")
-                let numberOfHealer = activePlayer.guild.chooseTheFighter(in: "your guild", of: activePlayer)                // we recover the number of healer fighter in the list
-                var numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", of: activePlayer)        // we recover the number of companion fighter in the list
+                let numberOfHealer = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)                // we recover the number of healer fighter in the list
+                var numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
                 
                 while numberOfHealer == numberOfCompanion {                                                                 // The healer cannot choose as hurt fighter
                     print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
                     print("")
-                    numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", of: activePlayer)        // we recover the number of companion fighter in the list
+                    numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
                 }
                 
                 let healer = activePlayer.guild.fighters[numberOfHealer]                                                    // we give at healer his indice
@@ -233,6 +185,7 @@ class Game {
                 var totalHeals: Int = 0 {                                                                                   // property to calculate the sum of heals
                     didSet {
                         totalHeals += healer.heal
+                        activePlayer.guild.totalHealsOnYourCompanions = totalHeals
                     }
                 }
 
@@ -261,16 +214,12 @@ class Game {
                 activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint                       // we save the remaining lifepoint of chosen fighter in the guild of active player
                 print (companion.lifepoint)
                 
-//                return totalHeals
-
             default:
                 print(" ⚠️ Wrong letter, try again! ⚠️ ")
                 print("select the letter A or H")
             }
         }
-//        return (totalDamages, totalHeals)
     }
-    
     
     
     // Start the fight with a loop until one whole team dead
@@ -296,19 +245,22 @@ class Game {
             print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
             print("")
             
-            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)          // the first player begins the round
-            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)          // the second player finishes the round
+            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)                      // the first player begins the round
+            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)                      // the second player finishes the round
 
             if player1.guild.allFightersDead() {
-                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                          // we verify that all the fighters are dead in the guild of player 1
-                print("\(player2.name) wins the game")                                  // if that the case, Player 2 wins the game
-                print()
-                break                                                                   // we exit of loop
+                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 1
+                print("\(player2.name) wins the game")                                              // if that the case, Player 2 wins the game
+                print(" you inflicted \(player2.guild.totalDamagesInfliged) at \(player1.name)")    // summary damages infliged by player 2
+                print(" you healed \(player2.guild.totalHealsOnYourCompanions) at your companions") // summary damages infliged by player 2
+                break                                                                               // we exit of loop
             }
             else if player2.guild.allFightersDead() {
-                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                          // we verify that all the fighters are dead in the guild of player 2
-                print("\(player1.name) wins the game")                                  // if that the case, Player 1 wins the game
-                break                                                                   // we exit of loop
+                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 2
+                print("\(player1.name) wins the game")                                              // if that the case, Player 1 wins the game
+                print(" you inflicted \(player1.guild.totalDamagesInfliged) at \(player2.name)")         // summary damages infliged by player 1
+                print(" you healed \(player1.guild.totalHealsOnYourCompanions) at your companions")                      // summary damages infliged by player 2
+                break                                                                               // we exit of loop
             }
             
             if round == 5 { // for test
@@ -324,12 +276,13 @@ class Game {
         
         var goNextGame = false
         // Ask the players, if they play a new game
-        while !goNextGame {
+        while goNextGame == true {
             if let playAgain = readLine()?.uppercased() {
                 switch playAgain {
                 case "Y":
                     print("Play again")
                     goNextGame = true
+                    continue
                 case "N":
                     print("Hasta la vista, Baby!")
                     goNextGame = false
@@ -363,7 +316,6 @@ class Game {
         // summary of the round
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
-        
     }
     
 }

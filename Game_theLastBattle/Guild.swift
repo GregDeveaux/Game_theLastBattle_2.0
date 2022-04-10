@@ -9,7 +9,7 @@ import Foundation
 
 
 // -----------------------------------------------------------------------------------------------------
-// MARK: Struct Team
+// MARK: Class Guild
 // >>> Creation of a team of 3 fighters
 // -----------------------------------------------------------------------------------------------------
 
@@ -18,33 +18,17 @@ class Guild {
     var sizeMaxFighters: Int                        // number of fighters maximum for each team
     var fighters: [FighterProtocol] = []            // The guild is composed of 3 fighters
     var fightersInGuild = 0                         // fighters currently in the guild
-
     
+    // Recover the damages of guild
+    var totalDamagesInfliged = 0
+    
+    // Recover the heals of guild
+    var totalHealsOnYourCompanions = 0
+
+        
     init(sizeMaxFighters: Int) {
         self.sizeMaxFighters = sizeMaxFighters      // Used to create the guild with n fighters
     }
-    
-   
-    
-    // Selection list of characters for the player of an integer between 1 and 3
-    func selectFighters() {
-        while fightersInGuild < sizeMaxFighters {
-            if let choiceCharacters = readLine(){
-                switch choiceCharacters {
-                case "1" :
-                    appendInGuild(kind: Wizard())
-                case "2" :
-                    appendInGuild(kind: Warrior())
-                case "3" :
-                    appendInGuild(kind: Dwarf())
-                default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
-                }
-            }
-        }
-    }
-    
     
     
     // message for choice other fighter
@@ -71,11 +55,38 @@ class Guild {
     }
     
     
+    // Selection list of characters for the player of an integer between 1 and 3
+    func selectFighters() {
+        while fightersInGuild < sizeMaxFighters {
+            if let choiceCharacters = readLine(){
+                switch choiceCharacters {
+                case "1" :
+                    appendInGuild(kind: Wizard())
+                case "2" :
+                    appendInGuild(kind: Warrior())
+                case "3" :
+                    appendInGuild(kind: Dwarf())
+                default:
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print(" Only used number 1, 2 and 3, please ")
+                }
+            }
+        }
+    }
+    
+    
+    func namesOfAllFighters() -> [FighterProtocol] {
+        var namesFighters: [FighterProtocol] = []
+        namesFighters.append(contentsOf: fighters)
+        return namesFighters
+    }
+    
     
     // append fighters in the array guild of player
     func appendInGuild(kind: FighterProtocol) {
+        let allTheNamesOfFighters = namesOfAllFighters() // we register the all names fighters of game
         fighters.append(kind)
-        fighters[fightersInGuild].name = fighters[fightersInGuild].giveNameToFighter()
+        fighters[fightersInGuild].name = fighters[fightersInGuild].giveNameToFighter(different: allTheNamesOfFighters)
         print("""
         
         –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -84,45 +95,70 @@ class Guild {
 
 
         """)
+        for fighter in fighters {
+            print(fighter.name)
+
+        }
         fightersInGuild += 1
         messageSelectAgain(fightersInGuild)
     }
     
     
+    
+    func summaryKindInGuild(_ name: String) {
+        var listKindArray: [String] = []
+        
+        for fighter in fighters {
+            let kind = fighter.currentType.rawValue
+            listKindArray.append(kind)
+        }
+        
+        let listKind = listKindArray.joined(separator: ", a ")
+
+    
+    print("""
+
+          Kudos!
+          Your guild \(name) is composed of a \(listKind)
+
+          """)
+    
+    }
+    
+    
+    
     // Select a existing fighter in a guild
-    func chooseTheFighter(in category: String, of player: Player) -> Int {
+    func chooseTheFighter(in category: String, by player: Player) -> Int {
         print("Guild \(player.name), Select the number of one of \(category)")
         var num = 1
         var numberOfFighter = 0
-        let selectFighter = player.guild.fighters[numberOfFighter]
-        var isDead = selectFighter.dead
+        var isDead = true
         
+        // We create a list of the fighters of the guild whether he's alive or dead
         for fighter in fighters {
             if fighter.dead == false {
                 print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and \(fighter.powerAttack) of attack power.")
             } else {
-                print("   \(num) • ☠️ ☠️ \(fighter.name) your \(fighter.currentType) not have surviving ☠️ ☠️")
+                print("   \(num) • ☠️ ☠️ your \(fighter.currentType) \(fighter.name) can no longer be selected ☠️ ☠️")
             }
             num += 1
         }
         
-        while numberOfFighter + 1 <= sizeMaxFighters && !isDead {
+        while isDead == true  {
             if let selectNumber = Int(readLine()!) {
-                if 1...sizeMaxFighters ~= selectNumber {
-                    numberOfFighter = selectNumber - 1
-                    print("you have selected your \(selectFighter.currentType) \(selectFighter.name)")
-                    print("")
-                    isDead = false
-                    return numberOfFighter
-                 }
-                else if selectFighter.dead == true {
+                numberOfFighter = selectNumber - 1
+                 if  numberOfFighter + 1 <= sizeMaxFighters && fighters[numberOfFighter].dead == true {
                     print(" this fighter is dead! Please, choose the another")
                     isDead = true
                 }
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                for numRange in 1...sizeMaxFighters {
-                    print(" Only used \(numRange), please ")
+                else if 1...sizeMaxFighters ~= selectNumber {
+                    print("you have selected your \(fighters[numberOfFighter].currentType) \(fighters[numberOfFighter].name) \(fighters[numberOfFighter].dead)")
+                    print("")
+                    isDead = false
+                    return numberOfFighter
                 }
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                    isDead = true
             }
         }
         return numberOfFighter
@@ -140,6 +176,10 @@ class Guild {
         return totalDead == sizeMaxFighters
     }
     
-    
 }
+    
+    
+    
+    
+    
 

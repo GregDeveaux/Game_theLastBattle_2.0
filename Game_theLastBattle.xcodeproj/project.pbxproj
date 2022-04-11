@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BC64DC7D27ED0BF7003FFD9D /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64DC7C27ED0BF7003FFD9D /* Cards.swift */; };
+		BCCB44E12803489B005E9EEB /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCB44E02803489B005E9EEB /* Weapon.swift */; };
 		BCD4E65827E2640D008F7431 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E65727E2640D008F7431 /* main.swift */; };
-		BCD4E65F27E264B8008F7431 /* Fighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E65E27E264B8008F7431 /* Fighter.swift */; };
+		BCD4E65F27E264B8008F7431 /* Fighters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E65E27E264B8008F7431 /* Fighters.swift */; };
 		BCD4E66127E266C7008F7431 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E66027E266C7008F7431 /* Game.swift */; };
 		BCD4E66527E26A19008F7431 /* Guild.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E66427E26A19008F7431 /* Guild.swift */; };
 		BCD4E66727E26A38008F7431 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4E66627E26A38008F7431 /* Player.swift */; };
@@ -29,9 +30,10 @@
 
 /* Begin PBXFileReference section */
 		BC64DC7C27ED0BF7003FFD9D /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
+		BCCB44E02803489B005E9EEB /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		BCD4E65427E2640D008F7431 /* Game_theLastBattle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Game_theLastBattle; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD4E65727E2640D008F7431 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		BCD4E65E27E264B8008F7431 /* Fighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fighter.swift; sourceTree = "<group>"; };
+		BCD4E65E27E264B8008F7431 /* Fighters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fighters.swift; sourceTree = "<group>"; };
 		BCD4E66027E266C7008F7431 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		BCD4E66427E26A19008F7431 /* Guild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guild.swift; sourceTree = "<group>"; };
 		BCD4E66627E26A38008F7431 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -72,7 +74,8 @@
 				BCD4E66627E26A38008F7431 /* Player.swift */,
 				BC64DC7C27ED0BF7003FFD9D /* Cards.swift */,
 				BCD4E66427E26A19008F7431 /* Guild.swift */,
-				BCD4E65E27E264B8008F7431 /* Fighter.swift */,
+				BCD4E65E27E264B8008F7431 /* Fighters.swift */,
+				BCCB44E02803489B005E9EEB /* Weapon.swift */,
 			);
 			path = Game_theLastBattle;
 			sourceTree = "<group>";
@@ -138,9 +141,10 @@
 				BCD4E66527E26A19008F7431 /* Guild.swift in Sources */,
 				BCD4E65827E2640D008F7431 /* main.swift in Sources */,
 				BCD4E66127E266C7008F7431 /* Game.swift in Sources */,
+				BCCB44E12803489B005E9EEB /* Weapon.swift in Sources */,
 				BC64DC7D27ED0BF7003FFD9D /* Cards.swift in Sources */,
 				BCD4E66727E26A38008F7431 /* Player.swift in Sources */,
-				BCD4E65F27E264B8008F7431 /* Fighter.swift in Sources */,
+				BCD4E65F27E264B8008F7431 /* Fighters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

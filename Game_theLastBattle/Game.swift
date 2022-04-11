@@ -30,6 +30,15 @@ class Game {
     func welcomeMessage() {
         
         print("""
+            Once upon a time a big king loved of whole kigdom on the verge of death...
+            ......
+            ...... choose the guild of fighters
+            ......
+            ... the king opens "THE GAME", the descendants having answered will partipate to the last battle...
+            the winner will be the new king
+            """)
+        
+        print("""
             
             
                               ····                                           ····                                                ····
@@ -70,9 +79,7 @@ class Game {
             
             """)
         
-        print("""
-            Once upon a time a big king loved of whole kigdom...
-            """)
+        
 
     }
 
@@ -151,12 +158,14 @@ class Game {
                 }
                 
                 enemy.lifepoint -= attacker.powerAttack                                                                 // the enemy lose the lifepoint because of the weapon power
-                inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint                                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
                 
                 if enemy.lifepoint < 0 {                                                                               // the lifepoint can't be lower than 0
                     enemy.lifepoint = 0
                     print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")                    // If lifepoint equal 0, the fighter is dead
                 }
+                
+                inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint                                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
+
                 
                 // summary of attack
                 print("""
@@ -222,6 +231,13 @@ class Game {
     }
     
     
+    func andTheWinnerIs(_ player: Player, looser: Player) {
+        print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 1
+        print("\(player.name) wins the game")                                              // if that the case, Player 2 wins the game
+        print(" you inflicted \(player.guild.totalDamagesInfliged) at \(looser.name)")    // summary damages infliged by looser
+        print(" you healed \(player.guild.totalHealsOnYourCompanions) at your companions") // summary damages infliged by looser
+    }
+    
     // Start the fight with a loop until one whole team dead
     
     func goFight() {
@@ -245,22 +261,16 @@ class Game {
             print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
             print("")
             
-            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)                      // the first player begins the round
-            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)                      // the second player finishes the round
+            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)      // the first player begins the round
+            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)      // the second player finishes the round
 
             if player1.guild.allFightersDead() {
-                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 1
-                print("\(player2.name) wins the game")                                              // if that the case, Player 2 wins the game
-                print(" you inflicted \(player2.guild.totalDamagesInfliged) at \(player1.name)")    // summary damages infliged by player 2
-                print(" you healed \(player2.guild.totalHealsOnYourCompanions) at your companions") // summary damages infliged by player 2
-                break                                                                               // we exit of loop
+                andTheWinnerIs(player2, looser: player1)                            // if player 2 win
+                break                                                               // we exit of loop
             }
             else if player2.guild.allFightersDead() {
-                print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 2
-                print("\(player1.name) wins the game")                                              // if that the case, Player 1 wins the game
-                print(" you inflicted \(player1.guild.totalDamagesInfliged) at \(player2.name)")         // summary damages infliged by player 1
-                print(" you healed \(player1.guild.totalHealsOnYourCompanions) at your companions")                      // summary damages infliged by player 2
-                break                                                                               // we exit of loop
+                andTheWinnerIs(player1, looser: player2)                            // if player 1 win
+                break                                                               // we exit of loop
             }
             
             if round == 5 { // for test

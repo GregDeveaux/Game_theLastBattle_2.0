@@ -65,7 +65,7 @@ class Player {
         """)
         print(Guild.MessageCurrentChoice.first.rawValue)
         
-        guild.selectFighters()
+        guild.selectYourFighters()
     }
     
      

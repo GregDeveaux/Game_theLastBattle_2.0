@@ -55,11 +55,11 @@ class Guild {
     }
     
     
-    // Selection list of characters for the player of an integer between 1 and 3
-    func selectFighters() {
+    // Select one fighter in the list of kinds
+    func selectYourFighters() {
         while fightersInGuild < sizeMaxFighters {
-            if let choiceCharacters = readLine(){
-                switch choiceCharacters {
+            if let choiceOfFighters = readLine(){
+                switch choiceOfFighters {
                 case "1" :
                     appendInGuild(kind: Wizard())
                 case "2" :
@@ -129,15 +129,15 @@ class Guild {
     
     // Select a existing fighter in a guild
     func chooseTheFighter(in category: String, by player: Player) -> Int {
-        print("Guild \(player.name), Select the number of one of \(category)")
         var num = 1
+        print("Guild \(player.name), Select the number of one of \(category)")
         var numberOfFighter = 0
         var isDead = true
         
         // We create a list of the fighters of the guild whether he's alive or dead
         for fighter in fighters {
             if fighter.dead == false {
-                print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and \(fighter.powerAttack) of attack power.")
+                print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and a weapon \(fighter.nameWeapon) with \(fighter.powerAttack) of attack power.")
             } else {
                 print("   \(num) • ☠️ ☠️ your \(fighter.currentType) \(fighter.name) can no longer be selected ☠️ ☠️")
             }
@@ -154,12 +154,14 @@ class Guild {
                 else if 1...sizeMaxFighters ~= selectNumber {
                     print("you have selected your \(fighters[numberOfFighter].currentType) \(fighters[numberOfFighter].name) \(fighters[numberOfFighter].dead)")
                     print("")
+                    fighters[numberOfFighter].choisenYourWeapon()
                     isDead = false
                     return numberOfFighter
                 }
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                    isDead = true
             }
+            print(" ⚠️ Wrong number, try again! ⚠️ ")
+            print("Please select only a number between 1 and \(sizeMaxFighters)")
+                isDead = true
         }
         return numberOfFighter
     }

@@ -8,13 +8,13 @@
 import Foundation
 
 struct Weapon {
-    var nameWeapon: String // Name of the arm
-    var powerWeapon: Int // Power of the arm
+    var name: String // Name of the arm
+    var power: Int // Power of the arm
     var numberUse: Int
     
     init(nameWeapon: String, powerWeapon: Int, numberUse: Int) {
-        self.nameWeapon = nameWeapon
-        self.powerWeapon = powerWeapon
+        self.name = nameWeapon
+        self.power = powerWeapon
         self.numberUse = numberUse
     }
 }

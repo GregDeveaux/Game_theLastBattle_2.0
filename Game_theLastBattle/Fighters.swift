@@ -28,7 +28,7 @@ extension FighterProtocol {
     
     // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
-        lifepoint <= 0
+        lifepoint == 0
     }
     
     
@@ -49,6 +49,54 @@ extension FighterProtocol {
             }
         }
         return name
+    }
+    
+    mutating func randomPowerWeapon(numberOfFighter: Int) {
+        switch powerAttack {
+        case 0:
+            print("completely failed, you messed up, you lose 1 point")
+            lifepoint -= 1
+        case 1..<weapons[0].power:
+            print("it's not all that crazy")
+        default:
+            print("Yeah baby yeah, you attack with divine power")
+        }
+    }
+    
+    mutating func choisenYourWeapon() {
+        var num = 1
+
+        print("Select one of your fighter's weapons according to his characteristics")
+        
+        for weapon in weapons {
+            print("\(num) • \(weapon.name), the possibles damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
+            num += 1
+        }
+        if let choiceWeapon = Int(readLine()!) {
+            switch choiceWeapon {
+            case 1 :
+                nameWeapon = weapons[0].name
+                powerAttack = Int.random(in: 0...weapons[0].power)
+                randomPowerWeapon(numberOfFighter: 0)
+                weapons[0].numberUse -= 1
+                weapons = weapons.filter { $0.numberUse != 0 }
+            case 2 :
+                nameWeapon = weapons[1].name
+                powerAttack = Int.random(in: 0...weapons[1].power)
+                randomPowerWeapon(numberOfFighter: 1)
+                weapons[1].numberUse -= 1
+                weapons = weapons.filter { $0.numberUse != 0 }
+            case 3 :
+                nameWeapon = weapons[2].name
+                powerAttack = Int.random(in: 0...weapons[2].power)
+                randomPowerWeapon(numberOfFighter: 2)
+                weapons[2].numberUse -= 1
+                weapons = weapons.filter { $0.numberUse != 0 }
+            default:
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print(" Only used number 1, 2 and 3, please ")
+            }
+        }
     }
     
 }
@@ -82,7 +130,7 @@ struct Wizard: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-            return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
+        return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(rain.power) to \(fireBall.power) )"  // Details of the fighter
     }
     
     // add 3 specific weapons for the wizards
@@ -96,8 +144,8 @@ struct Wizard: FighterProtocol {
         self.lifepoint     = 75
         self.heal          = 25
         self.weapons       = [rain, staff, fireBall]
-        self.nameWeapon     = weapons[0].nameWeapon
-        self.powerAttack    = weapons[0].powerWeapon
+        self.nameWeapon    = rain.name
+        self.powerAttack   = rain.power
     }
     
   
@@ -119,13 +167,13 @@ struct Warrior: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
+            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(oak.power) to \(sword.power) )"  // Details of the fighter
     }
     
     // add 3 specific weapons for the warriors
     var oak = Weapon(nameWeapon: "Oak stick", powerWeapon: 10, numberUse: 50)
     var shuriken = Weapon(nameWeapon: "Shuriken", powerWeapon: 20, numberUse: 3)
-    var sword = Weapon(nameWeapon: "Sword — Thunder of fire", powerWeapon: 30, numberUse: 1)
+    var sword = Weapon(nameWeapon: "Sword \"Thunder of fire\"", powerWeapon: 30, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {
@@ -134,8 +182,8 @@ struct Warrior: FighterProtocol {
         self.lifepoint      = 100
         self.heal           = 10
         self.weapons        = [oak, shuriken, sword]
-        self.nameWeapon     = weapons[0].nameWeapon
-        self.powerAttack    = weapons[0].powerWeapon
+        self.nameWeapon     = oak.name
+        self.powerAttack    = oak.power
     }
     
 }
@@ -156,13 +204,13 @@ struct Dwarf: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️›› lifepoint=\(lifepoint) ; ❤️‍🩹›› heal=\(heal) ; ⚔️›› power of attack=\(powerAttack))"  // Details of the fighter
+            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(volcano.power) to \(ax.power))"  // Details of the fighter
     }
     
     // add 3 specific weapons for the dwarves
     var volcano = Weapon(nameWeapon: "Volcano Slingshot", powerWeapon: 80, numberUse: 50)
     var hammer = Weapon(nameWeapon: "Hammer Dammer", powerWeapon: 30, numberUse: 3)
-    var ax = Weapon(nameWeapon: "Ax — Kiss of dragon", powerWeapon: 40, numberUse: 1)
+    var ax = Weapon(nameWeapon: "Ax \"Kiss of dragon\"", powerWeapon: 40, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {
@@ -171,8 +219,8 @@ struct Dwarf: FighterProtocol {
         self.lifepoint      = 50
         self.heal           = 5
         self.weapons        = [volcano, hammer, ax]
-        self.nameWeapon     = weapons[0].nameWeapon
-        self.powerAttack    = weapons[0].powerWeapon
+        self.nameWeapon     = volcano.name
+        self.powerAttack    = volcano.power
     }
   
 }

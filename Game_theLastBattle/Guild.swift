@@ -2,7 +2,7 @@
 //  Guild.swift
 //  Game_theLastBattle
 //
-//  Created by Greg Deveaux on 16/03/2022.
+//  Created by Greg Deveaux on 28/02/2022.
 //
 
 import Foundation
@@ -25,9 +25,9 @@ class Guild {
     // Recover the heals of guild
     var totalHealsOnYourCompanions = 0
 
-        
+    // Used to create the guild with n fighters
     init(sizeMaxFighters: Int) {
-        self.sizeMaxFighters = sizeMaxFighters      // Used to create the guild with n fighters
+        self.sizeMaxFighters = sizeMaxFighters
     }
     
     
@@ -75,16 +75,10 @@ class Guild {
     }
     
     
-    func namesOfAllFighters() -> [FighterProtocol] {
-        var namesFighters: [FighterProtocol] = []
-        namesFighters.append(contentsOf: fighters)
-        return namesFighters
-    }
-    
+        
     
     // append fighters in the array guild of player
     func appendInGuild(kind: FighterProtocol) {
-        let allTheNamesOfFighters = namesOfAllFighters() // we register the all names fighters of game
         fighters.append(kind)
         fighters[fightersInGuild].name = fighters[fightersInGuild].giveNameToFighter(different: allTheNamesOfFighters)
         print("""
@@ -127,43 +121,54 @@ class Guild {
     
     
     
-    // Select a existing fighter in a guild
-    func chooseTheFighter(in category: String, by player: Player) -> Int {
+    func randomPowerWeapon(_ numberOfFighter: Int) {
+        switch fighters[numberOfFighter].powerAttack {
+        case 0:
+            print("👎 completely failed, you messed up, you lose 5 point 👎")
+            fighters[numberOfFighter].lifepoint -= 5
+        case 1..<fighters[numberOfFighter].weapons[0].power:
+            print("👍 it's not all that crazy, but it's OK 👍")
+        case fighters[numberOfFighter].weapons[0].power :
+            print("💪 Yeah baby yeah, you attack with divine power 💪")
+        default:
+            print("why not!")
+        }
+    }
+    
+    func choisenYourWeapon(_ numberOfFighter: Int) {
         var num = 1
-        print("Guild \(player.name), Select the number of one of \(category)")
-        var numberOfFighter = 0
-        var isDead = true
+
+        print("Select one of your fighter's weapons according to his characteristics")
         
-        // We create a list of the fighters of the guild whether he's alive or dead
-        for fighter in fighters {
-            if fighter.dead == false {
-                print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and a weapon \(fighter.nameWeapon) with \(fighter.powerAttack) of attack power.")
-            } else {
-                print("   \(num) • ☠️ ☠️ your \(fighter.currentType) \(fighter.name) can no longer be selected ☠️ ☠️")
-            }
+        for weapon in fighters[numberOfFighter].weapons {
+            print("\(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
             num += 1
         }
         
-        while isDead == true  {
-            if let selectNumber = Int(readLine()!) {
-                numberOfFighter = selectNumber - 1
-                 if  numberOfFighter + 1 <= sizeMaxFighters && fighters[numberOfFighter].dead == true {
-                    print(" this fighter is dead! Please, choose the another")
-                    isDead = true
-                }
-                else if 1...sizeMaxFighters ~= selectNumber {
-                    print("you have selected your \(fighters[numberOfFighter].currentType) \(fighters[numberOfFighter].name) \(fighters[numberOfFighter].dead)")
-                    print("")
-                    fighters[numberOfFighter].choisenYourWeapon()
-                    isDead = false
-                    return numberOfFighter
-                }
+        if let choiceWeapon = Int(readLine()!) {
+            switch choiceWeapon {
+            case 1 :
+                initNewWeapon(numberOfFighter: numberOfFighter, index: 1)
+                
+            case 2 :
+                initNewWeapon(numberOfFighter: numberOfFighter, index: 2)
+
+            case 3 :
+                initNewWeapon(numberOfFighter: numberOfFighter, index: 3)
+
+            default:
+                print(" ⚠️ Wrong number, try again! ⚠️ ")
+                print(" Only used number 1, 2 and 3, please ")
             }
-            print(" ⚠️ Wrong number, try again! ⚠️ ")
-            print("Please select only a number between 1 and \(sizeMaxFighters)")
-                isDead = true
         }
-        return numberOfFighter
+    }
+    
+    func initNewWeapon(numberOfFighter: Int, index: Int) {
+        fighters[numberOfFighter].nameWeapon = fighters[numberOfFighter].weapons[index].name
+        fighters[numberOfFighter].powerAttack = Int.random(in: 0...fighters[numberOfFighter].weapons[index].power)
+        randomPowerWeapon(numberOfFighter)
+        fighters[numberOfFighter].weapons[index].numberUse -= 1
+        fighters[numberOfFighter].weapons = fighters[numberOfFighter].weapons.filter { $0.numberUse != 0 }
     }
     
     

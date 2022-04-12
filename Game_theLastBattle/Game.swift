@@ -2,7 +2,7 @@
 //  Game.swift
 //  Game_theLastBattle
 //
-//  Created by Greg Deveaux on 16/03/2022.
+//  Created by Greg Deveaux on 28/02/2022.
 //
 
 import Foundation
@@ -88,9 +88,12 @@ class Game {
     // Creation of the Guild of each player
     
     func createTheGuilds() {
+        // Player 1
         player1.EnterTheNameOfGuild(1, nameDifferent: player2)
         player1.createYourGuild()
         player1.guild.summaryKindInGuild(player1.name)
+        
+        // Player 2
         player2.EnterTheNameOfGuild(2, nameDifferent: player1)
         player2.createYourGuild()
         player1.guild.summaryKindInGuild(player2.name)
@@ -144,8 +147,8 @@ class Game {
             switch selectedAction {
             case "A":
                 print("You have decided to attack")
-                let numberOfAttacker = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)          // we recover the number of attacker fighter in the list
-                let numberOfEnemy = inactivePlayer.guild.chooseTheFighter(in: "the enemy guild", by: activePlayer)    // we recover the number of enemy fighter in the list
+                let numberOfAttacker = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer, weapon: true)          // we recover the number of attacker fighter in the list
+                let numberOfEnemy = inactivePlayer.guild.chooseTheFighter(in: "the enemy guild", by: activePlayer, weapon: false)    // we recover the number of enemy fighter in the list
                 let attacker = activePlayer.guild.fighters[numberOfAttacker]                                            // we give at attacker his indice
                 var enemy = inactivePlayer.guild.fighters[numberOfEnemy]                                                // we give at enemy his indice
                 
@@ -176,13 +179,13 @@ class Game {
                 
             case "H":
                 print("You want heal the companion")
-                let numberOfHealer = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)                // we recover the number of healer fighter in the list
-                var numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
+                let numberOfHealer = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)                // we recover the number of healer fighter in the list
+                var numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)        // we recover the number of companion fighter in the list
                 
                 while numberOfHealer == numberOfCompanion {                                                                 // The healer cannot choose as hurt fighter
                     print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
                     print("")
-                    numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
+                    numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)        // we recover the number of companion fighter in the list
                 }
                 
                 let healer = activePlayer.guild.fighters[numberOfHealer]                                                    // we give at healer his indice
@@ -191,12 +194,7 @@ class Game {
                 let beforeLifepointCompanion = companion.lifepoint                                                          // we record the lifepoint before to the explanation to attack
                 companion.lifepoint += healer.heal                                                                          // the hurt companion wins of lifepoint
                 
-                var totalHeals: Int = 0 {                                                                                   // property to calculate the sum of heals
-                    didSet {
-                        totalHeals += healer.heal
-                        activePlayer.guild.totalHealsOnYourCompanions = totalHeals
-                    }
-                }
+                activePlayer.guild.totalHealsOnYourCompanions += healer.heal
 
                 if companion.currentType == .wizard {
                     if companion.lifepoint >= Wizard().lifepoint {
@@ -284,26 +282,24 @@ class Game {
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
-        var goNextGame = false
         // Ask the players, if they play a new game
-        while goNextGame == true {
+        while true {
             if let playAgain = readLine()?.uppercased() {
                 switch playAgain {
                 case "Y":
                     print("Play again")
-                    goNextGame = true
-                    continue
+                    return true
+
                 case "N":
                     print("Hasta la vista, Baby!")
-                    goNextGame = false
+                    return false
+                    
                 default:
                     print("⚠️ Wrong letter, try again! ⚠️ ")
                     print("select the letter Y or N")
-                    goNextGame = false
                 }
             }
         }
-        return true
     }
     
     

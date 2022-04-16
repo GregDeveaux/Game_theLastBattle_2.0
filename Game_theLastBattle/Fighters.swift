@@ -1,8 +1,8 @@
 //
-//  Fighter.swift
+//  Fighters.swift
 //  Game_theLastBattle
 //
-//  Created by Greg Deveaux on 16/03/2022.
+//  Created by Greg Deveaux on 28/02/2022.
 //
 
 import Foundation
@@ -30,75 +30,6 @@ extension FighterProtocol {
     var dead: Bool {
         lifepoint == 0
     }
-    
-    
-    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
-    mutating func giveNameToFighter(different otherFighters: [FighterProtocol]) -> String {
-        // Text for name request
-        print("Give him a name!")
-        
-        // call an empty variable for the integration of the fighter name
-        while name.isEmpty {
-            if let nameCharacterWrites = readLine()?.uppercased() {
-                if otherFighters.contains(where: ({$0.name == nameCharacterWrites})) {  // if the layer write a name already contains in the both team
-                    print("⚠️ This name is already taken, please enter an other ⚠️")
-                    name = ""
-                } else {
-                    name = nameCharacterWrites
-                }
-            }
-        }
-        return name
-    }
-    
-    mutating func randomPowerWeapon(numberOfFighter: Int) {
-        switch powerAttack {
-        case 0:
-            print("completely failed, you messed up, you lose 1 point")
-            lifepoint -= 1
-        case 1..<weapons[0].power:
-            print("it's not all that crazy")
-        default:
-            print("Yeah baby yeah, you attack with divine power")
-        }
-    }
-    
-    mutating func choisenYourWeapon() {
-        var num = 1
-
-        print("Select one of your fighter's weapons according to his characteristics")
-        
-        for weapon in weapons {
-            print("\(num) • \(weapon.name), the possibles damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
-            num += 1
-        }
-        if let choiceWeapon = Int(readLine()!) {
-            switch choiceWeapon {
-            case 1 :
-                nameWeapon = weapons[0].name
-                powerAttack = Int.random(in: 0...weapons[0].power)
-                randomPowerWeapon(numberOfFighter: 0)
-                weapons[0].numberUse -= 1
-                weapons = weapons.filter { $0.numberUse != 0 }
-            case 2 :
-                nameWeapon = weapons[1].name
-                powerAttack = Int.random(in: 0...weapons[1].power)
-                randomPowerWeapon(numberOfFighter: 1)
-                weapons[1].numberUse -= 1
-                weapons = weapons.filter { $0.numberUse != 0 }
-            case 3 :
-                nameWeapon = weapons[2].name
-                powerAttack = Int.random(in: 0...weapons[2].power)
-                randomPowerWeapon(numberOfFighter: 2)
-                weapons[2].numberUse -= 1
-                weapons = weapons.filter { $0.numberUse != 0 }
-            default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
-            }
-        }
-    }
-    
 }
 
 
@@ -134,9 +65,9 @@ struct Wizard: FighterProtocol {
     }
     
     // add 3 specific weapons for the wizards
-    var rain = Weapon(nameWeapon: "Froggy rain", powerWeapon: 5, numberUse: 50)
-    var staff = Weapon(nameWeapon: "Staff of power", powerWeapon: 15, numberUse: 3)
-    var fireBall = Weapon(nameWeapon: "Fire ball", powerWeapon: 25, numberUse: 1)
+    var rain = Weapon(name: "Froggy rain", power: 5, numberUse: 50)
+    var staff = Weapon(name: "Staff of power", power: 15, numberUse: 3)
+    var fireBall = Weapon(name: "Fire ball", power: 25, numberUse: 1)
         
     init() {
         self.currentType   = .wizard
@@ -171,9 +102,9 @@ struct Warrior: FighterProtocol {
     }
     
     // add 3 specific weapons for the warriors
-    var oak = Weapon(nameWeapon: "Oak stick", powerWeapon: 10, numberUse: 50)
-    var shuriken = Weapon(nameWeapon: "Shuriken", powerWeapon: 20, numberUse: 3)
-    var sword = Weapon(nameWeapon: "Sword \"Thunder of fire\"", powerWeapon: 30, numberUse: 1)
+    var oak = Weapon(name: "Oak stick", power: 10, numberUse: 50)
+    var shuriken = Weapon(name: "Shuriken", power: 20, numberUse: 3)
+    var sword = Weapon(name: "Sword \"Thunder of fire\"", power: 30, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {
@@ -208,9 +139,9 @@ struct Dwarf: FighterProtocol {
     }
     
     // add 3 specific weapons for the dwarves
-    var volcano = Weapon(nameWeapon: "Volcano Slingshot", powerWeapon: 80, numberUse: 50)
-    var hammer = Weapon(nameWeapon: "Hammer Dammer", powerWeapon: 30, numberUse: 3)
-    var ax = Weapon(nameWeapon: "Ax \"Kiss of dragon\"", powerWeapon: 40, numberUse: 1)
+    var volcano = Weapon(name: "Volcano Slingshot", power: 80, numberUse: 50)
+    var hammer = Weapon(name: "Hammer Dammer", power: 30, numberUse: 3)
+    var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 40, numberUse: 1)
     
     // The different elements that make up the character are initialized
     init() {

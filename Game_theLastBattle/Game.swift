@@ -2,7 +2,7 @@
 //  Game.swift
 //  Game_theLastBattle
 //
-//  Created by Greg Deveaux on 16/03/2022.
+//  Created by Greg Deveaux on 28/02/2022.
 //
 
 import Foundation
@@ -19,66 +19,82 @@ class Game {
     var player1 = Player()
     var player2 = Player()
     
-    
     // fighters currently in the guild
     var fightersInGuild = 0
     
     // number of round in the game
     var round = 0
-
+    
     // Message that introduces the game
     func welcomeMessage() {
-        
-        print("""
-            Once upon a time a big king loved of whole kigdom on the verge of death...
-            ......
-            ...... choose the guild of fighters
-            ......
-            ... the king opens "THE GAME", the descendants having answered will partipate to the last battle...
-            the winner will be the new king
-            """)
-        
         print("""
             
             
-                              ····                                           ····                                                ····
-                           ···••••···                                     ···••••···                                          ···••••···
-                           ···••••···                                     ···••••···                                          ···••••···
-                       ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
-                       ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
-              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-              |—————————————————————————————————⌘    ⌽———⌽———⌽    Welcome to the last battle    ⌽———⌽———⌽    ⌘——————————————————————————————————————|
-              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-              |                                                                                                                                     |
-              |                                                                                                                                     |
-              |                                        XXXXXXXXXXXXXX          XXXXXXXXXXX        XXXXXX         XXXXXX     XXXXXXXXXXXXXXXXX       |
-              |       ————————————————————————        XXXXXXXXXXXXXXXX        XXXXXXXXXXXXX       XXXXXXX       XXXXXXX     XXXXXXXXXXXXXXXXX       |
-              |       ————————————————————————       XXX            XXX      XXX         XXX      XXX  XXX     XXX  XXX     XXX                     |
-              |                                      XXX            XXX     XXX           XXX     XXX   XXX   XXX   XXX     XXX                     |
-              |       XXXXXX   XX  XX   XXXXXX       XXX                    XXX           XXX     XXX    XXX XXX    XXX     XXX                     |
-              |         XX     XX  XX   XX           XXX                    XXX           XXX     XXX     XXXXX     XXX     XXXXXXXXX               |
-              |         XX     XXXXXX   XXXX         XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX      XXX      XXX     XXXXXXXXX               |
-              |         XX     XX  XX   XX           XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX               XXX     XXX                     |
-              |         XX     XX  XX   XXXXXX       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-              |                                      XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-              |       ————————————————————————       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
-              |       ————————————————————————        XXXXXXXXXXXXXXXX      XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
-              |                                        XXXXXXXXXXXXXX       XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
-              |                                                                                                                                     |
-              |                                                                                                                                     |
-              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-              |————————————————————————————————————————      oº°·.• OpenClassRooms - Project 3 •.·°ºo      —————————————————————————————————————————|
-              |——————————————————————————————————————————— — - ·  –⌽– Created by Greg Deveaux –⌽–  · - — ———————————————————————————————————————————|
-              |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
-                       ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
-                       ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
-                           ···••••···                                      ···••••···                                         ···••••···
-                              ·••·                                            ·••·                                               ·••·
-                              ····                                            ····                                               ····
+                             ····                                           ····                                                ····
+                          ···••••···                                     ···••••···                                          ···••••···
+                          ···••••···                                     ···••••···                                          ···••••···
+                      ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
+                      ·····••••••••·····                             ·····••••••••·····                                  ·····••••••••·····
+             |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+             |—————————————————————————————————⌘    ⌽———⌽———⌽    Welcome to the last battle    ⌽———⌽———⌽    ⌘——————————————————————————————————————|
+             |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+             |                                                                                                                                     |
+             |                                                                                                                                     |
+             |                                        XXXXXXXXXXXXXX          XXXXXXXXXXX        XXXXXX         XXXXXX     XXXXXXXXXXXXXXXXX       |
+             |       ————————————————————————        XXXXXXXXXXXXXXXX        XXXXXXXXXXXXX       XXXXXXX       XXXXXXX     XXXXXXXXXXXXXXXXX       |
+             |       ————————————————————————       XXX            XXX      XXX         XXX      XXX  XXX     XXX  XXX     XXX                     |
+             |                                      XXX            XXX     XXX           XXX     XXX   XXX   XXX   XXX     XXX                     |
+             |       XXXXXX   XX  XX   XXXXXX       XXX                    XXX           XXX     XXX    XXX XXX    XXX     XXX                     |
+             |         XX     XX  XX   XX           XXX                    XXX           XXX     XXX     XXXXX     XXX     XXXXXXXXX               |
+             |         XX     XXXXXX   XXXX         XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX      XXX      XXX     XXXXXXXXX               |
+             |         XX     XX  XX   XX           XXX        XXXXXXX     XXXXXXXXXXXXXXXXX     XXX               XXX     XXX                     |
+             |         XX     XX  XX   XXXXXX       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+             |                                      XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+             |       ————————————————————————       XXX            XXX     XXX           XXX     XXX               XXX     XXX                     |
+             |       ————————————————————————        XXXXXXXXXXXXXXXX      XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
+             |                                        XXXXXXXXXXXXXX       XXX           XXX     XXX               XXX     XXXXXXXXXXXXXXXXX       |
+             |                                                                                                                                     |
+             |                                                                                                                                     |
+             |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+             |————————————————————————————————————————      oº°·.• OpenClassRooms - Project 3 •.·°ºo      —————————————————————————————————————————|
+             |——————————————————————————————————————————— — - ·  –⌽– Created by Greg Deveaux –⌽–  · - — ———————————————————————————————————————————|
+             |—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————|
+                      ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
+                      ·····••••••••·····                              ·····••••••••·····                                 ·····••••••••·····
+                          ···••••···                                      ···••••···                                         ···••••···
+                             ·••·                                            ·••·                                               ·••·
+                             ····                                            ····                                               ····
             
+            
+            
+            
+            
+             (☾☽)––.____                      ___.–--––.___                  ___.–--––.___
+             |  |       ¯¯¯°––––._____.–––°¯¯¯             ¯¯°––_____.–––°¯¯¯             ¯¯°––_____.–––°¯¯¯/
+             |  |                                                                                      ~_.–<=;
+             |  |                                                                                           /
+             |  |                                                                                           |
+             |  |    𝑶𝑵𝑪𝑬 𝑼𝑷𝑶𝑵 𝑨 𝑻𝑰𝑴𝑬… A BIG KING 🤴 LOVED OF WHOLE KINGDOM ON THE VERGE OF DEATH…        |
+             |  |    HE SUMMONED HIS BOTH CHILDS AND PROPOSED THEM TO REALIZE A TOURNAMENT OF FIGHT         /
+             |  |    IN SWICH THEY WOULD CHOOSE A GUILD OF THREE FIGHTERS THAT THEY WILL RECRUIT         __L
+             |  |    THE SAME DAY IN WHOLE THE VALLEY…                                                 -¯   |
+             |  |                                                                                           |
+             |  |    … AND THE WINNER TO THE LAST BATTLE, BEFORE THE KING DEATH, WILL BECAME                |
+             |  |    THE NEW LEGACY PRINCE OR PRINCESS… 👑                                                  L
+             |  |                                                                                            |
+             |  |    … YOU ARE THE BOTH CHILDS AND "THE GAME" WILL GO BEGIN SOON.                            /
+             |  |                                                                                           |
+             |  |    GOOD LUCK! 🍀                                                                          ¦
+             |  |                                                                                           |
+             |  |                                                                                           /
+             ĺ__ĺ––.___                     ____.––––.___                      __.––––.___          _.––~<=;
+                      ¯¯¯°––––._____.–––°¯¯¯            ¯¯¯°––––._____.–––°¯¯¯           ¯¯¯°––––._____.__|
+             
+             
+             | You will soon be able to recruit your fighters in the Valley!
+             | But, before, you should be take a great name to your Guild
             
             """)
-        
         
 
     }
@@ -87,12 +103,15 @@ class Game {
     
     // Creation of the Guild of each player
     
-    func createTheGuilds() {
-        player1.EnterTheNameOfGuild(1, nameDifferent: player2)
-        player1.createYourGuild()
+    func createAllTheGuilds() {
+        // Player 1
+        player1.enterTheNameOfGuild(1, nameDifferent: player2)
+        player1.guild.createGuild(of: player1)
         player1.guild.summaryKindInGuild(player1.name)
-        player2.EnterTheNameOfGuild(2, nameDifferent: player1)
-        player2.createYourGuild()
+        
+        // Player 2
+        player2.enterTheNameOfGuild(2, nameDifferent: player1)
+        player2.guild.createGuild(of: player2)
         player1.guild.summaryKindInGuild(player2.name)
     }
     
@@ -144,27 +163,35 @@ class Game {
             switch selectedAction {
             case "A":
                 print("You have decided to attack")
-                let numberOfAttacker = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)          // we recover the number of attacker fighter in the list
-                let numberOfEnemy = inactivePlayer.guild.chooseTheFighter(in: "the enemy guild", by: activePlayer)    // we recover the number of enemy fighter in the list
-                let attacker = activePlayer.guild.fighters[numberOfAttacker]                                            // we give at attacker his indice
-                var enemy = inactivePlayer.guild.fighters[numberOfEnemy]                                                // we give at enemy his indice
+                // we recover the number of attacker fighter in the list
+                let numberOfAttacker = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: true)
                 
-                let beforeLifepointEnnemy = enemy.lifepoint                                                             // we record the lifepoint before to the explanation to attack
-                var totalDamages: Int = 0 {                                                                             // property to calculate the sum of damages
-                    didSet {
-                        totalDamages += attacker.powerAttack
-                        activePlayer.guild.totalDamagesInfliged = totalDamages                                                             // we record the score in a variable for each player
-                    }
-                }
+                // we recover the number of enemy fighter in the list
+                let numberOfEnemy = inactivePlayer.chooseTheFighter(in: "the enemy guild", by: activePlayer, weapon: false)
                 
-                enemy.lifepoint -= attacker.powerAttack                                                                 // the enemy lose the lifepoint because of the weapon power
+                // we give at attacker his indice
+                let attacker = activePlayer.guild.fighters[numberOfAttacker]
                 
-                if enemy.lifepoint < 0 {                                                                               // the lifepoint can't be lower than 0
+                // we give at enemy his indice
+                var enemy = inactivePlayer.guild.fighters[numberOfEnemy]
+                
+                // we record the lifepoint before to the explanation to attack
+                let beforeLifepointEnnemy = enemy.lifepoint
+                
+                // calculate the sum of damages
+                activePlayer.guild.totalDamagesInfliged += attacker.powerAttack
+                
+                // the enemy lose the lifepoint because of the weapon power
+                enemy.lifepoint -= attacker.powerAttack
+                
+                // If lifepoint equal 0, the fighter is dead but the lifepoint can't be lower than 0
+                if enemy.lifepoint < 0 {
                     enemy.lifepoint = 0
-                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")                    // If lifepoint equal 0, the fighter is dead
+                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
                 }
                 
-                inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint                                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
+                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
+                inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint
 
                 
                 // summary of attack
@@ -176,27 +203,34 @@ class Game {
                 
             case "H":
                 print("You want heal the companion")
-                let numberOfHealer = activePlayer.guild.chooseTheFighter(in: "your guild", by: activePlayer)                // we recover the number of healer fighter in the list
-                var numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
                 
-                while numberOfHealer == numberOfCompanion {                                                                 // The healer cannot choose as hurt fighter
+                // we recover the number of healer fighter in the list
+                let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
+                
+                // we recover the number of companion fighter in the list
+                var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                
+                // The healer cannot choose as hurt fighter
+                while numberOfHealer == numberOfCompanion {
                     print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
                     print("")
-                    numberOfCompanion = activePlayer.guild.chooseTheFighter(in: "your companions", by: activePlayer)        // we recover the number of companion fighter in the list
+                    // we recover the number of companion fighter in the list
+                    numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
                 }
                 
-                let healer = activePlayer.guild.fighters[numberOfHealer]                                                    // we give at healer his indice
-                var companion = activePlayer.guild.fighters[numberOfCompanion]                                              // we give at hurt companion his indice
-                    
-                let beforeLifepointCompanion = companion.lifepoint                                                          // we record the lifepoint before to the explanation to attack
-                companion.lifepoint += healer.heal                                                                          // the hurt companion wins of lifepoint
+                // we give at healer his indice
+                let healer = activePlayer.guild.fighters[numberOfHealer]
                 
-                var totalHeals: Int = 0 {                                                                                   // property to calculate the sum of heals
-                    didSet {
-                        totalHeals += healer.heal
-                        activePlayer.guild.totalHealsOnYourCompanions = totalHeals
-                    }
-                }
+                // we give at hurt companion his indice
+                var companion = activePlayer.guild.fighters[numberOfCompanion]
+                
+                // we record the lifepoint before to the explanation to attack
+                let beforeLifepointCompanion = companion.lifepoint
+                
+                // the hurt companion wins of lifepoint
+                companion.lifepoint += healer.heal
+                
+                activePlayer.guild.totalHealsOnYourCompanions += healer.heal
 
                 if companion.currentType == .wizard {
                     if companion.lifepoint >= Wizard().lifepoint {
@@ -220,7 +254,8 @@ class Game {
                       
                       """)
                 
-                activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint                       // we save the remaining lifepoint of chosen fighter in the guild of active player
+                // we save the remaining lifepoint of chosen fighter in the guild of active player
+                activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
                 print (companion.lifepoint)
                 
             default:
@@ -232,14 +267,20 @@ class Game {
     
     
     func andTheWinnerIs(_ player: Player, looser: Player) {
-        print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")                                      // we verify that all the fighters are dead in the guild of player 1
-        print("\(player.name) wins the game")                                              // if that the case, Player 2 wins the game
-        print(" you inflicted \(player.guild.totalDamagesInfliged) at \(looser.name)")    // summary damages infliged by looser
-        print(" you healed \(player.guild.totalHealsOnYourCompanions) at your companions") // summary damages infliged by looser
+        // we verify that all the fighters are dead in the guild of one player
+        print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")
+        
+        // if that the case, the other player wins the game
+        print("\(player.name) wins the game")
+        
+        // summary damages infliged by looser
+        print(" you inflicted \(player.guild.totalDamagesInfliged) at \(looser.name)")
+        
+        // summary damages infliged by looser
+        print(" you healed \(player.guild.totalHealsOnYourCompanions) at your companions")
     }
     
     // Start the fight with a loop until one whole team dead
-    
     func goFight() {
 
         print("""
@@ -261,16 +302,21 @@ class Game {
             print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
             print("")
             
-            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)      // the first player begins the round
-            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)      // the second player finishes the round
+            // the first player begins the round
+            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)
+            
+            // the second player finishes the round
+            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)
 
+            // if player 2 win
             if player1.guild.allFightersDead() {
-                andTheWinnerIs(player2, looser: player1)                            // if player 2 win
-                break                                                               // we exit of loop
+                andTheWinnerIs(player2, looser: player1)
+                break   // we exit of loop
             }
+            // if player 1 win
             else if player2.guild.allFightersDead() {
-                andTheWinnerIs(player1, looser: player2)                            // if player 1 win
-                break                                                               // we exit of loop
+                andTheWinnerIs(player1, looser: player2)
+                break   // we exit of loop
             }
             
             if round == 5 { // for test
@@ -284,33 +330,30 @@ class Game {
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
-        var goNextGame = false
         // Ask the players, if they play a new game
-        while goNextGame == true {
+        while true {
             if let playAgain = readLine()?.uppercased() {
                 switch playAgain {
                 case "Y":
                     print("Play again")
-                    goNextGame = true
-                    continue
+                    return true
+
                 case "N":
                     print("Hasta la vista, Baby!")
-                    goNextGame = false
+                    return false
+                    
                 default:
                     print("⚠️ Wrong letter, try again! ⚠️ ")
                     print("select the letter Y or N")
-                    goNextGame = false
                 }
             }
         }
-        return true
     }
     
     
     
     
     // Stop fight, declare the winner and present the result of fight
-    
     func gameOver() {
         print("""
             
@@ -323,9 +366,12 @@ class Game {
 
             
             """)
+        
         // summary of the round
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
+        print(player1.guild.totalDamagesInfliged)
+        print(player1.guild.totalHealsOnYourCompanions)
     }
     
 }

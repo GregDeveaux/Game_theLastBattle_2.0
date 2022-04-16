@@ -2,19 +2,18 @@
 //  Weapon.swift
 //  Game_theLastBattle
 //
-//  Created by Greg Deveaux on 16/03/2022.
+//  Created by Greg Deveaux on 28/02/2022.
 //
 
 import Foundation
 
 struct Weapon {
-    var name: String // Name of the arm
-    var power: Int // Power of the arm
-    var numberUse: Int
+    // Name of the weapon
+    var name: String
     
-    init(nameWeapon: String, powerWeapon: Int, numberUse: Int) {
-        self.name = nameWeapon
-        self.power = powerWeapon
-        self.numberUse = numberUse
-    }
+    // Power of the weapon
+    var power: Int
+    
+    // Number of times that we can use the weapon in the game
+    var numberUse: Int
 }

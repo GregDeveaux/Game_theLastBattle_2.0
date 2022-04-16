@@ -1,5 +1,5 @@
 //
-//  Fighter.swift
+//  Fighters.swift
 //  Game_theLastBattle
 //
 //  Created by Greg Deveaux on 28/02/2022.
@@ -30,8 +30,6 @@ extension FighterProtocol {
     var dead: Bool {
         lifepoint == 0
     }
-    
-    
 }
 
 

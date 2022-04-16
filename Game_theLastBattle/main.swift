@@ -18,7 +18,7 @@ while true {
    
         theGame.welcomeMessage()
 
-        theGame.createTheGuilds()
+        theGame.createAllTheGuilds()
         
         theGame.presentationGuilds()
         

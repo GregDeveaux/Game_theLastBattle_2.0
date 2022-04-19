@@ -163,18 +163,21 @@ class Game {
         
         for fighter in activePlayer.guild.fighters {
             var number = 0
+            if !fighter.dead {
                 if fighter.currentType == .wizard {
-                    cardfighter[number].append(card.wizard1)
+                    cardfighter[number].append(contentsOf: allWizardsCards[number])
                 }
                 else if fighter.currentType == .warrior {
-                    cardfighter[number].append(card.warrior1)
+                    cardfighter[number].append(contentsOf: allWarriorsCards[number])
                 }
                 else if fighter.currentType == .dwarf {
-                     cardfighter[number].append(card.dwarf1)
+                     cardfighter[number].append(contentsOf: allDwarfsCards[number])
                 }
-                else {
-                    cardfighter[number].append(card.dead)
-                }
+            } else {
+                cardfighter[number].append(card.dead)
+            }
+                
+                
                 number += 1
         }
         

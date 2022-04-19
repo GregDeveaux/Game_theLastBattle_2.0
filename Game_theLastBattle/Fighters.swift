@@ -30,6 +30,22 @@ extension FighterProtocol {
     var dead: Bool {
         lifepoint == 0
     }
+    
+    func randomPowerWeapon(_ index: Int) {
+        switch powerAttack {
+        case 0:
+            print("👎 completely failed, you messed up, you lose 5 point 👎")
+        case 1..<(weapons[index].power / 2) :
+            print("👍 it's not all that crazy, but it's OK 👍")
+        case (weapons[index].power / 2)..<weapons[index].power :
+            print("💪 wonderfull attack 💪")
+        case weapons[index].power :
+            print("👹 Yeah baby yeah, you attack with demoniac power 👹")
+        default:
+            print("why not!")
+        }
+    }
+    
 }
 
 
@@ -61,7 +77,7 @@ struct Wizard: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-        return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(rain.power) to \(fireBall.power) )"  // Details of the fighter
+        return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(rain.power) to \(fireBall.power) )"  // Details of the fighter
     }
     
     // add 3 specific weapons for the wizards

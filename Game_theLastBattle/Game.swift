@@ -91,8 +91,8 @@ class Game {
                       ¯¯¯°––––._____.–––°¯¯¯            ¯¯¯°––––._____.–––°¯¯¯           ¯¯¯°––––._____.__|
              
              
-             | You will soon be able to recruit your fighters in the Valley!
-             | But, before, you should be take a great name to your Guild
+             You will soon be able to recruit your fighters in the Valley!
+             But, before, you should be take a great name to your Guild
             
             """)
         
@@ -116,7 +116,6 @@ class Game {
     }
     
     
-    
     // Call the informations from different teams for present at players
     
     func presentationGuilds() {
@@ -127,17 +126,18 @@ class Game {
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
-        print("   The guild \(player1.name.uppercased()) is composed of :")
+        print("  The guild \(player1.name.uppercased()) is composed of :")
         player1.guild.fighters.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
+        presentationGuildsWithCards(activePlayer: player1)
         
         print("")
-        print("   The guild \(player2.name.uppercased()) is composed of :")
+        print("  The guild \(player2.name.uppercased()) is composed of :")
         player2.guild.fighters.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
-        
+        presentationGuildsWithCards(activePlayer: player2)
 
         print("""
 
@@ -150,119 +150,160 @@ class Game {
     }
     
     
+    
+    // Call the informations from different teams for present at players with the cards
+    func presentationGuildsWithCards(activePlayer: Player) {
+        
+        let card = Cards()
+        let allWizardsCards = [card.wizard1, card.wizard2, card.wizard3]
+        let allWarriorsCards = [card.warrior1, card.warrior2, card.warrior3]
+        let allDwarfsCards = [card.dwarf1, card.dwarf2, card.dwarf3]
+
+        var cardfighter: [String] = []
+        
+        for fighter in activePlayer.guild.fighters {
+            var number = 0
+                if fighter.currentType == .wizard {
+                    cardfighter[number].append(card.wizard1)
+                }
+                else if fighter.currentType == .warrior {
+                    cardfighter[number].append(card.warrior1)
+                }
+                else if fighter.currentType == .dwarf {
+                     cardfighter[number].append(card.dwarf1)
+                }
+                else {
+                    cardfighter[number].append(card.dead)
+                }
+                number += 1
+        }
+        
+        print(card.showTheCards(fighter1: cardfighter[0], fighter2: cardfighter[1], fighter3: cardfighter[2]))
+    }
+    
+    
       
     func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) {
+        var wrongLetter = false
 
         print("""
-              Guild \(activePlayer.name), you can choose one action in the list:
-              - select A -> to attack the fighter enemy.
-              - select H -> to heal the fighter companion.
+                Guild \(activePlayer.name), you can choose one action in the list:
+                - select A -> to attack the fighter enemy.
+                - select H -> to heal the fighter companion.
         """)
-        
-        if let selectedAction = readLine()?.uppercased() {
-            switch selectedAction {
-            case "A":
-                print("You have decided to attack")
-                // we recover the number of attacker fighter in the list
-                let numberOfAttacker = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: true)
-                
-                // we recover the number of enemy fighter in the list
-                let numberOfEnemy = inactivePlayer.chooseTheFighter(in: "the enemy guild", by: activePlayer, weapon: false)
-                
-                // we give at attacker his indice
-                let attacker = activePlayer.guild.fighters[numberOfAttacker]
-                
-                // we give at enemy his indice
-                var enemy = inactivePlayer.guild.fighters[numberOfEnemy]
-                
-                // we record the lifepoint before to the explanation to attack
-                let beforeLifepointEnnemy = enemy.lifepoint
-                
-                // calculate the sum of damages
-                activePlayer.guild.totalDamagesInfliged += attacker.powerAttack
-                
-                // the enemy lose the lifepoint because of the weapon power
-                enemy.lifepoint -= attacker.powerAttack
-                
-                // If lifepoint equal 0, the fighter is dead but the lifepoint can't be lower than 0
-                if enemy.lifepoint < 0 {
-                    enemy.lifepoint = 0
-                    print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
-                }
-                
-                // we save the remaining lifepoint of chosen fighter in the guild of inactive player
-                inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint
+        repeat {
+            if let selectedAction = readLine()?.uppercased() {
+                switch selectedAction {
+                case "A":
+                    print("You have decided to attack")
+                    // we recover the number of attacker fighter in the list
+                    let numberOfAttacker = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: true)
+                    
+                    // we recover the number of enemy fighter in the list
+                    let numberOfEnemy = inactivePlayer.chooseTheFighter(in: "the enemy guild", by: activePlayer, weapon: false)
+                    
+                    // we give at attacker his indice
+                    let attacker = activePlayer.guild.fighters[numberOfAttacker]
+                    
+                    // we give at enemy his indice
+                    var enemy = inactivePlayer.guild.fighters[numberOfEnemy]
+                    
+                    // we record the lifepoint before to the explanation to attack
+                    let beforeLifepointEnnemy = enemy.lifepoint
+                    
+                    // calculate the sum of damages
+                    activePlayer.guild.totalDamagesInfliged += attacker.powerAttack
+                    
+                    // the enemy lose the lifepoint because of the weapon power
+                    enemy.lifepoint -= attacker.powerAttack
+                    
+//                    activePlayer.guild.fighters[numberOfAttacker].randomPowerWeapon(activePlayer.choisenYourWeapon(numberOfAttacker))
+                    
+                    // If lifepoint equal 0, the fighter is dead but the lifepoint can't be lower than 0
+                    if enemy.lifepoint < 0 {
+                        enemy.lifepoint = 0
+                        print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
+                    }
+                    
+                    // we save the remaining lifepoint of chosen fighter in the guild of inactive player
+                    inactivePlayer.guild.fighters[numberOfEnemy].lifepoint = enemy.lifepoint
 
-                
-                // summary of attack
-                print("""
-                      \(attacker.name), your \(attacker.currentType) attack with \(attacker.nameWeapon) \(attacker.powerAttack)
-                      Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
-                      
-                      """)
-                
-            case "H":
-                print("You want heal the companion")
-                
-                // we recover the number of healer fighter in the list
-                let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
-                
-                // we recover the number of companion fighter in the list
-                var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
-                
-                // The healer cannot choose as hurt fighter
-                while numberOfHealer == numberOfCompanion {
-                    print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
-                    print("")
+                    
+                    // summary of attack
+                    print("""
+                          | \(attacker.name), your \(attacker.currentType) attack with \(attacker.nameWeapon) \(attacker.powerAttack)
+                          |
+                          | Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
+                          |___________________________________________________________________________________________
+                          
+                          """)
+                    wrongLetter = false
+                    
+                case "H":
+                    print("You want heal the companion")
+                    
+                    // we recover the number of healer fighter in the list
+                    let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
+                    
                     // we recover the number of companion fighter in the list
-                    numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
-                }
-                
-                // we give at healer his indice
-                let healer = activePlayer.guild.fighters[numberOfHealer]
-                
-                // we give at hurt companion his indice
-                var companion = activePlayer.guild.fighters[numberOfCompanion]
-                
-                // we record the lifepoint before to the explanation to attack
-                let beforeLifepointCompanion = companion.lifepoint
-                
-                // the hurt companion wins of lifepoint
-                companion.lifepoint += healer.heal
-                
-                activePlayer.guild.totalHealsOnYourCompanions += healer.heal
+                    var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                    
+                    // The healer cannot choose as hurt fighter
+                    while numberOfHealer == numberOfCompanion {
+                        print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
+                        print("")
+                        // we recover the number of companion fighter in the list
+                        numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                    }
+                    
+                    // we give at healer his indice
+                    let healer = activePlayer.guild.fighters[numberOfHealer]
+                    
+                    // we give at hurt companion his indice
+                    var companion = activePlayer.guild.fighters[numberOfCompanion]
+                    
+                    // we record the lifepoint before to the explanation to attack
+                    let beforeLifepointCompanion = companion.lifepoint
+                    
+                    // the hurt companion wins of lifepoint
+                    companion.lifepoint += healer.heal
+                    
+                    activePlayer.guild.totalHealsOnYourCompanions += healer.heal
 
-                if companion.currentType == .wizard {
-                    if companion.lifepoint >= Wizard().lifepoint {
-                        companion.lifepoint = Wizard().lifepoint
+                    if companion.currentType == .wizard {
+                        if companion.lifepoint >= Wizard().lifepoint {
+                            companion.lifepoint = Wizard().lifepoint
+                        }
                     }
-                }
-                else if companion.currentType == .warrior {
-                    if companion.lifepoint >= Warrior().lifepoint {
-                        companion.lifepoint = Warrior().lifepoint
+                    else if companion.currentType == .warrior {
+                        if companion.lifepoint >= Warrior().lifepoint {
+                            companion.lifepoint = Warrior().lifepoint
+                        }
                     }
-                }
-                else if companion.currentType == .dwarf {
-                    if companion.lifepoint >= Dwarf().lifepoint {
-                        companion.lifepoint = Dwarf().lifepoint
+                    else if companion.currentType == .dwarf {
+                        if companion.lifepoint >= Dwarf().lifepoint {
+                            companion.lifepoint = Dwarf().lifepoint
+                        }
                     }
+                    
+                    print("""
+                          \(healer.name), your \(healer.currentType) heal with \(healer.heal)
+                          \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
+                          
+                          """)
+                    
+                    // we save the remaining lifepoint of chosen fighter in the guild of active player
+                    activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
+                    print (companion.lifepoint)
+                    wrongLetter = false
+                    
+                default:
+                    print(" ⚠️ Wrong letter, try again! ⚠️ ")
+                    print("select the letter A or H")
+                    wrongLetter = true
                 }
-                
-                print("""
-                      \(healer.name), your \(healer.currentType) heal with \(healer.heal)
-                      \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
-                      
-                      """)
-                
-                // we save the remaining lifepoint of chosen fighter in the guild of active player
-                activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
-                print (companion.lifepoint)
-                
-            default:
-                print(" ⚠️ Wrong letter, try again! ⚠️ ")
-                print("select the letter A or H")
             }
-        }
+        } while wrongLetter
     }
     
     

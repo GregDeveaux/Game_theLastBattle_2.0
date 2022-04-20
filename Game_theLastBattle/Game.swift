@@ -165,13 +165,13 @@ class Game {
             var number = 0
             if !fighter.dead {
                 if fighter.currentType == .wizard {
-                    cardfighter[number].append(contentsOf: allWizardsCards[number])
+                    cardfighter += allWizardsCards.filter({$0 == allWizardsCards[number]})
                 }
                 else if fighter.currentType == .warrior {
-                    cardfighter[number].append(contentsOf: allWarriorsCards[number])
+                    cardfighter += allWarriorsCards.filter({$0 == allWarriorsCards[number]})
                 }
                 else if fighter.currentType == .dwarf {
-                     cardfighter[number].append(contentsOf: allDwarfsCards[number])
+                    cardfighter += allDwarfsCards.filter({$0 == allDwarfsCards[number]})
                 }
             } else {
                 cardfighter[number].append(card.dead)

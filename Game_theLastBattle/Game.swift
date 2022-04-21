@@ -240,6 +240,8 @@ class Game {
                           | Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
                           |___________________________________________________________________________________________
                           
+                          
+                          
                           """)
                     wrongLetter = false
                     
@@ -415,8 +417,8 @@ class Game {
         // summary of the round
         print("TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
-        print(player1.guild.totalDamagesInfliged)
-        print(player1.guild.totalHealsOnYourCompanions)
+        print("player 1 , you have infliged \(player1.guild.totalDamagesInfliged) of damages")
+        print("player 1, you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal")
     }
     
 }

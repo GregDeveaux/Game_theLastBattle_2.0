@@ -161,8 +161,9 @@ class Game {
 
         var cardfighter: [String] = []
         
+        var number = 0
+        
         for fighter in activePlayer.guild.fighters {
-            var number = 0
             if !fighter.dead {
                 if fighter.currentType == .wizard {
                     cardfighter += allWizardsCards.filter({$0 == allWizardsCards[number]})

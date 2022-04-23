@@ -7,11 +7,50 @@
 
 import Foundation
 
-// name = 28 characters possible
 
 class Cards {
     
-    var wizard1 = """
+    var name: String = ""
+    
+    // name = 28 characters possible for not ruin the card
+    let maxlengthNamePossible = 32
+    
+    var nameModifiedForCard: String {
+            let lengthName = name.count
+            
+            let differenceOfLength = maxlengthNamePossible - lengthName
+            for _ in 1..<differenceOfLength {
+                let space = " "
+                name = name + space
+            }
+            return name
+    }
+    
+    var lifepoint: Int = 0
+    var heal: Int = 0
+    var power : Int = 0
+    
+    var lifepointModifiedForCard: String {
+        let lifepointString = String(format: "%03d", lifepoint);
+        return lifepointString
+    }
+    
+    var healModifiedForCard: String {
+        let healString = String(format: "%02d", heal);
+        return healString
+    }
+    
+    var powerModifiedForCard: String {
+        let powerString = String(format: "%02d", power);
+        return powerString
+    }
+    
+    
+    
+    
+    // we call the different fighters to integrate the specifications on the card
+    
+    var wizard1: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -19,15 +58,15 @@ class Cards {
         |                                         |
         |   ///////////////////////////////////   |
         |   //                               //   |
-        |   //             _-^-_             //   |
-        |   //            ∫     L            //   |
-        |   //           /       L           //   |
-        |   //          /    ô    L          //   |
-        |   //         /    (§)    L         //   |
-        |   //        /      ¨      L        //   |
-        |   //       /               L       //   |
-        |   //      /_–-··¯¯¯¯¯¯¯··–-_L      //   |
-        |   //     ∑|_–-··¯¯¯¯¯¯¯··–-_|3     //   |
+        |   //             _-¯¯-_            //   |
+        |   //            ∫      L           //   |
+        |   //           /        L          //   |
+        |   //          /     ô    L         //   |
+        |   //         /     (§)    L        //   |
+        |   //        /       ¨      L       //   |
+        |   //       /                L      //   |
+        |   //      /__––––¯¯¯¯¯¯––––__L     //   |
+        |   //     ∑|_––––¯¯¯¯¯¯¯¯––––_|3    //   |
         |   //    ∑ |   _----|----.    | 3   //   |
         |   //    ∑ |       —---       | 3   //   |
         |   //    ∑_| _---"      “---_ |_3   //   |
@@ -47,18 +86,18 @@ class Cards {
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
         
         
         """
+    }
     
     
-    
-    var wizard2 = """
+    var wizard2: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -66,10 +105,10 @@ class Cards {
         |                                         |
         |   ///////////////////////////////////   |
         |   //                               //   |
-        |   //                               //   |
-        |   //                               //   |
         |   //      _-^-¯¯¯v¯¯¯¯¯¯¯-^-_      //   |
         |   //      |        Λ         |     //   |
+        |   //      |      <(@)>       |     //   |
+        |   //      |       |X|        |     //   |
         |   //      |      <(@)>       |     //   |
         |   //      |        V         |     //   |
         |   //      |                  |     //   |
@@ -82,78 +121,78 @@ class Cards {
         |   // ∫  L|         |         |7  L //   |
         |   //∫   (_L      o( )o       /_)  L//   |
         |   //   ∫  |        ¯        |    L //   |
-        |   //  ∫  ∫ L   -<¯¯︶¯¯>-   /   L L//   |
+        |   //  ∫  ∫ L   -<¯¯°¯¯>-   /   L L //   |
         |   // ∫  ∫   L    ¯---¯     /  L  L //   |
         |   // ∫   c.)|L            /|(.c   L//   |
         |   //   cQ(.)| ¯-__   __-¯ |(.)Qc   //   |
         |   // cQQ(.)/      ¯¯¯     L(.)QQc  //   |
         |   // QQ(.)(.)√           √(.)(.)QQ //   |
-        |   // QQQ(.)(.)√√√√√√√√√√√(.)(.)QQQ //   |
-        |   // QQQQ(.)(.)(.)(.)(.)(.)(.)QQQQ //   |
-        |   // QQQQQ(.)(.)(.)(.)(.)(.)QQQQQQ //   |
+        |   // QQQ(m)(.)√√√√√√√√√√√(.)(m)QQQ //   |
+        |   // QQQQ(a)(.)(.)(.)(.)(.)(a)QQQQ //   |
+        |   // QQQQQ(e)(l)(i)(i)(l)(e)QQQQQQ //   |
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
         
         
         """
+    }
     
     
-    
-    var wizard3 =  """
+    var wizard3: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
         |             °·. WIZARD .·°              |
         |                                         |
         |   ///////////////////////////////////   |
-        |   //                               //   |
-        |   //             _-^-_             //   |
-        |   //            ∫     L            //   |
-        |   //           /       L           //   |
-        |   //          /    ô    L          //   |
-        |   //         /    (§)    L         //   |
-        |   //        /      ¨      L        //   |
-        |   //       /               L       //   |
-        |   //      /_–-··¯¯¯¯¯¯¯··–-_L      //   |
-        |   //     ∑|_–-··¯¯¯¯¯¯¯··–-_|3     //   |
-        |   //    ∑ |   _----|----.    | 3   //   |
-        |   //    ∑ |       —---       | 3   //   |
-        |   //    ∑ | _---"      “---_ | 3   //   |
-        |   //    ( /  <{ø}  ||  {ø}>  L )   //   |
-        |   //    L|         )(         |7   //   |
-        |   //    (_L_  ____d__b____  _/_)   //   |
-        |   //     (  L/  ___7L___  L/  )    //   |
-        |   //     (   | /{______}L |   )    //   |
-        |   //      (  |/          L|  )     //   |
-        |   //     M(       )     )    )M    //   |
-        |   //   MWΩΩ( )            3  )ΩΩW  //   |
-        |   // cWMWΩΩc(  )    )       )cΩΩMc //   |
-        |   // cccMWΩΩc)             )cΩΩccc //   |
-        |   // MccWMΩΩΩc(  )     (  )cΩΩΩccW //   |
-        |   // WcccWΩΩΩΩc(.)  )   )cΩΩΩΩcccM //   |
-        |   // MccccWMΩΩΩcc(.__.)ccΩΩΩMccccW //   |
-        |   //                               //   |
+        |   //                   __          //   |
+        |   //            _--^¯¯¯  ¯¯¯¯-_    //   |
+        |   //        _-¯¯               L   //   |
+        |   //       ∫                    L  //   |
+        |   //      /                 /¯·_·  //   |
+        |   //     /                  L      //   |
+        |   //     L__–-··¯¯¯¯¯¯¯··–-__L     //   |
+        |   //     /        <∆∆>       /     //   |
+        |   //    _|__–-··¯¯¯¯¯¯¯··–-__|_    //   |
+        |   //--¯¯                       ¯¯--//   |
+        |   //   ____–--··¯¯¯¯¯¯¯··–--_____  //   |
+        |   // -¯| L|  <(•)> )( <(•)>  |/ |¯-//   |
+        |   //__ ( ~|     -¯ || ¯-     |~ ) _//   |
+        |   //  ¯¯[ |      C(  )D      | ]¯¯ //   |
+        |   //    (_L        )(        /_)   //   |
+        |   //      /L    (==—--==)   /L     //   |
+        |   //     (  L   { L||/ }   /  )    //   |
+        |   //     (   L_{        } /   )    //   |
+        |   //    W(  )                 )W   //   |
+        |   //  WWW(         )     )    )WWW //   |
+        |   // WWWW(             3      )WWW //   |
+        |   // WWWW(     )              )WWW //   |
+        |   // WWWW)                    )WWW //   |
+        |   // WWWWW(  (           (   )WWWW //   |
+        |   // WWWWWW(.   )  )        )WWWWW //   |
+        |   // WWWWWWWW¯-¯(._ ___)-¯¯WWWWWWW //   |
+        |   //               ¯               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
         
         
         """
+    }
     
     
     
-    
-    var warrior1 = """
+    var warrior1: String { return """
 
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -184,23 +223,23 @@ class Cards {
         |   // |||||ddd  -·L   ∫·—  bbb||||| //   |
         |   // ||||||dd'~-.__||__.—~'bb||||| //   |
         |   // |||||||dddddddHbbbbbbb||||||| //   |
-        |   // ||||||||ddddddHbbbbbb|||||||| //   |
+        |   // ||||||||hoanidHbinaoh|||||||| //   |
         |   // |||||||||||dddHbbb||||||||||| //   |
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
 
 
         """
+    }
 
 
-
-    var warrior2 = """
+    var warrior2: String { return """
 
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -236,17 +275,17 @@ class Cards {
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
 
 
         """
+    }
 
-
-    var warrior3 = """
+    var warrior3: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -282,17 +321,17 @@ class Cards {
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
 
 
         """
+    }
 
-
-    var dwarf1 = """
+    var dwarf1: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -300,9 +339,9 @@ class Cards {
         |                                         |
         |   ///////////////////////////////////   |
         |   //                               //   |
-        |   //                               //   |
         |   //       __––––]¯¯¯[––––__       //   |
         |   //     _/      |   |      L_     //   |
+        |   //    /        L   /        L    //   |
         |   //   /L         ¯¯¯         /L   //   |
         |   //  |  L__----__   ___---__/  |  //   |
         |   //  |  .______  ¯¯¯ _______.  |  //   |
@@ -311,8 +350,8 @@ class Cards {
         |   // | | ««~“““-_ | | _-““““”~ | | //   |
         |   // L |   <(•)>  ( )  <(•)>   | / //   |
         |   //  |L          / L         / |  //   |
-        |   //  |_|       C(   )D       |_|  //   |
-        |   //   _/¯¯-<§§§§>-_-<§§§§>-¯¯L_   //   |
+        |   //  | |       C(   )D       | |  //   |
+        |   //  |_/¯¯-<§§§§>-_-<§§§§>-¯¯L_|  //   |
         |   //  /  (   _L_ ·___· _/_   )  L  //   |
         |   // G| (  /¯   L_/ L_/   ¯L  ) |G //   |
         |   // G/ //¯     /     L     L | LG //   |
@@ -328,66 +367,17 @@ class Cards {
         |   //                               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
 
 
         """
+    }
 
-
-    var dwarf2 = """
-        
-         ⌽—————————————————————————————————————————⌽
-         |                                         |
-         |             °·. DWARF .·°               |
-         |                                         |
-         |   ///////////////////////////////////   |
-         |   //                               //   |
-         |   //           _––¯¯√––_           //   |
-         |   //          L       / /          //   |
-         |   //           L     / /           //   |
-         |   //            L     /            //   |
-         |   //        __–––L   /–––__        //   |
-         |   //      _/      L√/      L_      //   |
-         |   //     /                   L     //   |
-         |   //    /                     L    //   |
-         |   //   |L            ᚐᚐᚋᚋᚋᚋᚐᚐᚐ   /|   //   |
-         |   //  |  L                   /  |  //   |
-         |   //  |_/¯                   ¯L_|  //   |
-         |   // (  L _««““«« |L| »»““»»_  / ) //   |
-         |   //  L |  ᚜(•₎᚛  ( )  ᚜(•₎᚛   | / //   |
-         |   //  ( ß_  ¯¯¯   | |   ¯¯¯   _ß ) //   |
-         |   //   ╰╯  ¯-_  C(¯ ¯)D    _-¯ ╰╯  //   |
-         |   //    | _««<““°¯L¯/¯°““>»»_  |   //   |
-         |   //    |/         |         ¯L|   //   |
-         |   //    /   ««°°«°¯ ¯°»°°»    L    //   |
-         |   //__–-L  /    “┉___┉“   L   /–-__//   |
-         |   //    L  [    √         ]  /     //   |
-         |   //    ⊂ↂ⊃              ⊂ↂ⊃     //   |
-         |   //     ( )L        √    /( )     //   |
-         |   //      ψ  )           /  ψ      //   |
-         |   //____      L         /      ____//   |
-         |   //    ¯¯¯¯––_L√      √_––¯¯¯¯    //   |
-         |   //             √ψ ψ√             //   |
-         |   //               √               //   |
-         |   //               |_––            //   |
-         |   //            ––_|               //   |
-         |   ///////////////////////////////////   |
-         |                                         |
-         |   NAME :                                |
-         |                                         |
-         |   Life 000 .·° Heal 000 °·. Power 000   |
-         |                                         |
-         ⌽—————————————————————————————————————————⌽
-
-
-        """
-
-
-    var dwarf3 = """
+    var dwarf2: String { return """
         
         ⌽—————————————————————————————————————————⌽
         |                                         |
@@ -395,43 +385,89 @@ class Cards {
         |                                         |
         |   ///////////////////////////////////   |
         |   //                               //   |
-        |   //                               //   |
-        |   //       __–––––¨¨¨–––––__       //   |
-        |   //     _/                 L_     //   |
-        |   //   /L                     /L   //   |
-        |   //  |  L__----__    __---__/  |  //   |
-        |   //  | ._______  ¨¨¨ _______.  |  //   |
-        |   //  |/¨        L   /       ¨L |  //   |
-        |   //  ||  ««~““-_|___|_-““““”~ ||  //   |
-        |   //  ||   <(•)>  | |  <(•)>   ||  //   |
-        |   //  ||          ( )          ||  //   |
-        |   //  |L          / L         / |  //   |
-        |   //  |_|       C(   )D       |_|  //   |
-        |   //        <§§§§>- <§§§§>         //   |
-        |   //      _/  L_ ·___· _/ L,       //   |
-        |   //     /      L_/ L_/    L_      //   |
-        |   //    //       /    L     LL     //   |
-        |   //    v       |     |      v     //   |
-        |   //    |        L   /      |/     //   |
-        |   //              ===        /     //   |
-        |   //              |||         /    //   |
-        |   //              V V        **    //   |
-        |   //         **************        //   |
-        |   //                               //   |
-        |   //                               //   |
-        |   //                               //   |
-        |   //                               //   |
+        |   //           _––¯¯√––_           //   |
+        |   //          L       / /          //   |
+        |   //           L     / /           //   |
+        |   //            L     /            //   |
+        |   //        __–––L   /–––__        //   |
+        |   //      _/      L√/      L_      //   |
+        |   //     /                   L     //   |
+        |   //    /                     L    //   |
+        |   //   |L            ᚐᚐᚋᚋᚋᚋᚐᚐᚐ   /|   //   |
+        |   //  |  L                   /  |  //   |
+        |   //  |_/¯                   ¯L_|  //   |
+        |   // (  L _««““«« L|/ »»““»»_  / ) //   |
+        |   //  L |  <(•)>  ( )  <(•)>   | / //   |
+        |   //  ( ß_  ¯¯¯   | |   ¯¯¯   _ß ) //   |
+        |   //   ╰╯  ¯-_  C(¯ ¯)D    _-¯ ╰╯  //   |
+        |   //    | _««<““°¯L¯/¯°““>»»_  |   //   |
+        |   //    |/         |         ¯L|   //   |
+        |   //    /   ««°°«°¯ ¯°»°°»    L    //   |
+        |   //__–-L  /    “┉___┉“   L   /–-__//   |
+        |   //    L  [    √         ]  /     //   |
+        |   //    ⊂ↂ⊃              ⊂ↂ⊃     //   |
+        |   //     ( )L        √    /( )     //   |
+        |   //      ψ  )           /  ψ      //   |
+        |   //____      L√       √      _____//   |
+        |   //    ¯¯¯¯––_√ψ_  ψ√__––¯¯¯¯     //   |
+        |   //              ¯√               //   |
         |   ///////////////////////////////////   |
         |                                         |
-        |   NAME :                                |
+        |   NAME : \(nameModifiedForCard)|
         |                                         |
-        |   Life 000 .·° Heal 000 °·. Power 000   |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
 
 
         """
+    }
 
+    var dwarf3: String { return """
+        
+        ⌽—————————————————————————————————————————⌽
+        |                                         |
+        |             °·. DWARF .·°               |
+        |                                         |
+        |   ///////////////////////////////////   |
+        |   //               _               //   |
+        |   //      ______-¯¯ ¯¯-______      //   |
+        |   //     / _-¯¯   <=>   ¯¯-_ L     //   |
+        |   //    /          _          L    //   |
+        |   //   /    <>   <¯ ¯>   <>    L   //   |
+        |   //  /           ¯V¯           L  //   |
+        |   // |   _-¯¯¯¯-__   __-¯¯¯¯-_   | //   |
+        |   // |  /         ¯¯¯         L  | //   |
+        |   // | | ~xXXXx-_|_|_|_-xXXXx~ | | //   |
+        |   // | |   ≤{•}≥  ( )  ≤{•}≥   | | //   |
+        |   // | |    ¯¯¯   | |   ¯¯¯    | | //   |
+        |   // L L         /   L        / /  //   |
+        |   //  |_|   ___C(     )D___   |_|  //   |
+        |   //    _-¯¯     ¯---¯     ¯¯-_    //   |
+        |   //   /        ___/L__        L   //   |
+        |   // s/___---¯¯¯¯-___-¯¯¯¯---___LS //   |
+        |   // SsS/         / L         LsSs //   |
+        |   // sS/         /   L         LsS //   |
+        |   // Ss|        /     L         |s //   |
+        |   // s/        /(-___-)L        LS //   |
+        |   // S|      /¯sS•ↂ•sSs¯L      |s //   |
+        |   // sSL   /¯sSs/     LSsS¯L   /sS //   |
+        |   // Ss| /¯SsSsS|     |sSsSs¯L |Ss //   |
+        |   // ·Ss√sSs·sSsSL   /sSs·sSsS√Ss· //   |
+        |   // ···sSs···sSs•ↂ•sSs···sSsS··· //   |
+        |   // ···SsS···SsSsS√sSsS···SsSs··· //   |
+        |   //                               //   |
+        |   ///////////////////////////////////   |
+        |                                         |
+        |   NAME : \(nameModifiedForCard)|
+        |                                         |
+        |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
+        |                                         |
+        ⌽—————————————————————————————————————————⌽
+
+
+        """
+    }
 
     let dead = """
 
@@ -478,9 +514,10 @@ class Cards {
 
         """
     
-
     
-    func showTheCards(fighter1 card1: String, fighter2 card2: String,fighter3 card3: String) {
+   
+    // function who separate the lines of each card and reassembles the 3 cards side by side
+    func showTheCards(fighter1 card1: String, fighter2 card2: String, fighter3 card3: String) {
         
         let arraycard1 = card1.split(separator: "\n")
         let arraycard2 = card2.split(separator: "\n")

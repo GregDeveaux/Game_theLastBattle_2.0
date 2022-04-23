@@ -114,7 +114,7 @@ struct Warrior: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(oak.power) to \(sword.power) )"  // Details of the fighter
+            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(oak.power) to \(sword.power) )"  // Details of the fighter
     }
     
     // add 3 specific weapons for the warriors
@@ -151,7 +151,7 @@ struct Dwarf: FighterProtocol {
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
     var description:    String  {
-            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ ›› lifepoint = \(lifepoint) ; ❤️‍🩹 ›› heal = \(heal) ; ⚔️ ›› weapons power to attack: from \(volcano.power) to \(ax.power))"  // Details of the fighter
+            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(volcano.power) to \(ax.power))"  // Details of the fighter
     }
     
     // add 3 specific weapons for the dwarves

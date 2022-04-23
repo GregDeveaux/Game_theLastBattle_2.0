@@ -71,8 +71,6 @@ class Player {
     }
     
     
-    
-    
        
     // Select one fighter in the list of kinds
     func selectYourFighters() {
@@ -164,7 +162,8 @@ class Player {
                     isDead = true
                 }
                 else if 1...guild.sizeMaxFighters ~= selectNumber {
-                    print(" –⌽–> you have selected your \(guild.fighters[numberOfFighter].currentType) \(guild.fighters[numberOfFighter].name) \(guild.fighters[numberOfFighter].dead)")
+                    print("")
+                    print(" –⌽–> you have selected your \(guild.fighters[numberOfFighter].currentType) \(guild.fighters[numberOfFighter].name)")
                     print("")
                     if weapon == true {
                         choisenYourWeapon(numberOfFighter)
@@ -183,29 +182,26 @@ class Player {
     
        
     func choisenYourWeapon(_ numberOfFighter: Int) {
-        var num = 1
+        var num = 0
+        var weapon = false
 
         print(" –⌽–> Select your WEAPON, be careful, you are not sure to hit the enemy… Luck will play its part 🤞🍀 ")
         
         for weapon in guild.fighters[numberOfFighter].weapons {
-            print("    \(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
             num += 1
+            print("    \(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
         }
         
-        if let choiceWeapon = Int(readLine()!) {
-            switch choiceWeapon {
-            case 1 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 0)
-                
-            case 2 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 1)
-
-            case 3 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 2)
-
-            default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
+        
+        while !weapon {
+            if let choiceWeapon = Int(readLine()!) {
+                if choiceWeapon <= num {
+                    initNewWeapon(numberOfFighter: numberOfFighter, index: choiceWeapon - 1)
+                    weapon = true
+                } else {
+                    print(" ⚠️ Wrong number, try again! ⚠️ ")
+                    weapon = false
+                }
             }
         }
     }

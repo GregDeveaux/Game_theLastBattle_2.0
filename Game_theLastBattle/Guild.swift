@@ -15,14 +15,18 @@ import Foundation
 
 class Guild {
     
-    var sizeMaxFighters: Int                        // number of fighters maximum for each team
-    var fighters: [FighterProtocol] = []            // The guild is composed of 3 fighters
+    // number of fighters maximum for each guild
+    var sizeMaxFighters: Int
+    
+    // The guild is composed of fighters
+    var fighters: [FighterProtocol] = []
     
     // Recover the damages of guild
     var totalDamagesInfliged = 0
     
     // Recover the heals of guild
     var totalHealsOnYourCompanions = 0
+    
 
     // Used to create the guild with n fighters
     init(sizeMaxFighters: Int) {
@@ -45,9 +49,7 @@ class Guild {
             For that you select the number corresponding to the type of fighter desired and the you give him a name:
               
             \(Wizard().description)
-              
             \(Warrior().description)
-              
             \(Dwarf().description)
               
           ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -63,7 +65,7 @@ class Guild {
     
     
     
-    
+    // we call this function after the choice and the naming of 3 fighters of each guilds
     func summaryKindInGuild(_ name: String) {
         var listKindArray: [String] = []
         

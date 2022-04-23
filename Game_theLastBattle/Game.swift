@@ -25,6 +25,7 @@ class Game {
     // number of round in the game
     var round = 0
     
+        
     // Message that introduces the game
     func welcomeMessage() {
         print("""
@@ -73,18 +74,18 @@ class Game {
              |  |       ¯¯¯°––––._____.–––°¯¯¯             ¯¯°––_____.–––°¯¯¯             ¯¯°––_____.–––°¯¯¯/
              |  |                                                                                      ~_.–<=;
              |  |                                                                                           /
+             |  |    𝑶𝑵𝑪𝑬 𝑼𝑷𝑶𝑵 𝑨 𝑻𝑰𝑴𝑬… 𝑨 𝑩𝑰𝑮 𝑲𝑰𝑵𝑮 🤴 𝑳𝑶𝑽𝑬𝑫 𝑶𝑭 𝑾𝑯𝑶𝑳𝑬 𝑯𝑰𝑺 𝑲𝑰𝑵𝑮𝑫𝑶𝑴, 𝑾𝑨𝑺              |
+             |  |    𝑶𝑵 𝑻𝑯𝑬 𝑽𝑬𝑹𝑮𝑬 𝑶𝑭 𝑫𝑬𝑨𝑻𝑯… 𝑩𝑬𝑭𝑶𝑹𝑬 𝑶𝑭 𝑫𝒀𝑰𝑵𝑮, 𝑯𝑬 S𝑼𝑴𝑴𝑶𝑵𝑬𝑫 𝑯𝑰𝑺 𝑩𝑶𝑻𝑯 𝑪𝑯𝑰𝑳𝑫𝑺         |
+             |  |    𝑻𝑶 𝑷𝑹𝑶𝑷𝑶𝑺𝑬𝑫 𝑻𝑯𝑬𝑴 𝑻𝑶 𝑹𝑬𝑨𝑳𝑰𝒁𝑬 𝑨 𝑩𝑰𝑮 𝑻𝑶𝑼𝑹𝑵𝑨𝑴𝑬𝑵𝑻 𝑶𝑭 𝑭𝑰𝑮𝑯𝑻 𝑰𝑵 𝑯𝑰𝑺 𝑯𝑶𝑵𝑶𝑹,          /
+             |  |    𝑰𝑵 𝑺𝑾𝑰𝑪𝑯 𝑻𝑯𝑬𝒀 𝑾𝑶𝑼𝑳𝑫 𝑪𝑯𝑶𝑶𝑺𝑬 𝑨 𝑮𝑼𝑰𝑳𝑫 𝑶F 𝑻𝑯𝑹𝑬𝑬 𝑭𝑰G𝑯𝑻𝑬𝑹𝑺 𝑻𝑯𝑨𝑻 𝑻HE𝒀 𝑾𝑰𝑳𝑳         __L
+             |  |    𝑹𝑬𝑪𝑹𝑼𝑰𝑻 𝑻𝑯𝑬 𝑺𝑨𝑴𝑬 𝑫𝑨𝒀 𝑰𝑵 𝑾𝑯𝑶𝑳𝑬 𝑻𝑯𝑬 𝑽𝑨𝑳𝑳𝑬𝒀…                                   -¯   |
              |  |                                                                                           |
-             |  |    𝑶𝑵𝑪𝑬 𝑼𝑷𝑶𝑵 𝑨 𝑻𝑰𝑴𝑬… A BIG KING 🤴 LOVED OF WHOLE KINGDOM ON THE VERGE OF DEATH…        |
-             |  |    HE SUMMONED HIS BOTH CHILDS AND PROPOSED THEM TO REALIZE A TOURNAMENT OF FIGHT         /
-             |  |    IN SWICH THEY WOULD CHOOSE A GUILD OF THREE FIGHTERS THAT THEY WILL RECRUIT         __L
-             |  |    THE SAME DAY IN WHOLE THE VALLEY…                                                 -¯   |
-             |  |                                                                                           |
-             |  |    … AND THE WINNER TO THE LAST BATTLE, BEFORE THE KING DEATH, WILL BECAME                |
-             |  |    THE NEW LEGACY PRINCE OR PRINCESS… 👑                                                  L
+             |  |    … 𝑻𝑯𝑬 𝑾𝑰𝑵𝑵𝑬𝑹 𝑶𝑭 𝑻𝑯𝑰𝑺 𝑳𝑨𝑺𝑻 𝑩𝑨𝑻𝑻𝑳𝑬 𝑾𝑰𝑳𝑳 𝑩𝑬𝑪𝑶𝑴𝑬 𝑻𝑯𝑬 𝑵𝑬𝑾 𝑪𝑹𝑶𝑾𝑵 𝑷𝑹𝑰𝑵𝑪𝑬            |
+             |  |    𝑶𝑹 𝑷𝑹𝑰𝑵𝑪𝑬𝑺𝑺… 👑                                                                      L
              |  |                                                                                            |
-             |  |    … YOU ARE THE BOTH CHILDS AND "THE GAME" WILL GO BEGIN SOON.                            /
+             |  |    … 𝒀𝑶𝑼 (𝑻𝑯𝑬 𝑩𝑶𝑻𝑯 𝑷𝑳𝑨𝒀𝑬𝑹𝑺) 𝑨𝑹𝑬 𝑯𝑰𝑺 𝑩𝑶𝑻𝑯 𝑪𝑯𝑰𝑳𝑫𝑺, "𝑻𝑯𝑬 𝑮𝑨𝑴𝑬" 𝑮𝑶 𝑩𝑬𝑮𝑰𝑵 𝑺𝑶𝑶𝑵.       /
              |  |                                                                                           |
-             |  |    GOOD LUCK! 🍀                                                                          ¦
+             |  |    𝑹𝑬𝑨𝑫𝒀 𝑮𝑶! 𝑮𝑶𝑶𝑫 𝑳𝑼𝑪𝑲! 🍀                                                             ¦
              |  |                                                                                           |
              |  |                                                                                           /
              ĺ__ĺ––.___                     ____.––––.___                      __.––––.___          _.––~<=;
@@ -116,8 +117,7 @@ class Game {
     }
     
     
-    // Call the informations from different teams for present at players
-    
+    // Call the informations from different guilds for present at players
     func presentationGuilds() {
         print("""
               
@@ -130,59 +130,83 @@ class Game {
         player1.guild.fighters.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
-        presentationGuildsWithCards(activePlayer: player1)
-        
         print("")
         print("  The guild \(player2.name.uppercased()) is composed of :")
         player2.guild.fighters.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
-        presentationGuildsWithCards(activePlayer: player2)
-
         print("""
 
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
               """)
+    }
+    
+    // version with cards
+    func presentationGuildsWithCards() {
+        print("""
+              
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
+              """)
+        print("  The guild \(player1.name.uppercased()) is composed of :")
+        showCardsOfGuild(player1)
+        print("")
+        print("")
+        print("  The guild \(player2.name.uppercased()) is composed of :")
+        showCardsOfGuild(player2)
+        print("""
 
+                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+              """)
     }
     
     
     
-    // Call the informations from different teams for present at players with the cards
-    func presentationGuildsWithCards(activePlayer: Player) {
+    // Call the informations from different guilds for present  the fighters cards of player
+    func showCardsOfGuild(_ activePlayer: Player) {
         
         let card = Cards()
-        let allWizardsCards = [card.wizard1, card.wizard2, card.wizard3]
-        let allWarriorsCards = [card.warrior1, card.warrior2, card.warrior3]
-        let allDwarfsCards = [card.dwarf1, card.dwarf2, card.dwarf3]
 
-        var cardfighter: [String] = []
+        var fightersCardsOfActivePlayer: [String] = []
         
         var number = 0
         
         for fighter in activePlayer.guild.fighters {
+            
+            card.name = fighter.name
+            card.lifepoint = fighter.lifepoint
+            card.heal = fighter.heal
+            card.power = fighter.powerAttack
+            
+            let allWizardsCards = [card.wizard1, card.wizard2, card.wizard3]
+            let allWarriorsCards = [card.warrior1, card.warrior2, card.warrior3]
+            let allDwarfsCards = [card.dwarf1, card.dwarf2, card.dwarf3]
+            
             if !fighter.dead {
                 if fighter.currentType == .wizard {
-                    cardfighter += allWizardsCards.filter({$0 == allWizardsCards[number]})
+                    fightersCardsOfActivePlayer += allWizardsCards.filter({$0 == allWizardsCards[number]})
                 }
                 else if fighter.currentType == .warrior {
-                    cardfighter += allWarriorsCards.filter({$0 == allWarriorsCards[number]})
+                    fightersCardsOfActivePlayer += allWarriorsCards.filter({$0 == allWarriorsCards[number]})
                 }
                 else if fighter.currentType == .dwarf {
-                    cardfighter += allDwarfsCards.filter({$0 == allDwarfsCards[number]})
+                    fightersCardsOfActivePlayer += allDwarfsCards.filter({$0 == allDwarfsCards[number]})
                 }
             } else {
-                cardfighter[number].append(card.dead)
+                fightersCardsOfActivePlayer[number] = card.dead
             }
                 
                 
                 number += 1
         }
         
-        print(card.showTheCards(fighter1: cardfighter[0], fighter2: cardfighter[1], fighter3: cardfighter[2]))
+        card.showTheCards(fighter1: fightersCardsOfActivePlayer[0], fighter2: fightersCardsOfActivePlayer[1], fighter3: fightersCardsOfActivePlayer[2])
     }
     
     
@@ -224,9 +248,9 @@ class Game {
 //                    activePlayer.guild.fighters[numberOfAttacker].randomPowerWeapon(activePlayer.choisenYourWeapon(numberOfAttacker))
                     
                     // If lifepoint equal 0, the fighter is dead but the lifepoint can't be lower than 0
-                    if enemy.lifepoint < 0 {
+                    if enemy.lifepoint <= 0 {
                         enemy.lifepoint = 0
-                        print("☠️ Oh no! \(enemy.name) your \(enemy.currentType) not have surviving ☠️")
+                        print("☠️ Oh no! \(enemy.name) the \(enemy.currentType) not have surviving ☠️")
                     }
                     
                     // we save the remaining lifepoint of chosen fighter in the guild of inactive player
@@ -235,11 +259,11 @@ class Game {
                     
                     // summary of attack
                     print("""
-                          | \(attacker.name), your \(attacker.currentType) attack with \(attacker.nameWeapon) \(attacker.powerAttack)
-                          |
-                          | Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
-                          |___________________________________________________________________________________________
-                          
+                          ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                          ⚡️  \(attacker.name), your \(attacker.currentType) attack with \(attacker.nameWeapon) \(attacker.powerAttack)
+                          ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                          ⚡️  Your ennemy, \(enemy.name), had \(beforeLifepointEnnemy) before the attack, now he has left \(enemy.lifepoint)
+                          ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
                           
                           
                           """)
@@ -247,61 +271,79 @@ class Game {
                     
                 case "H":
                     print("You want heal the companion")
+                        
+                        // we verify that there are still 2 fighters is alives
+                        var isDead = 0
+                        for fighter in activePlayer.guild.fighters {
+                            if fighter.dead {
+                                isDead += 1
+                            }
+                        }
                     
-                    // we recover the number of healer fighter in the list
-                    let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
-                    
-                    // we recover the number of companion fighter in the list
-                    var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
-                    
-                    // The healer cannot choose as hurt fighter
-                    while numberOfHealer == numberOfCompanion {
-                        print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
-                        print("")
-                        // we recover the number of companion fighter in the list
-                        numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
-                    }
-                    
-                    // we give at healer his indice
-                    let healer = activePlayer.guild.fighters[numberOfHealer]
-                    
-                    // we give at hurt companion his indice
-                    var companion = activePlayer.guild.fighters[numberOfCompanion]
-                    
-                    // we record the lifepoint before to the explanation to attack
-                    let beforeLifepointCompanion = companion.lifepoint
-                    
-                    // the hurt companion wins of lifepoint
-                    companion.lifepoint += healer.heal
-                    
-                    activePlayer.guild.totalHealsOnYourCompanions += healer.heal
+                        if isDead < activePlayer.guild.sizeMaxFighters - 1 {
+                            
+                            // we recover the number of healer fighter in the list of player
+                            let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
+                            
+                            // we recover the number of companion fighter in the list of player
+                            var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                            
+                            // The healer cannot choose himself as hurt fighter
+                            if numberOfHealer == numberOfCompanion {
+                                print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
+                                print("")
+                                
+                                // we recover the number of companion fighter in the list
+                                numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                            }
+                            
+                            // we give at healer his indice
+                            let healer = activePlayer.guild.fighters[numberOfHealer]
+                            
+                            // we give at hurt companion his indice
+                            var companion = activePlayer.guild.fighters[numberOfCompanion]
+                            
+                            // we record the lifepoint before to the explanation to attack
+                            let beforeLifepointCompanion = companion.lifepoint
+                            
+                            // the hurt companion wins of lifepoint
+                            companion.lifepoint += healer.heal
+                            
+                            activePlayer.guild.totalHealsOnYourCompanions += healer.heal
 
-                    if companion.currentType == .wizard {
-                        if companion.lifepoint >= Wizard().lifepoint {
-                            companion.lifepoint = Wizard().lifepoint
-                        }
-                    }
-                    else if companion.currentType == .warrior {
-                        if companion.lifepoint >= Warrior().lifepoint {
-                            companion.lifepoint = Warrior().lifepoint
-                        }
-                    }
-                    else if companion.currentType == .dwarf {
-                        if companion.lifepoint >= Dwarf().lifepoint {
-                            companion.lifepoint = Dwarf().lifepoint
-                        }
+                            if companion.currentType == .wizard {
+                                if companion.lifepoint >= Wizard().lifepoint {
+                                    companion.lifepoint = Wizard().lifepoint
+                                }
+                            }
+                            else if companion.currentType == .warrior {
+                                if companion.lifepoint >= Warrior().lifepoint {
+                                    companion.lifepoint = Warrior().lifepoint
+                                }
+                            }
+                            else if companion.currentType == .dwarf {
+                                if companion.lifepoint >= Dwarf().lifepoint {
+                                    companion.lifepoint = Dwarf().lifepoint
+                                }
+                            }
+                            
+                            print("""
+                                  ❤️‍🩹––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                                  ❤️‍🩹  \(healer.name), your \(healer.currentType) heal with \(healer.heal)
+                                  ❤️‍🩹––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+                                  ❤️‍🩹  \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
+                                  ❤️‍🩹––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+
+                                  """)
+                            
+                            // we save the remaining lifepoint of chosen fighter in the guild of active player
+                            activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
+                            print (companion.lifepoint)
+                            wrongLetter = false
                     }
                     
-                    print("""
-                          \(healer.name), your \(healer.currentType) heal with \(healer.heal)
-                          \(companion.name), your companion had \(beforeLifepointCompanion) before the care, now he has \(companion.lifepoint)
-                          
-                          """)
                     
-                    // we save the remaining lifepoint of chosen fighter in the guild of active player
-                    activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
-                    print (companion.lifepoint)
-                    wrongLetter = false
                     
                 default:
                     print(" ⚠️ Wrong letter, try again! ⚠️ ")
@@ -316,15 +358,16 @@ class Game {
     func andTheWinnerIs(_ player: Player, looser: Player) {
         // we verify that all the fighters are dead in the guild of one player
         print("☠️☠️☠️ All Fighters are dead! ☠️☠️☠️")
+        print("")
         
         // if that the case, the other player wins the game
-        print("\(player.name) wins the game")
+        print("""
         
-        // summary damages infliged by looser
-        print(" you inflicted \(player.guild.totalDamagesInfliged) at \(looser.name)")
+            🏆\(player.name) WINS THE GAME 🏆
         
-        // summary damages infliged by looser
-        print(" you healed \(player.guild.totalHealsOnYourCompanions) at your companions")
+            👑 The crown is yours… The king places it on your head… 🤴 you are the new king.
+        
+        """)
     }
     
     // Start the fight with a loop until one whole team dead
@@ -357,19 +400,17 @@ class Game {
 
             // if player 2 win
             if player1.guild.allFightersDead() {
+                gameOver()
                 andTheWinnerIs(player2, looser: player1)
                 break   // we exit of loop
             }
             // if player 1 win
             else if player2.guild.allFightersDead() {
+                gameOver()
                 andTheWinnerIs(player1, looser: player2)
                 break   // we exit of loop
             }
-            
-            if round == 5 { // for test
-                break
-            }
-        }
+         }
     }
     
     

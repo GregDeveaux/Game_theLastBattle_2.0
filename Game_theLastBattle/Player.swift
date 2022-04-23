@@ -20,7 +20,7 @@ class Player {
     var name: String = ""
     
     // call each team array of player with maximun of 3 fighters
-    var guild = Guild(sizeMaxFighters: 2)
+    var guild = Guild(sizeMaxFighters: 3)
     
     // fighters currently in the guild
     var fightersInGuild = 0
@@ -31,14 +31,15 @@ class Player {
     
     // Enter the name of the guild
     func enterTheNameOfGuild(_ numberPlayer: Int, nameDifferent otherPlayer: Player) {
-        print(">>> PLAYER \(numberPlayer), enter your Guild name")
+        print("")
+        print(" –⌽–> PLAYER \(numberPlayer), enter your Guild name")
         while name.isEmpty {
             if let nameWrites = readLine()?.uppercased() {
                 if !nameWrites.isEmpty && nameWrites != otherPlayer.name {
                     name = nameWrites
                 }
                 else {
-                    print("Please, enter the other Guild name, thanks")
+                    print(" ⚠️ Please, enter the other Guild name, thanks ⚠️")
                 }
             }
         }
@@ -48,9 +49,9 @@ class Player {
     
     // message for choice other fighter
     enum MessageCurrentChoice: String {
-        case first = "––> you can select your first fighter"
-        case second = "––> you can select your second fighter"
-        case last = "––> you can select your last fighter"
+        case first = " –⌽–> You can select your first fighter"
+        case second = " –⌽–> You can select your second fighter"
+        case last = " –⌽–> You can select your last fighter"
     }
     
     
@@ -68,8 +69,6 @@ class Player {
             
         }
     }
-    
-    
     
     
        
@@ -100,16 +99,13 @@ class Player {
         guild.fighters[fightersInGuild].name = giveNameToFighter(fightersInGuild)
         print("""
         
-        –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-        –––––>          You've selected a \(kind.currentType).
-        –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+         ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+           You've selected a \(kind.currentType) that you named: \(guild.fighters[fightersInGuild].name).
+         ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
         """)
-        for fighter in guild.fighters {
-            print(fighter.name)
-
-        }
+        
         fightersInGuild += 1
         messageSelectAgain(fightersInGuild)
     }
@@ -121,13 +117,14 @@ class Player {
     func giveNameToFighter(_ numberOfFighter: Int) -> String {
             
         // Text for name request
-        print("Give him a name!")
+        print("")
+        print(" –⌽–> Give him a name!")
         
         // call an empty variable for the integration of the fighter name
         while guild.fighters[numberOfFighter].name.isEmpty {
             if let nameFighterWrites = readLine()?.uppercased() {
-                if !Player.stealTheNameOfAllFighters.contains(nameFighterWrites) {  // if the layer write a name already contains in the both team
-                    print("⚠️ This name is already taken, please enter an other ⚠️")
+                if Player.stealTheNameOfAllFighters.contains(nameFighterWrites) {  // if the layer write a name already contains in the both team
+                    print(" ⚠️ This name is already taken, please enter an other ⚠️")
                     guild.fighters[numberOfFighter].name = ""
                 } else {
                     guild.fighters[numberOfFighter].name = nameFighterWrites
@@ -143,7 +140,7 @@ class Player {
     // Select a existing fighter in a guild
     func chooseTheFighter(in category: String, by player: Player, weapon: Bool) -> Int {
         var num = 1
-        print("Guild \(player.name), Select the number of one of \(category)")
+        print(" –⌽–> Guild \(player.name), Select the number of one of \(category)")
         var numberOfFighter = 0
         var isDead = true
         
@@ -165,7 +162,8 @@ class Player {
                     isDead = true
                 }
                 else if 1...guild.sizeMaxFighters ~= selectNumber {
-                    print("you have selected your \(guild.fighters[numberOfFighter].currentType) \(guild.fighters[numberOfFighter].name) \(guild.fighters[numberOfFighter].dead)")
+                    print("")
+                    print(" –⌽–> you have selected your \(guild.fighters[numberOfFighter].currentType) \(guild.fighters[numberOfFighter].name)")
                     print("")
                     if weapon == true {
                         choisenYourWeapon(numberOfFighter)
@@ -175,7 +173,7 @@ class Player {
                 }
             }
             print(" ⚠️ Wrong number, try again! ⚠️ ")
-            print("Please select only a number between 1 and \(guild.sizeMaxFighters)")
+            print(" Please select only a number between 1 and \(guild.sizeMaxFighters)")
                 isDead = true
         }
         return numberOfFighter
@@ -184,53 +182,37 @@ class Player {
     
        
     func choisenYourWeapon(_ numberOfFighter: Int) {
-        var num = 1
+        var num = 0
+        var weapon = false
 
-        print("Select one of your fighter's weapons according to his characteristics")
+        print(" –⌽–> Select your WEAPON, be careful, you are not sure to hit the enemy… Luck will play its part 🤞🍀 ")
         
         for weapon in guild.fighters[numberOfFighter].weapons {
-            print("\(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
             num += 1
+            print("    \(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
         }
         
-        if let choiceWeapon = Int(readLine()!) {
-            switch choiceWeapon {
-            case 1 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 1)
-                
-            case 2 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 2)
-
-            case 3 :
-                initNewWeapon(numberOfFighter: numberOfFighter, index: 3)
-
-            default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
+        
+        while !weapon {
+            if let choiceWeapon = Int(readLine()!) {
+                if choiceWeapon <= num {
+                    initNewWeapon(numberOfFighter: numberOfFighter, index: choiceWeapon - 1)
+                    weapon = true
+                } else {
+                    print(" ⚠️ Wrong number, try again! ⚠️ ")
+                    weapon = false
+                }
             }
         }
     }
     
     
-    func randomPowerWeapon(_ numberOfFighter: Int, _ index: Int) {
-        switch guild.fighters[numberOfFighter].powerAttack {
-        case 0:
-            print("👎 completely failed, you messed up, you lose 5 point 👎")
-            guild.fighters[numberOfFighter].lifepoint -= 5
-        case 1..<guild.fighters[numberOfFighter].weapons[index].power:
-            print("👍 it's not all that crazy, but it's OK 👍")
-        case guild.fighters[numberOfFighter].weapons[index].power :
-            print("💪 Yeah baby yeah, you attack with divine power 💪")
-        default:
-            print("why not!")
-        }
-    }
+
     
     
     func initNewWeapon(numberOfFighter: Int, index: Int) {
         guild.fighters[numberOfFighter].nameWeapon = guild.fighters[numberOfFighter].weapons[index].name
         guild.fighters[numberOfFighter].powerAttack = Int.random(in: 0...guild.fighters[numberOfFighter].weapons[index].power)
-        randomPowerWeapon(numberOfFighter, index)
         guild.fighters[numberOfFighter].weapons[index].numberUse -= 1
         guild.fighters[numberOfFighter].weapons = guild.fighters[numberOfFighter].weapons.filter{ $0.numberUse != 0 }
     }

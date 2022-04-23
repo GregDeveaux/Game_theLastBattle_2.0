@@ -21,6 +21,9 @@ while true {
         theGame.createAllTheGuilds()
         
         theGame.presentationGuilds()
+    
+    // option with cards
+        theGame.presentationGuildsWithCards()
         
         theGame.goFight()
         

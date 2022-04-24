@@ -15,27 +15,27 @@ import Foundation
 
 class Guild {
     
-    // number of fighters maximum for each guild
+        // number of fighters maximum for each guild
     var sizeMaxFighters: Int
     
-    // The guild is composed of fighters
+        // The guild is composed of fighters
     var fighters: [FighterProtocol] = []
     
-    // Recover the damages of guild
+        // Recover the damages of guild
     var totalDamagesInfliged = 0
     
-    // Recover the heals of guild
+        // Recover the heals of guild
     var totalHealsOnYourCompanions = 0
     
-
-    // Used to create the guild with n fighters
+    
+        // Used to create the guild with n fighters
     init(sizeMaxFighters: Int) {
         self.sizeMaxFighters = sizeMaxFighters
     }
     
     
     
-    // Message explaining the creation of the guild, nominative per each player
+        // Message explaining the creation of the guild, nominative per each player
     func createGuild(of player: Player) {
 
         print ("""
@@ -56,7 +56,7 @@ class Guild {
           ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
         """)
-        // indicates the number of fighters left to choose
+            // indicates the number of fighters left to choose
         print(Player.MessageCurrentChoice.first.rawValue)
         
         player.selectYourFighters()
@@ -65,7 +65,7 @@ class Guild {
     
     
     
-    // we call this function after the choice and the naming of 3 fighters of each guilds
+        // we call this function after the choice and the naming of 3 fighters of each guilds
     func summaryKindInGuild(_ name: String) {
         var listKindArray: [String] = []
         
@@ -77,7 +77,6 @@ class Guild {
         let listKind = listKindArray.joined(separator: ", a ")
     
     print("""
-
           Kudos!
           Your guild \(name) is composed of a \(listKind)
           
@@ -89,7 +88,7 @@ class Guild {
     
     
     
-    // we verify that all fighters of the guild is dead then we return the value
+        // we verify that all fighters of the guild is dead then we return the value
     func allFightersDead() -> Bool {
         var totalDead = 0
         for fighter in fighters {

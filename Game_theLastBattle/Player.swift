@@ -28,6 +28,8 @@ class Player {
     // recording the names of fighters write by player if different
     static var stealTheNameOfAllFighters: Set<String>  = []
 
+    // recover the index of the weapon choicen to display the random text
+    var textRandomWeapon = ""
     
     // Enter the name of the guild
     func enterTheNameOfGuild(_ numberPlayer: Int, nameDifferent otherPlayer: Player) {
@@ -72,20 +74,25 @@ class Player {
     
     
        
-    // Select one fighter in the list of kinds
+        // Select one fighter in the list of kinds
     func selectYourFighters() {
         while fightersInGuild < guild.sizeMaxFighters {
+            
             if let choiceOfFighters = readLine(){
+                
                 switch choiceOfFighters {
-                case "1" :
-                    appendInGuild(kind: Wizard())
-                case "2" :
-                    appendInGuild(kind: Warrior())
-                case "3" :
-                    appendInGuild(kind: Dwarf())
-                default:
-                print(" ⚠️ Wrong number, try again! ⚠️ ")
-                print(" Only used number 1, 2 and 3, please ")
+                    case "1" :
+                        appendInGuild(kind: Wizard())
+                        
+                    case "2" :
+                        appendInGuild(kind: Warrior())
+                        
+                    case "3" :
+                        appendInGuild(kind: Dwarf())
+                        
+                    default:
+                        print(" ⚠️ Wrong number, try again! ⚠️ ")
+                        print(" Only used number 1, 2 and 3, please ")
                 }
             }
         }
@@ -95,15 +102,17 @@ class Player {
     
     // append fighters in the array guild of player
     func appendInGuild(kind: FighterProtocol) {
+        
         guild.fighters.append(kind)
+        
         guild.fighters[fightersInGuild].name = giveNameToFighter(fightersInGuild)
         print("""
         
          ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
            You've selected a \(kind.currentType) that you named: \(guild.fighters[fightersInGuild].name).
          ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
+        
+        
         """)
         
         fightersInGuild += 1
@@ -115,14 +124,16 @@ class Player {
     
     // function allowing to give a name to a fighter and who verifies if the name doesn't exist
     func giveNameToFighter(_ numberOfFighter: Int) -> String {
-            
-        // Text for name request
+        
+            // Text for name request
         print("")
         print(" –⌽–> Give him a name!")
         
-        // call an empty variable for the integration of the fighter name
+            // call an empty variable for the integration of the fighter name
         while guild.fighters[numberOfFighter].name.isEmpty {
+            
             if let nameFighterWrites = readLine()?.uppercased() {
+                
                 if Player.stealTheNameOfAllFighters.contains(nameFighterWrites) {  // if the layer write a name already contains in the both team
                     print(" ⚠️ This name is already taken, please enter an other ⚠️")
                     guild.fighters[numberOfFighter].name = ""
@@ -137,14 +148,16 @@ class Player {
     
     
     
-    // Select a existing fighter in a guild
+        // Select a existing fighter in a guild
     func chooseTheFighter(in category: String, by player: Player, weapon: Bool) -> Int {
         var num = 1
+        
         print(" –⌽–> Guild \(player.name), Select the number of one of \(category)")
+        
         var numberOfFighter = 0
         var isDead = true
         
-        // We create a list of the fighters of the guild whether he's alive or dead
+            // We create a list of the fighters of the guild whether he's alive or dead
         for fighter in guild.fighters {
             if fighter.dead == false {
                 print("   \(num) • a \(fighter.currentType), his name is \(fighter.name) and have \(fighter.lifepoint) of lifepoint, \(fighter.heal) of heal and a weapon \(fighter.nameWeapon) with \(fighter.powerAttack) of attack power.")
@@ -156,15 +169,18 @@ class Player {
         
         while isDead == true  {
             if let selectNumber = Int(readLine()!) {
+                
                 numberOfFighter = selectNumber - 1
+                
                 if  numberOfFighter + 1 <= guild.sizeMaxFighters && guild.fighters[numberOfFighter].dead == true {
-                    print(" this fighter is dead! Please, choose the another")
+                    print(" –⌽–> this fighter is dead! Please, choose the another")
                     isDead = true
                 }
                 else if 1...guild.sizeMaxFighters ~= selectNumber {
                     print("")
                     print(" –⌽–> you have selected your \(guild.fighters[numberOfFighter].currentType) \(guild.fighters[numberOfFighter].name)")
                     print("")
+                    
                     if weapon == true {
                         choisenYourWeapon(numberOfFighter)
                     }
@@ -174,7 +190,7 @@ class Player {
             }
             print(" ⚠️ Wrong number, try again! ⚠️ ")
             print(" Please select only a number between 1 and \(guild.sizeMaxFighters)")
-                isDead = true
+            isDead = true
         }
         return numberOfFighter
     }
@@ -184,7 +200,7 @@ class Player {
     func choisenYourWeapon(_ numberOfFighter: Int) {
         var num = 0
         var weapon = false
-
+        
         print(" –⌽–> Select your WEAPON, be careful, you are not sure to hit the enemy… Luck will play its part 🤞🍀 ")
         
         for weapon in guild.fighters[numberOfFighter].weapons {
@@ -195,9 +211,10 @@ class Player {
         
         while !weapon {
             if let choiceWeapon = Int(readLine()!) {
-                if choiceWeapon <= num {
+                if choiceWeapon <= num && choiceWeapon > 0 {
                     initNewWeapon(numberOfFighter: numberOfFighter, index: choiceWeapon - 1)
                     weapon = true
+
                 } else {
                     print(" ⚠️ Wrong number, try again! ⚠️ ")
                     weapon = false
@@ -207,13 +224,21 @@ class Player {
     }
     
     
-
-    
-    
+        // after its selection, we initialize the new chosen weapon and we include a random luck to hit
     func initNewWeapon(numberOfFighter: Int, index: Int) {
+            // we choose the weapon with the index
         guild.fighters[numberOfFighter].nameWeapon = guild.fighters[numberOfFighter].weapons[index].name
+        
+            // we recover the powerAttack of the weapon for make it random (luck to hit the enemy)
         guild.fighters[numberOfFighter].powerAttack = Int.random(in: 0...guild.fighters[numberOfFighter].weapons[index].power)
+        
+            // we recover the funny text for explanation of success or not
+        textRandomWeapon = guild.fighters[numberOfFighter].randomPowerWeaponMessage(index)
+        
+            // we delete one unity of the weapon
         guild.fighters[numberOfFighter].weapons[index].numberUse -= 1
+        
+            // we verify that the weapon unity are always OK otherwise we delete it of the list
         guild.fighters[numberOfFighter].weapons = guild.fighters[numberOfFighter].weapons.filter{ $0.numberUse != 0 }
     }
     

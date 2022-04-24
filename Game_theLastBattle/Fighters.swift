@@ -26,23 +26,25 @@ protocol FighterProtocol {
 
 extension FighterProtocol {
     
-    // If a fighter has his lifepoint = 0, he's dead
+        // If a fighter has his lifepoint = 0, he's dead
     var dead: Bool {
         lifepoint == 0
     }
     
-    func randomPowerWeapon(_ index: Int) {
+    // random text by range of power, if zero the attacker will lose 5 lifepoints
+    func randomPowerWeaponMessage(_ index: Int) -> String {
+        print(powerAttack)
         switch powerAttack {
         case 0:
-            print("👎 completely failed, you messed up, you lose 5 point 👎")
+            return "👎 Completely failed attack, you messed up, you lose 5 lifepoints 👎"
         case 1..<(weapons[index].power / 2) :
-            print("👍 it's not all that crazy, but it's OK 👍")
+                return "👍 Not terrible, muscle your game! you will do better the next time 👍"
         case (weapons[index].power / 2)..<weapons[index].power :
-            print("💪 wonderfull attack 💪")
+                return "💪 Wonderfull attack, you are an Artist 💪"
         case weapons[index].power :
-            print("👹 Yeah baby yeah, you attack with demoniac power 👹")
+                return "👹 Yeah baby yeah! you attack with demoniac power, I like that 👹"
         default:
-            print("why not!")
+                return "why not!"
         }
     }
     
@@ -76,15 +78,17 @@ struct Wizard: FighterProtocol {
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
+    
+        // Details of the fighter
     var description:    String  {
-        return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(rain.power) to \(fireBall.power) )"  // Details of the fighter
+        return "·1· -> 🧙‍♂️ Wizard : efficient for first aid (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(rain.power) to \(fireBall.power) )"
     }
     
-    // add 3 specific weapons for the wizards
+        // add 3 specific weapons for the wizards
     var rain = Weapon(name: "Froggy rain", power: 5, numberUse: 50)
     var staff = Weapon(name: "Staff of power", power: 15, numberUse: 3)
     var fireBall = Weapon(name: "Fire ball", power: 25, numberUse: 1)
-        
+    
     init() {
         self.currentType   = .wizard
         self.name          = ""
@@ -113,16 +117,18 @@ struct Warrior: FighterProtocol {
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
+    
+        // Details of the fighter
     var description:    String  {
-            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(oak.power) to \(sword.power) )"  // Details of the fighter
+            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(oak.power) to \(sword.power) )"
     }
     
-    // add 3 specific weapons for the warriors
+        // add 3 specific weapons for the warriors
     var oak = Weapon(name: "Oak stick", power: 10, numberUse: 50)
     var shuriken = Weapon(name: "Shuriken", power: 20, numberUse: 3)
     var sword = Weapon(name: "Sword \"Thunder of fire\"", power: 30, numberUse: 1)
     
-    // The different elements that make up the character are initialized
+        // The different elements that make up the character are initialized
     init() {
         self.currentType    = .warrior
         self.name           = ""
@@ -150,16 +156,18 @@ struct Dwarf: FighterProtocol {
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
+    
+        // Details of the fighter
     var description:    String  {
-            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(volcano.power) to \(ax.power))"  // Details of the fighter
+            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(volcano.power) to \(ax.power))"
     }
     
-    // add 3 specific weapons for the dwarves
+        // add 3 specific weapons for the dwarves
     var volcano = Weapon(name: "Volcano Slingshot", power: 80, numberUse: 50)
     var hammer = Weapon(name: "Hammer Dammer", power: 30, numberUse: 3)
     var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 40, numberUse: 1)
     
-    // The different elements that make up the character are initialized
+        // The different elements that make up the character are initialized
     init() {
         self.currentType    = .dwarf
         self.name           = ""

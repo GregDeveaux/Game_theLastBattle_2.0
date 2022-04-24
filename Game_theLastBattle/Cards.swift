@@ -12,18 +12,18 @@ class Cards {
     
     var name: String = ""
     
-    // name = 28 characters possible for not ruin the card
+        // name = 32 characters possible for not ruin the card
     let maxlengthNamePossible = 32
     
     var nameModifiedForCard: String {
-            let lengthName = name.count
-            
-            let differenceOfLength = maxlengthNamePossible - lengthName
-            for _ in 1..<differenceOfLength {
-                let space = " "
-                name = name + space
-            }
-            return name
+        let lengthName = name.count
+        
+        let differenceOfLength = maxlengthNamePossible - lengthName
+        for _ in 1..<differenceOfLength {
+            let space = " "
+            name = name + space
+        }
+        return name
     }
     
     var lifepoint: Int = 0
@@ -48,7 +48,7 @@ class Cards {
     
     
     
-    // we call the different fighters to integrate the specifications on the card
+        // we call the different fighters to integrate the specifications on the card
     
     var wizard1: String { return """
         
@@ -443,7 +443,7 @@ class Cards {
         |   // | |    ¯¯¯   | |   ¯¯¯    | | //   |
         |   // L L         /   L        / /  //   |
         |   //  |_|   ___C(     )D___   |_|  //   |
-        |   //    _-¯¯     ¯---¯     ¯¯-_    //   |
+        |   //   |_-¯¯     ¯---¯     ¯¯-_|   //   |
         |   //   /        ___/L__        L   //   |
         |   // s/___---¯¯¯¯-___-¯¯¯¯---___LS //   |
         |   // SsS/         / L         LsSs //   |
@@ -516,18 +516,18 @@ class Cards {
     
     
    
-    // function who separate the lines of each card and reassembles the 3 cards side by side
+        // function who split the lines of each card and reassembles the 3 cards side by side
     func showTheCards(fighter1 card1: String, fighter2 card2: String, fighter3 card3: String) {
         
+            // we split the line after the newline
         let arraycard1 = card1.split(separator: "\n")
         let arraycard2 = card2.split(separator: "\n")
         let arraycard3 = card3.split(separator: "\n")
-
+        
+            // that reassembles in 3 columns
         for i in 0..<arraycard1.count {
             print("\(arraycard1[i])        \(arraycard2[i])        \(arraycard3[i])")
         }
-        
     }
-    
     
 }

@@ -26,9 +26,7 @@ while true {
         theGame.presentationGuildsWithCards()
         
         theGame.goFight()
-        
-        theGame.gameOver()
-    
+          
     if !theGame.selectPlayAgain() {
         break
     }

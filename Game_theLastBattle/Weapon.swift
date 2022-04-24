@@ -8,12 +8,12 @@
 import Foundation
 
 struct Weapon {
-    // Name of the weapon
+        // Name of the weapon
     var name: String
     
-    // Power of the weapon
+        // Power of the weapon
     var power: Int
     
-    // Number of times that we can use the weapon in the game
+        // Number of times that we can use the weapon in the game
     var numberUse: Int
 }

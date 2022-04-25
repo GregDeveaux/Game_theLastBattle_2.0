@@ -38,7 +38,7 @@ extension FighterProtocol {
         case 0:
             return "👎 Completely failed attack, you messed up, you lose 5 lifepoints 👎"
         case 1..<(weapons[index].power / 2) :
-                return "👍 Not terrible, muscle your game! you will do better the next time 👍"
+                return "👍 Ooohh! Not terrible! you will muscle your game, guy, you will do better the next time 👍"
         case (weapons[index].power / 2)..<weapons[index].power :
                 return "💪 Wonderfull attack, you are an Artist 💪"
         case weapons[index].power :

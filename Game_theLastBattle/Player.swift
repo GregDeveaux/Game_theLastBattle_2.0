@@ -49,7 +49,7 @@ class Player {
     
     
     
-    // message for choice other fighter
+        // message for choice other fighter
     enum MessageCurrentChoice: String {
         case first = " –⌽–> You can select your first fighter"
         case second = " –⌽–> You can select your second fighter"
@@ -58,7 +58,7 @@ class Player {
     
     
     
-    // Message for the seclection of fighter
+        // Message for the seclection of fighter
     func messageSelectAgain(_ fightersInGuild: Int) {
         
         if fightersInGuild == 1 {
@@ -68,7 +68,7 @@ class Player {
             print(MessageCurrentChoice.last.rawValue)
         }
         else {
-            
+            print(MessageCurrentChoice.first.rawValue)
         }
     }
     
@@ -122,7 +122,7 @@ class Player {
     
    
     
-    // function allowing to give a name to a fighter and who verifies if the name doesn't exist
+        // function allowing to give a name to a fighter and who verifies if the name doesn't exist
     func giveNameToFighter(_ numberOfFighter: Int) -> String {
         
             // Text for name request
@@ -134,7 +134,8 @@ class Player {
             
             if let nameFighterWrites = readLine()?.uppercased() {
                 
-                if Player.stealTheNameOfAllFighters.contains(nameFighterWrites) {  // if the layer write a name already contains in the both team
+                    // if the layer write a name already contains in the both team
+                if Player.stealTheNameOfAllFighters.contains(nameFighterWrites) {
                     print(" ⚠️ This name is already taken, please enter an other ⚠️")
                     guild.fighters[numberOfFighter].name = ""
                 } else {
@@ -149,7 +150,7 @@ class Player {
     
     
         // Select a existing fighter in a guild
-    func chooseTheFighter(in category: String, by player: Player, weapon: Bool) -> Int {
+    func chooseTheFighter(of category: String, by player: Player, weapon: Bool) -> Int {
         var num = 1
         
         print(" –⌽–> Guild \(player.name), Select the number of one of \(category)")
@@ -167,6 +168,11 @@ class Player {
             num += 1
         }
         
+            // +++++++OPTION++++++++ list with cards ++++++++++++++++++++
+        print("")
+            showCardsOfGuild()
+            
+            // We choise the fighter in the list by his number (not possible if he's dead)
         while isDead == true  {
             if let selectNumber = Int(readLine()!) {
                 
@@ -196,7 +202,49 @@ class Player {
     }
     
     
+        // Call the informations from different guilds for present  the fighters cards of player
+    func showCardsOfGuild() {
+        
+        let card = Cards()
+
+        var fightersCardsOfActivePlayer: [String] = []
+        
+        var number = 0
+        
+            // We recover the fighters of the guild, then the function choises them representations in the created cards by kind
+        for fighter in guild.fighters {
+
+            card.name = fighter.name
+            card.lifepoint = fighter.lifepoint
+            card.heal = fighter.heal
+            card.power = fighter.powerAttack
+            
+            let allWizardsCards = [card.wizard1, card.wizard2, card.wizard3]
+            let allWarriorsCards = [card.warrior1, card.warrior2, card.warrior3]
+            let allDwarfsCards = [card.dwarf1, card.dwarf2, card.dwarf3]
+            let deadCard = [card.dead]
+            
+            if fighter.dead {
+                fightersCardsOfActivePlayer += deadCard
+            }
+            else if fighter.currentType == .wizard {
+                fightersCardsOfActivePlayer += allWizardsCards.filter({$0 == allWizardsCards[number]})
+            }
+            else if fighter.currentType == .warrior {
+                fightersCardsOfActivePlayer += allWarriorsCards.filter({$0 == allWarriorsCards[number]})
+            }
+            else if fighter.currentType == .dwarf {
+                fightersCardsOfActivePlayer += allDwarfsCards.filter({$0 == allDwarfsCards[number]})
+            }
+            
+            number += 1
+        }
+        
+        card.putTheCardsSideBySide(fighter1: fightersCardsOfActivePlayer[0], fighter2: fightersCardsOfActivePlayer[1], fighter3: fightersCardsOfActivePlayer[2])
+    }
        
+    
+    
     func choisenYourWeapon(_ numberOfFighter: Int) {
         var num = 0
         var weapon = false
@@ -214,7 +262,6 @@ class Player {
                 if choiceWeapon <= num && choiceWeapon > 0 {
                     initNewWeapon(numberOfFighter: numberOfFighter, index: choiceWeapon - 1)
                     weapon = true
-
                 } else {
                     print(" ⚠️ Wrong number, try again! ⚠️ ")
                     weapon = false

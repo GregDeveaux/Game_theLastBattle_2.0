@@ -418,7 +418,7 @@ class Cards {
         |   Life \(lifepointModifiedForCard)  .·° Heal \(healModifiedForCard) °·.  Power \(powerModifiedForCard)   |
         |                                         |
         ⌽—————————————————————————————————————————⌽
-
+         
 
         """
     }
@@ -517,7 +517,7 @@ class Cards {
     
    
         // function who split the lines of each card and reassembles the 3 cards side by side
-    func showTheCards(fighter1 card1: String, fighter2 card2: String, fighter3 card3: String) {
+    func putTheCardsSideBySide(fighter1 card1: String, fighter2 card2: String, fighter3 card3: String) {
         
             // we split the line after the newline
         let arraycard1 = card1.split(separator: "\n")

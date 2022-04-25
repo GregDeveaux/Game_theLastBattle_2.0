@@ -15,18 +15,18 @@ import Foundation
 while true {
     
     let theGame = Game()
-   
-        theGame.welcomeMessage()
-
-        theGame.createAllTheGuilds()
-        
-        theGame.presentationGuilds()
     
-    // option with cards
-        theGame.presentationGuildsWithCards()
-        
-        theGame.goFight()
-          
+    theGame.welcomeMessage()
+    
+    theGame.createAllTheGuilds()
+    
+    theGame.presentationGuilds()
+    
+        // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
+    theGame.presentationGuildsWithCards()
+    
+    theGame.goFight()
+    
     if !theGame.selectPlayAgain() {
         break
     }

@@ -1,17 +1,17 @@
-//
-//  Game.swift
-//  Game_theLastBattle
-//
-//  Created by Greg Deveaux on 28/02/2022.
-//
+    //
+    //  Game.swift
+    //  Game_theLastBattle
+    //
+    //  Created by Greg Deveaux on 28/02/2022.
+    //
 
 import Foundation
 
 
-// -----------------------------------------------------------------------------------------------------
-// MARK: - Classe Game
-// >>> Step to play with the "Game"
-// -----------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: - Classe Game
+    // >>> Step to play with the "Game"
+    // -----------------------------------------------------------------------------------------------------
 
 class Game {
     
@@ -97,9 +97,9 @@ class Game {
             
             """)
         
-
+        
     }
-
+    
     
     
         // Creation of the Guild of each player
@@ -124,7 +124,7 @@ class Game {
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
                  •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
+              
               """)
         print("  The guild \(player1.name.uppercased()) is composed of :")
         player1.guild.fighters.forEach {
@@ -136,85 +136,43 @@ class Game {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
         print("""
-
+              
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
+              
               """)
     }
     
-        // version with cards
+        // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
     func presentationGuildsWithCards() {
         print("""
               
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
                  •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
+              
               """)
         print("  The guild \(player1.name.uppercased()) is composed of :")
-        showCardsOfGuild(player1)
+        player1.showCardsOfGuild()
         print("")
         print("")
         print("  The guild \(player2.name.uppercased()) is composed of :")
-        showCardsOfGuild(player2)
+        player2.showCardsOfGuild()
         print("""
-
+              
                  –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
                  ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
+              
               """)
     }
     
     
     
-        // Call the informations from different guilds for present  the fighters cards of player
-    func showCardsOfGuild(_ activePlayer: Player) {
-        
-        let card = Cards()
-
-        var fightersCardsOfActivePlayer: [String] = []
-        
-        var number = 0
-        
-        for fighter in activePlayer.guild.fighters {
-            
-            card.name = fighter.name
-            card.lifepoint = fighter.lifepoint
-            card.heal = fighter.heal
-            card.power = fighter.powerAttack
-            
-            let allWizardsCards = [card.wizard1, card.wizard2, card.wizard3]
-            let allWarriorsCards = [card.warrior1, card.warrior2, card.warrior3]
-            let allDwarfsCards = [card.dwarf1, card.dwarf2, card.dwarf3]
-            
-            if !fighter.dead {
-                if fighter.currentType == .wizard {
-                    fightersCardsOfActivePlayer += allWizardsCards.filter({$0 == allWizardsCards[number]})
-                }
-                else if fighter.currentType == .warrior {
-                    fightersCardsOfActivePlayer += allWarriorsCards.filter({$0 == allWarriorsCards[number]})
-                }
-                else if fighter.currentType == .dwarf {
-                    fightersCardsOfActivePlayer += allDwarfsCards.filter({$0 == allDwarfsCards[number]})
-                }
-            } else {
-                fightersCardsOfActivePlayer[number] = card.dead
-            }
-                
-                
-                number += 1
-        }
-        
-        card.showTheCards(fighter1: fightersCardsOfActivePlayer[0], fighter2: fightersCardsOfActivePlayer[1], fighter3: fightersCardsOfActivePlayer[2])
-    }
-    
-    
-      
+        // we select, here, the principal action of game: attack or heal and  the choice of fighters
     func selectAttackOrHeal(activePlayer: Player, inactivePlayer: Player) {
         
         var wrongLetter = false
-
+        
         print("""
                 Guild \(activePlayer.name), you can choose one action in the list:
                 - select A -> to attack the fighter enemy.
@@ -228,10 +186,10 @@ class Game {
                         print(" –⌽–> You have decided to attack")
                         print("")
                             // we recover the number of attacker fighter in the list
-                        let numberOfAttacker = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: true)
+                        let numberOfAttacker = activePlayer.chooseTheFighter(of: "fighter in your guild", by: activePlayer, weapon: true)
                         
                             // we recover the number of enemy fighter in the list
-                        let numberOfEnemy = inactivePlayer.chooseTheFighter(in: "the enemy guild", by: activePlayer, weapon: false)
+                        let numberOfEnemy = inactivePlayer.chooseTheFighter(of: "your enemies", by: activePlayer, weapon: false)
                         
                             // we give at attacker his indice
                         var attacker = activePlayer.guild.fighters[numberOfAttacker]
@@ -241,6 +199,9 @@ class Game {
                         
                             // we record the lifepoint before to the explanation to attack
                         let beforeLifepointEnnemy = enemy.lifepoint
+                        
+                            // we record the lifepoint before to the explanation to attack
+                        let beforeLifepointAttacker = attacker.lifepoint
                         
                             // calculate the sum of damages
                         activePlayer.guild.totalDamagesInfliged += attacker.powerAttack
@@ -273,7 +234,7 @@ class Game {
                               ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
                               ⚡️  \(activePlayer.textRandomWeapon)
                               ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-                              ⚡️  Your fighter, \(attacker.name), had \(beforeLifepointEnnemy) before the failed attack, now he has left \(attacker.lifepoint)
+                              ⚡️  Your fighter, \(attacker.name), had \(beforeLifepointAttacker) before the FAILED ATTACK, now he has left \(attacker.lifepoint)
                               ⚡️––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
                               
                               
@@ -309,10 +270,10 @@ class Game {
                         if isDead < activePlayer.guild.sizeMaxFighters - 1 {
                             
                                 // we recover the number of healer fighter in the list of player
-                            let numberOfHealer = activePlayer.chooseTheFighter(in: "your guild", by: activePlayer, weapon: false)
+                            let numberOfHealer = activePlayer.chooseTheFighter(of: "healer in your guild", by: activePlayer, weapon: false)
                             
                                 // we recover the number of companion fighter in the list of player
-                            var numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                            var numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
                             
                                 // The healer cannot choose himself as hurt fighter
                             if numberOfHealer == numberOfCompanion {
@@ -320,7 +281,7 @@ class Game {
                                 print("")
                                 
                                     // we recover the number of companion fighter in the list
-                                numberOfCompanion = activePlayer.chooseTheFighter(in: "your companions", by: activePlayer, weapon: false)
+                                numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
                             }
                             
                                 // we give at healer his indice
@@ -381,30 +342,146 @@ class Game {
     }
     
     
-    func andTheWinnerIs(_ player: Player, looser: Player) {
+    
+    
+    
+        // Start the fight with a loop until one whole team dead
+    func goFight() {
         
-        // name = 33 characters possible
-        let maxlengthNamePossible = 33
-        let nextSentence = " WINS THE GAME 🏆  ⌘ •··•··•··•··•··•··"
-        player.name += nextSentence
-
+        print("""
+            
+            
+              XXXXXX  XX   XX  XXXXXX     XXXXXX  XXXX  XXXXXXX  XX   XX  XXXXXX     XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX   XXXXX
+                XX    XX   XX  XX         XX       XX   XX       XX   XX    XX       XX   XX  XX      XX        XX   XXX  XX  XX
+                XX    XXXXXXX  XXXX       XXXX     XX   XX  XXX  XXXXXXX    XX       XXXXXX   XXXX    XX  XXX   XX   XX X XX   XXXX
+                XX    XX   XX  XX         XX       XX   XX   XX  XX   XX    XX       XX   XX  XX      XX   XX   XX   XX  XXX      XX
+                XX    XX   XX  XXXXXX     XX      XXXX  XXXXXXX  XX   XX    XX       XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX  XXXXX
+            
+            
+            """)
         
-        var nameModifiedForWinner: String {
-            let lengthName = player.name.count
-                
-                let differenceOfLength = maxlengthNamePossible - lengthName
-                for _ in 1..<differenceOfLength {
-                    let space = " "
-                    player.name += space
-                }
-                return player.name
-        }
+            // Quit loop when the whole fighters of one guild are dead
+    outerLoop: while true {
         
-        // we verify that all the fighters are dead in the guild of one player
-        print("☠️☠️☠️ \(looser), all Fighters are dead! ☠️☠️☠️")
+        round += 1 // init round number 1
+        print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
         print("")
         
-        // if that the case, the other player wins the game
+        for _ in 1...2 {
+                // the first player begins the round
+            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)
+            
+                // if player 2 win
+            if player1.guild.allFightersDead() {
+                gameOver(looser: player1)
+                andTheWinnerIs(player2)
+                break outerLoop   // we exit of loop
+            }
+                // if player 1 win
+            if player2.guild.allFightersDead() {
+                gameOver(looser: player2)
+                andTheWinnerIs(player1)
+                break outerLoop   // we exit of loop
+            }
+            
+            swap(&player1, &player2)
+        }
+        
+    }
+    }
+    
+    
+    
+    
+    
+    func selectPlayAgain() -> Bool {
+        print("•••  Do you want to play again ?  •••")
+        print("•••  write Y (for Yes) or N (for No)  •••")
+        
+            // Ask the players, if they play a new game
+        while true {
+            if let playAgain = readLine()?.uppercased() {
+                switch playAgain {
+                    case "Y":
+                        print("Play again")
+                        return true
+                        
+                    case "N":
+                        print("Hasta la vista, Baby!")
+                        return false
+                        
+                    default:
+                        print("⚠️ Wrong letter, try again! ⚠️ ")
+                        print("select the letter Y or N")
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+        // Stop fight, declare the winner and present the result of fight
+    func gameOver(looser: Player) {
+        
+            // we verify that all the fighters are dead in the guild of one player
+        print("")
+        print("☠️☠️☠️ \(looser.name), all Fighters are dead! ☠️☠️☠️")
+        
+        print("""
+            
+            
+              XXXXXXX    XXX    XX   XX  XXXXXX      XXXXX   XX     XX  XXXXX    XXXXXX
+              XX       XX   XX  XXX XXX  XX         XX   XX  XX     XX  XX       XX   XX
+              XX  XXX  XXXXXXX  XX X XX  XXXX       XX   XX   XX   XX   XXXX     XXXXXX
+              XX   XX  XX   XX  XX   XX  XX         XX   XX    XX XX    XX       XX  XX
+              XXXXXXX  XX   XX  XX   XX  XXXXXX      XXXXX      XXX     XXXXXXX  XX   XX
+            
+            
+            """)
+        
+            // summary of the round
+        print("  –⌽–> TOTAL ROUND FOR THE BATTLE: \(round)")
+        presentationGuilds()
+        print("")
+        
+            // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
+        presentationGuildsWithCards()
+        print("")
+        
+        print("  –⌽–> \(player1.name), you have infliged \(player1.guild.totalDamagesInfliged) of damages")
+        print("  –⌽–> \(player1.name), you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal")
+        print("")
+        
+        print("  –⌽–> \(player2.name), you have infliged \(player2.guild.totalDamagesInfliged) of damages")
+        print("  –⌽–> \(player2.name), you have help your companion due to \(player2.guild.totalHealsOnYourCompanions) of heal")
+        print("")
+    }
+    
+    
+    
+    
+    func andTheWinnerIs(_ player: Player) {
+        
+            // name = 112 characters possible
+        let maxlengthNamePossible = 112
+        
+            // add the name at the sentence
+        let sentence = "··•··•··•··•··•··• ⌘  🏆 \(player.name) WINS THE GAME 🏆  ⌘ •··•··•··•··•··•··"
+        
+        var space = ""
+        
+        var nameModifiedForWinner: String {
+            let lengthName = sentence.count
+            let differenceOfLength = maxlengthNamePossible - lengthName
+            
+            for _ in 1...differenceOfLength / 2 {
+                space += " "
+            }
+            return space + sentence + space
+        }
+        
+            // if that the case, the other player wins the game
         print("""
                  
                 ··                                  ··                                  ··                                  ··
@@ -424,113 +501,18 @@ class Game {
          ··••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••··
          ··••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••··
          ··••··                                                                                                                ··••··
-         ··•··         ··•··•··•··•··•··• ⌘  🏆 \(nameModifiedForWinner)         ··•··
+         ··•··\(nameModifiedForWinner)··•··
          ··•··                                                                                                                    •··
          ··•··                 👑 The crown is yours… The king places it on your head… 🤴 you are the new king.                 ··•··
          ··••··                                                                                                                ··••··
          ··••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••··
           ···••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••···
             ······················································································································
-
+        
+        
+        
+        
         """)
-    }
-    
-    
-    
-    // Start the fight with a loop until one whole team dead
-    func goFight() {
-
-        print("""
-            
-            
-              XXXXXX  XX   XX  XXXXXX     XXXXXX  XXXX  XXXXXXX  XX   XX  XXXXXX     XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX   XXXXX
-                XX    XX   XX  XX         XX       XX   XX       XX   XX    XX       XX   XX  XX      XX        XX   XXX  XX  XX
-                XX    XXXXXXX  XXXX       XXXX     XX   XX  XXX  XXXXXXX    XX       XXXXXX   XXXX    XX  XXX   XX   XX X XX   XXXX
-                XX    XX   XX  XX         XX       XX   XX   XX  XX   XX    XX       XX   XX  XX      XX   XX   XX   XX  XXX      XX
-                XX    XX   XX  XXXXXX     XX      XXXX  XXXXXXX  XX   XX    XX       XXXXXX   XXXXXX  XXXXXXX  XXXX  XX   XX  XXXXX
-
-            
-            """)
-        
-        // Quit loop when the whole fighters of one guild are dead
-        while true {
-            
-            round += 1 // init round number 1
-            print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
-            print("")
-            
-            // the first player begins the round
-            selectAttackOrHeal(activePlayer: player1, inactivePlayer: player2)
-            
-            // the second player finishes the round
-            selectAttackOrHeal(activePlayer: player2, inactivePlayer: player1)
-
-            // if player 2 win
-            if player1.guild.allFightersDead() {
-                gameOver()
-                andTheWinnerIs(player2, looser: player1)
-                break   // we exit of loop
-            }
-            // if player 1 win
-            else if player2.guild.allFightersDead() {
-                gameOver()
-                andTheWinnerIs(player1, looser: player2)
-                break   // we exit of loop
-            }
-         }
-    }
-    
-    
-    func selectPlayAgain() -> Bool {
-        print("•••  Do you want to play again ?  •••")
-        print("•••  write Y (for Yes) or N (for No)  •••")
-        
-        // Ask the players, if they play a new game
-        while true {
-            if let playAgain = readLine()?.uppercased() {
-                switch playAgain {
-                case "Y":
-                    print("Play again")
-                    return true
-
-                case "N":
-                    print("Hasta la vista, Baby!")
-                    return false
-                    
-                default:
-                    print("⚠️ Wrong letter, try again! ⚠️ ")
-                    print("select the letter Y or N")
-                }
-            }
-        }
-    }
-    
-    
-    
-    
-    // Stop fight, declare the winner and present the result of fight
-    func gameOver() {
-        print("""
-            
-            
-              XXXXXXX    XXX    XX   XX  XXXXXX      XXXXX   XX     XX  XXXXX    XXXXXX
-              XX       XX   XX  XXX XXX  XX         XX   XX  XX     XX  XX       XX   XX
-              XX  XXX  XXXXXXX  XX X XX  XXXX       XX   XX   XX   XX   XXXX     XXXXXX
-              XX   XX  XX   XX  XX   XX  XX         XX   XX    XX XX    XX       XX  XX
-              XXXXXXX  XX   XX  XX   XX  XXXXXX      XXXXX      XXX     XXXXXXX  XX   XX
-
-            
-            """)
-        
-        // summary of the round
-        print("  –⌽–> TOTAL ROUND FOR THE BATTLE: \(round)")
-        presentationGuilds()
-        print("  –⌽–> \(player1.name), you have infliged \(player1.guild.totalDamagesInfliged) of damages")
-        print("  –⌽–> \(player1.name), you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal")
-        print("")
-        print("  –⌽–> \(player2.name), you have infliged \(player2.guild.totalDamagesInfliged) of damages")
-        print("  –⌽–> \(player2.name), you have help your companion due to \(player2.guild.totalHealsOnYourCompanions) of heal")
-        print("")
     }
     
 }

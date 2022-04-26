@@ -169,8 +169,8 @@ class Player {
         }
         
             // +++++++OPTION++++++++ list with cards ++++++++++++++++++++
-        print("")
-            showCardsOfGuild()
+//        print("")
+//            showCardsOfGuild()
             
             // We choise the fighter in the list by his number (not possible if he's dead)
         while isDead == true  {
@@ -195,7 +195,7 @@ class Player {
                 }
             }
             print(" ⚠️ Wrong number, try again! ⚠️ ")
-            print(" Please select only a number between 1 and \(guild.sizeMaxFighters)")
+            print(" –⌽–> Please reselect a valid number between 1 and \(guild.sizeMaxFighters)")
             isDead = true
         }
         return numberOfFighter

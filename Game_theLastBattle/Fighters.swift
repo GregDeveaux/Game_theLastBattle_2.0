@@ -86,8 +86,8 @@ struct Wizard: FighterProtocol {
     
         // add 3 specific weapons for the wizards
     var rain = Weapon(name: "Froggy rain", power: 5, numberUse: 50)
-    var staff = Weapon(name: "Staff of power", power: 15, numberUse: 3)
-    var fireBall = Weapon(name: "Fire ball", power: 25, numberUse: 1)
+    var staff = Weapon(name: "Staff of power", power: 18, numberUse: 3)
+    var fireBall = Weapon(name: "Fire ball", power: 35, numberUse: 1)
     
     init() {
         self.currentType   = .wizard
@@ -125,8 +125,8 @@ struct Warrior: FighterProtocol {
     
         // add 3 specific weapons for the warriors
     var oak = Weapon(name: "Oak stick", power: 10, numberUse: 50)
-    var shuriken = Weapon(name: "Shuriken", power: 20, numberUse: 3)
-    var sword = Weapon(name: "Sword \"Thunder of fire\"", power: 30, numberUse: 1)
+    var shuriken = Weapon(name: "Shuriken", power: 25, numberUse: 3)
+    var sword = Weapon(name: "Sword \"Thunder of fire\"", power: 40, numberUse: 1)
     
         // The different elements that make up the character are initialized
     init() {
@@ -163,9 +163,9 @@ struct Dwarf: FighterProtocol {
     }
     
         // add 3 specific weapons for the dwarves
-    var volcano = Weapon(name: "Volcano Slingshot", power: 80, numberUse: 50)
-    var hammer = Weapon(name: "Hammer Dammer", power: 30, numberUse: 3)
-    var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 40, numberUse: 1)
+    var volcano = Weapon(name: "Volcano Slingshot", power: 25, numberUse: 50)
+    var hammer = Weapon(name: "Hammer Dammer", power: 35, numberUse: 3)
+    var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 45, numberUse: 1)
     
         // The different elements that make up the character are initialized
     init() {

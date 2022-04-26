@@ -23,7 +23,7 @@ while true {
     theGame.presentationGuilds()
     
         // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-    theGame.presentationGuildsWithCards()
+//    theGame.presentationGuildsWithCards()
     
     theGame.goFight()
     

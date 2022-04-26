@@ -30,7 +30,6 @@ class Game {
     func welcomeMessage() {
         print("""
             
-            
                              ····                                           ····                                                ····
                           ···••••···                                     ···••••···                                          ···••••···
                           ···••••···                                     ···••••···                                          ···••••···
@@ -65,8 +64,6 @@ class Game {
                           ···••••···                                      ···••••···                                         ···••••···
                              ·••·                                            ·••·                                               ·••·
                              ····                                            ····                                               ····
-            
-            
             
             
             
@@ -144,27 +141,27 @@ class Game {
     }
     
         // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-    func presentationGuildsWithCards() {
-        print("""
-              
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-                 •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-              
-              """)
-        print("  The guild \(player1.name.uppercased()) is composed of :")
-        player1.showCardsOfGuild()
-        print("")
-        print("")
-        print("  The guild \(player2.name.uppercased()) is composed of :")
-        player2.showCardsOfGuild()
-        print("""
-              
-                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-              
-              """)
-    }
+//    func presentationGuildsWithCards() {
+//        print("""
+//
+//                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+//                 •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
+//                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+//
+//              """)
+//        print("  The guild \(player1.name.uppercased()) is composed of :")
+//        player1.showCardsOfGuild()
+//        print("")
+//        print("")
+//        print("  The guild \(player2.name.uppercased()) is composed of :")
+//        player2.showCardsOfGuild()
+//        print("""
+//
+//                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
+//                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+//
+//              """)
+//    }
     
     
     
@@ -275,15 +272,6 @@ class Game {
                                 // we recover the number of companion fighter in the list of player
                             var numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
                             
-                                // The healer cannot choose himself as hurt fighter
-                            if numberOfHealer == numberOfCompanion {
-                                print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
-                                print("")
-                                
-                                    // we recover the number of companion fighter in the list
-                                numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
-                            }
-                            
                                 // we give at healer his indice
                             let healer = activePlayer.guild.fighters[numberOfHealer]
                             
@@ -292,6 +280,15 @@ class Game {
                             
                                 // we record the lifepoint before to the explanation to attack
                             let beforeLifepointCompanion = companion.lifepoint
+                            
+                                // The healer cannot choose himself as hurt fighter
+                            if numberOfHealer == numberOfCompanion {
+                                print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
+                                print("")
+                                
+                                    // we recover the number of companion fighter in the list
+                                numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
+                            }
                             
                                 // the hurt companion wins of lifepoint
                             companion.lifepoint += healer.heal
@@ -328,13 +325,15 @@ class Game {
                             activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
                             print (companion.lifepoint)
                             wrongLetter = false
+                        } else {
+                            print(" ⚠️ your fighters cannot heal because they are dead, select attack! ⚠️ ")
+                            print(" –⌽–> you can only select attack!")
+                            wrongLetter = true
                         }
-                        
-                        
                         
                     default:
                         print(" ⚠️ Wrong letter, try again! ⚠️ ")
-                        print("select the letter A or H")
+                        print(" –⌽–> select the letter A or H")
                         wrongLetter = true
                 }
             }
@@ -446,8 +445,8 @@ class Game {
         print("")
         
             // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-        presentationGuildsWithCards()
-        print("")
+//        presentationGuildsWithCards()
+//        print("")
         
         print("  –⌽–> \(player1.name), you have infliged \(player1.guild.totalDamagesInfliged) of damages")
         print("  –⌽–> \(player1.name), you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal")

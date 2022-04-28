@@ -15,9 +15,9 @@ import Foundation
 
 protocol FighterProtocol {
     var currentType:    Kind            { get }         // Either wizard or warrior or dwarf
-    var name:           String          { get set }     // Character name which must be unique and not yet used
-    var lifepoint:      Int             { get set }     // Character lifepoint who is different depending on type
-    var heal:           Int             { get }         // Character heal who is different depending on type
+    var name:           String          { get set }     // Fighter name which must be unique and not yet used
+    var lifepoint:      Int             { get set }     // Fighter lifepoint who is different depending on type
+    var heal:           Int             { get }         // Fighter heal who is different depending on type
     var weapons:        [Weapon]        { get set }     // Array of weapons for each kind
     var nameWeapon:     String          { get set }     // Name of the weapon used
     var powerAttack:    Int             { get set }     // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
@@ -33,7 +33,6 @@ extension FighterProtocol {
     
     // random text by range of power, if zero the attacker will lose 5 lifepoints
     func randomPowerWeaponMessage(_ index: Int) -> String {
-        print(powerAttack)
         switch powerAttack {
         case 0:
             return "👎 Completely failed attack, you messed up, you lose 5 lifepoints 👎"
@@ -53,8 +52,8 @@ extension FighterProtocol {
 
 
 // -------------------------------------------------------------------------------------------------------
-// MARK: Kind of Fighters
-// >>> Gives its properties to the character
+// MARK: Enum Kind of Fighters
+// >>> Gives its properties to the fighter
 // -------------------------------------------------------------------------------------------------------
 
 enum Kind: String {
@@ -66,15 +65,15 @@ enum Kind: String {
 
 
 // -------------------------------------------------------------------------------------------------------
-// MARK: Class Wizard
+// MARK: Struct Wizard
 // >>> characteristics of wizard
 // -------------------------------------------------------------------------------------------------------
 
 struct Wizard: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
-    var name:           String      // Character name which must be unique and not yet used
-    var lifepoint:      Int         // Character lifepoint who is different depending on type
-    var heal:           Int         // Character heal who is different depending on type
+    var name:           String      // Fighter name which must be unique and not yet used
+    var lifepoint:      Int         // Fighter lifepoint who is different depending on type
+    var heal:           Int         // Fighter heal who is different depending on type
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
@@ -92,7 +91,7 @@ struct Wizard: FighterProtocol {
     init() {
         self.currentType   = .wizard
         self.name          = ""
-        self.lifepoint     = 75
+        self.lifepoint     = 20 //normally 100
         self.heal          = 25
         self.weapons       = [rain, staff, fireBall]
         self.nameWeapon    = rain.name
@@ -105,15 +104,15 @@ struct Wizard: FighterProtocol {
 
 
 // -------------------------------------------------------------------------------------------------------
-// MARK: Class Warrior
+// MARK: Struct Warrior
 // >>> characteristics of warrior
 // -------------------------------------------------------------------------------------------------------
 
 struct Warrior: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
-    var name:           String      // Character name which must be unique and not yet used
-    var lifepoint:      Int         // Character lifepoint who is different depending on type
-    var heal:           Int         // Character heal who is different depending on type
+    var name:           String      // Fighter name which must be unique and not yet used
+    var lifepoint:      Int         // Fighter lifepoint who is different depending on type
+    var heal:           Int         // Fighter heal who is different depending on type
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
@@ -132,7 +131,7 @@ struct Warrior: FighterProtocol {
     init() {
         self.currentType    = .warrior
         self.name           = ""
-        self.lifepoint      = 100
+        self.lifepoint      = 25 //normally 100
         self.heal           = 10
         self.weapons        = [oak, shuriken, sword]
         self.nameWeapon     = oak.name
@@ -144,15 +143,15 @@ struct Warrior: FighterProtocol {
 
 
 // -------------------------------------------------------------------------------------------------------
-// MARK: Class Dwarf
+// MARK: Struct Dwarf
 // >>> characteristics of wizard
 // -------------------------------------------------------------------------------------------------------
 
 struct Dwarf: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
-    var name:           String      // Character name which must be unique and not yet used
-    var lifepoint:      Int         // Character lifepoint who is different depending on type
-    var heal:           Int         // Character heal who is different depending on type
+    var name:           String      // Fighter name which must be unique and not yet used
+    var lifepoint:      Int         // Fighter lifepoint who is different depending on type
+    var heal:           Int         // Fighter heal who is different depending on type
     var weapons:        [Weapon]    // Weapons for each kind
     var nameWeapon:     String      // Name of the weapon used
     var powerAttack:    Int         // Power of attack equal at the weapon who depending on type (with random malus >>> possible from 0 to max power of weapon)
@@ -171,7 +170,7 @@ struct Dwarf: FighterProtocol {
     init() {
         self.currentType    = .dwarf
         self.name           = ""
-        self.lifepoint      = 50
+        self.lifepoint      = 15 //normally 50
         self.heal           = 5
         self.weapons        = [volcano, hammer, ax]
         self.nameWeapon     = volcano.name

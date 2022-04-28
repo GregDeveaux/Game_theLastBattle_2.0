@@ -21,10 +21,7 @@ while true {
     theGame.createAllTheGuilds()
     
     theGame.presentationGuilds()
-    
-        // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-//    theGame.presentationGuildsWithCards()
-    
+       
     theGame.goFight()
     
     if !theGame.selectPlayAgain() {

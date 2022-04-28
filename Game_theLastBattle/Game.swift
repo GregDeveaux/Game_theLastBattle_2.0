@@ -127,8 +127,7 @@ class Game {
         player1.guild.fighters.forEach {
             print("      • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
-        print("")
-        print("  The guild \(player2.name.uppercased()) is composed of :")
+        print("\n  The guild \(player2.name.uppercased()) is composed of :")
         player2.guild.fighters.forEach {
             print("     • a \($0.currentType), his name is \($0.name) and have \($0.lifepoint) of lifepoint, \($0.heal) of heal, \($0.powerAttack) of attack power.")
         }
@@ -139,30 +138,6 @@ class Game {
               
               """)
     }
-    
-        // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-//    func presentationGuildsWithCards() {
-//        print("""
-//
-//                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-//                 •––•––•–––––––––––––––––––––––•                SUMMARY OF GUILDS                 •–––––––––––––––––––––––•––•––•
-//                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-//
-//              """)
-//        print("  The guild \(player1.name.uppercased()) is composed of :")
-//        player1.showCardsOfGuild()
-//        print("")
-//        print("")
-//        print("  The guild \(player2.name.uppercased()) is composed of :")
-//        player2.showCardsOfGuild()
-//        print("""
-//
-//                 –•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––•––
-//                 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-//
-//              """)
-//    }
-    
     
     
         // we select, here, the principal action of game: attack or heal and  the choice of fighters
@@ -176,12 +151,11 @@ class Game {
                 - select H -> to heal the fighter companion.
         """)
         repeat {
-            if let selectedAction = readLine()?.uppercased() {
+            if let selectedAction = readLine() {
                 
-                switch selectedAction {
+                switch selectedAction.uppercased() {
                     case "A":
-                        print(" –⌽–> You have decided to attack")
-                        print("")
+                        print(" –⌽–> You have decided to attack \n")
                             // we recover the number of attacker fighter in the list
                         let numberOfAttacker = activePlayer.chooseTheFighter(of: "fighter in your guild", by: activePlayer, weapon: true)
                         
@@ -215,8 +189,7 @@ class Game {
                             // If lifepoint equal 0, the fighter is dead but the lifepoint can't be lower than 0
                         if enemy.lifepoint <= 0 {
                             enemy.lifepoint = 0
-                            print(" ☠️ Oh no! \(enemy.name) the \(enemy.currentType) not have surviving ☠️")
-                            print("")
+                            print(" ☠️ Oh no! \(enemy.name) the \(enemy.currentType) not have surviving ☠️ \n")
                         }
                         
                             // we save the remaining lifepoint of chosen fighter in the guild of inactive player
@@ -253,18 +226,17 @@ class Game {
                         wrongLetter = false
                         
                     case "H":
-                        print(" –⌽–> You want heal the companion")
-                        print("")
+                        print(" –⌽–> You want heal the companion \n")
                         
                             // we verify that there are still 2 fighters is alives
-                        var isDead = 0
+                        var fighterIsDead = 0
                         for fighter in activePlayer.guild.fighters {
                             if fighter.dead {
-                                isDead += 1
+                                fighterIsDead += 1
                             }
                         }
                         
-                        if isDead < activePlayer.guild.sizeMaxFighters - 1 {
+                        if fighterIsDead < activePlayer.guild.sizeMaxFighters - 1 {
                             
                                 // we recover the number of healer fighter in the list of player
                             let numberOfHealer = activePlayer.chooseTheFighter(of: "healer in your guild", by: activePlayer, weapon: false)
@@ -283,8 +255,7 @@ class Game {
                             
                                 // The healer cannot choose himself as hurt fighter
                             if numberOfHealer == numberOfCompanion {
-                                print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ ")
-                                print("")
+                                print(" ⚠️ you cannot care the healer, select another fighter, please ⚠️ \n")
                                 
                                     // we recover the number of companion fighter in the list
                                 numberOfCompanion = activePlayer.chooseTheFighter(of: "your companions", by: activePlayer, weapon: false)
@@ -292,8 +263,6 @@ class Game {
                             
                                 // the hurt companion wins of lifepoint
                             companion.lifepoint += healer.heal
-                            
-                            activePlayer.guild.totalHealsOnYourCompanions += healer.heal
                             
                             if companion.currentType == .wizard {
                                 if companion.lifepoint >= Wizard().lifepoint {
@@ -311,6 +280,8 @@ class Game {
                                 }
                             }
                             
+                            activePlayer.guild.totalHealsOnYourCompanions += (companion.lifepoint - beforeLifepointCompanion)
+                            
                             print("""
                                   ❤️‍🩹––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
                                   ❤️‍🩹  \(healer.name), your \(healer.currentType) heal with \(healer.heal)
@@ -323,7 +294,6 @@ class Game {
                             
                                 // we save the remaining lifepoint of chosen fighter in the guild of active player
                             activePlayer.guild.fighters[numberOfCompanion].lifepoint = companion.lifepoint
-                            print (companion.lifepoint)
                             wrongLetter = false
                         } else {
                             print(" ⚠️ your fighters cannot heal because they are dead, select attack! ⚠️ ")
@@ -340,9 +310,7 @@ class Game {
         } while wrongLetter
     }
     
-    
-    
-    
+
     
         // Start the fight with a loop until one whole team dead
     func goFight() {
@@ -363,8 +331,7 @@ class Game {
     outerLoop: while true {
         
         round += 1 // init round number 1
-        print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) |||||||||||||||||||||||||||||||||||||||||||||||||||||")
-        print("")
+        print("||||||||||||||||||||||||||||||||||||||||||||||||||||| ROUND \(round) ||||||||||||||||||||||||||||||||||||||||||||||||||||| \n")
         
         for _ in 1...2 {
                 // the first player begins the round
@@ -391,16 +358,14 @@ class Game {
     
     
     
-    
-    
     func selectPlayAgain() -> Bool {
         print("•••  Do you want to play again ?  •••")
         print("•••  write Y (for Yes) or N (for No)  •••")
         
             // Ask the players, if they play a new game
         while true {
-            if let playAgain = readLine()?.uppercased() {
-                switch playAgain {
+            if let playAgain = readLine() {
+                switch playAgain.uppercased() {
                     case "Y":
                         print("Play again")
                         return true
@@ -424,8 +389,7 @@ class Game {
     func gameOver(looser: Player) {
         
             // we verify that all the fighters are dead in the guild of one player
-        print("")
-        print("☠️☠️☠️ \(looser.name), all Fighters are dead! ☠️☠️☠️")
+        print("\n ☠️☠️☠️ \(looser.name), all your Fighters are dead! ☠️☠️☠️")
         
         print("""
             
@@ -442,19 +406,16 @@ class Game {
             // summary of the round
         print("  –⌽–> TOTAL ROUND FOR THE BATTLE: \(round)")
         presentationGuilds()
-        print("")
         
-            // +++++++OPTION++++++++ version with cards ++++++++++++++++++++
-//        presentationGuildsWithCards()
-//        print("")
+        print("""
+              
+        –⌽–> \(player1.name), you have infliged \(player1.guild.totalDamagesInfliged) of damages
+        –⌽–> \(player1.name), you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal
         
-        print("  –⌽–> \(player1.name), you have infliged \(player1.guild.totalDamagesInfliged) of damages")
-        print("  –⌽–> \(player1.name), you have help your companion due to \(player1.guild.totalHealsOnYourCompanions) of heal")
-        print("")
+        –⌽–> \(player2.name), you have infliged \(player2.guild.totalDamagesInfliged) of damages
+        –⌽–> \(player2.name), you have help your companion due to \(player2.guild.totalHealsOnYourCompanions) of heal
         
-        print("  –⌽–> \(player2.name), you have infliged \(player2.guild.totalDamagesInfliged) of damages")
-        print("  –⌽–> \(player2.name), you have help your companion due to \(player2.guild.totalHealsOnYourCompanions) of heal")
-        print("")
+        """)
     }
     
     
@@ -470,6 +431,7 @@ class Game {
         
         var space = ""
         
+            // calculate the necessary space on each side
         var nameModifiedForWinner: String {
             let lengthName = sentence.count
             let differenceOfLength = maxlengthNamePossible - lengthName

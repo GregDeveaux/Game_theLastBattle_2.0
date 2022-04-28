@@ -77,6 +77,7 @@ class Guild {
         let listKind = listKindArray.joined(separator: ", a ")
     
     print("""
+          
           Kudos!
           Your guild \(name) is composed of a \(listKind)
           

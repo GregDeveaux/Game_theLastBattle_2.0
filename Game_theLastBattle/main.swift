@@ -1,16 +1,16 @@
-//
-//  main.swift
-//  Game_theLastBattle
-//
-//  Created by Greg Deveaux on 28/02/2022.
-//
+    //
+    //  main.swift
+    //  Game_theLastBattle
+    //
+    //  Created by Greg Deveaux on 28/02/2022.
+    //
 
 import Foundation
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Start game here
-// >>> different steps of the game
-// -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
+    // MARK: Start game here
+    // >>> different steps of the game
+    // -------------------------------------------------------------------------------------------------------
 
 while true {
     
@@ -21,7 +21,7 @@ while true {
     theGame.createAllTheGuilds()
     
     theGame.presentationGuilds()
-       
+    
     theGame.goFight()
     
     if !theGame.selectPlayAgain() {

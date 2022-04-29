@@ -1,37 +1,37 @@
-//
-//  Player.swift
-//  Game_theLastBattle
-//
-//  Created by Greg Deveaux on 28/02/2022.
-//
+    //
+    //  Player.swift
+    //  Game_theLastBattle
+    //
+    //  Created by Greg Deveaux on 28/02/2022.
+    //
 
 import Foundation
 
 
 
-// -----------------------------------------------------------------------------------------------------
-// MARK: Class Player
-// >>> Steps to différent actions of players
-// -----------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: Class Player
+    // >>> Steps to différent actions of players
+    // -----------------------------------------------------------------------------------------------------
 
 class Player {
     
-    // create the name player
+        // create the name player
     var name: String = ""
     
-    // call each team array of player with maximun of 3 fighters
+        // call each team array of player with maximun of 3 fighters
     var guild = Guild(sizeMaxFighters: 3)
     
-    // fighters currently in the guild
+        // fighters currently in the guild
     var fightersInGuild = 0
     
-    // recording the names of fighters write by player if different
+        // recording the names of fighters write by player if different
     static var stealTheNameOfAllFighters: Set<String>  = []
-
-    // recover the index of the weapon choicen to display the random text
+    
+        // recover the index of the weapon choicen to display the random text
     var textRandomWeapon = ""
     
-    // Enter the name of the guild
+        // Enter the name of the guild
     func enterTheNameOfGuild(_ numberPlayer: Int, nameDifferent otherPlayer: Player) {
         print(" \n–⌽–> PLAYER \(numberPlayer), enter your Guild name")
         
@@ -73,7 +73,7 @@ class Player {
     }
     
     
-       
+    
         // Select one fighter in the list of kinds
     func selectYourFighters() {
         while fightersInGuild < guild.sizeMaxFighters {
@@ -100,7 +100,7 @@ class Player {
     
     
     
-    // append fighters in the array guild of player
+        // append fighters in the array guild of player
     func appendInGuild(kind: FighterProtocol) {
         
         guild.fighters.append(kind)
@@ -168,7 +168,7 @@ class Player {
             num += 1
         }
         
-            
+        
             // We choise the fighter in the list by his number (not possible if he's dead)
         while isDead == true  {
             if let selectNumberString = readLine() {
@@ -198,8 +198,8 @@ class Player {
         return numberOfFighter
     }
     
-
-       
+    
+    
     
     
     func choisenYourWeapon(_ numberOfFighter: Int) {
@@ -213,7 +213,7 @@ class Player {
             print("    \(num) • \(weapon.name), the possible damages are of \(weapon.power) and you can use \(weapon.numberUse) times")
         }
         
-        // the player chooses the weapon
+            // the player chooses the weapon
         while !weapon {
             if let choiceWeaponString = readLine() {
                 if let choiceWeapon = Int(choiceWeaponString) {

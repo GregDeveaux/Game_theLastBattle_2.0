@@ -310,7 +310,7 @@ class Game {
         } while wrongLetter
     }
     
-
+    
     
         // Start the fight with a loop until one whole team dead
     func goFight() {

@@ -1,17 +1,17 @@
-//
-//  Fighters.swift
-//  Game_theLastBattle
-//
-//  Created by Greg Deveaux on 28/02/2022.
-//
+    //
+    //  Fighters.swift
+    //  Game_theLastBattle
+    //
+    //  Created by Greg Deveaux on 28/02/2022.
+    //
 
 import Foundation
 
 
-// -----------------------------------------------------------------------------------------------------
-// MARK: Protocol FighterProtocol
-// >>> General characteristics of fighter to join the team
-// -----------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: Protocol FighterProtocol
+    // >>> General characteristics of fighter to join the team
+    // -----------------------------------------------------------------------------------------------------
 
 protocol FighterProtocol {
     var currentType:    Kind            { get }         // Either wizard or warrior or dwarf
@@ -31,18 +31,18 @@ extension FighterProtocol {
         lifepoint == 0
     }
     
-    // random text by range of power, if zero the attacker will lose 5 lifepoints
+        // random text by range of power, if zero the attacker will lose 5 lifepoints
     func randomPowerWeaponMessage(_ index: Int) -> String {
         switch powerAttack {
-        case 0:
-            return "👎 Completely failed attack, you messed up, you lose 5 lifepoints 👎"
-        case 1..<(weapons[index].power / 2) :
+            case 0:
+                return "👎 Completely failed attack, you messed up, you lose 5 lifepoints 👎"
+            case 1..<(weapons[index].power / 2) :
                 return "👍 Ooohh! Not terrible! you will muscle your game, guy, you will do better the next time 👍"
-        case (weapons[index].power / 2)..<weapons[index].power :
+            case (weapons[index].power / 2)..<weapons[index].power :
                 return "💪 Wonderfull attack, you are an Artist 💪"
-        case weapons[index].power :
+            case weapons[index].power :
                 return "👹 Yeah baby yeah! you attack with demoniac power, I like that 👹"
-        default:
+            default:
                 return "why not!"
         }
     }
@@ -51,10 +51,10 @@ extension FighterProtocol {
 
 
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Enum Kind of Fighters
-// >>> Gives its properties to the fighter
-// -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
+    // MARK: Enum Kind of Fighters
+    // >>> Gives its properties to the fighter
+    // -------------------------------------------------------------------------------------------------------
 
 enum Kind: String {
     case wizard
@@ -64,10 +64,10 @@ enum Kind: String {
 
 
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Struct Wizard
-// >>> characteristics of wizard
-// -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
+    // MARK: Struct Wizard
+    // >>> characteristics of wizard
+    // -------------------------------------------------------------------------------------------------------
 
 struct Wizard: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
@@ -98,15 +98,14 @@ struct Wizard: FighterProtocol {
         self.powerAttack   = rain.power
     }
     
-  
 }
 
 
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Struct Warrior
-// >>> characteristics of warrior
-// -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
+    // MARK: Struct Warrior
+    // >>> characteristics of warrior
+    // -------------------------------------------------------------------------------------------------------
 
 struct Warrior: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
@@ -119,7 +118,7 @@ struct Warrior: FighterProtocol {
     
         // Details of the fighter
     var description:    String  {
-            return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(oak.power) to \(sword.power) )"
+        return "·2· -> 🧝 Warrior : intelligent and agile swordsman, the best in category (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(oak.power) to \(sword.power) )"
     }
     
         // add 3 specific weapons for the warriors
@@ -142,10 +141,10 @@ struct Warrior: FighterProtocol {
 
 
 
-// -------------------------------------------------------------------------------------------------------
-// MARK: Struct Dwarf
-// >>> characteristics of wizard
-// -------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------
+    // MARK: Struct Dwarf
+    // >>> characteristics of wizard
+    // -------------------------------------------------------------------------------------------------------
 
 struct Dwarf: FighterProtocol {
     var currentType:    Kind        // Either wizard or warrior or dwarf
@@ -158,13 +157,13 @@ struct Dwarf: FighterProtocol {
     
         // Details of the fighter
     var description:    String  {
-            return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(volcano.power) to \(ax.power))"
+        return "·3· -> 🎅 Dwarf : his weapon is devastating and this hurt (❤️ lifepoint = \(lifepoint) ; ❤️‍🩹 heal = \(heal) ; ⚔️ weapons power to attack: from \(volcano.power) to \(ax.power))"
     }
     
         // add 3 specific weapons for the dwarves
     var volcano = Weapon(name: "Volcano Slingshot", power: 25, numberUse: 50)
     var hammer = Weapon(name: "Hammer Dammer", power: 35, numberUse: 3)
-    var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 45, numberUse: 1)
+    var ax = Weapon(name: "Ax \"Kiss of dragon\"", power: 70, numberUse: 1)
     
         // The different elements that make up the character are initialized
     init() {
@@ -176,5 +175,5 @@ struct Dwarf: FighterProtocol {
         self.nameWeapon     = volcano.name
         self.powerAttack    = volcano.power
     }
-  
+    
 }
